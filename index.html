@@ -700,6 +700,17 @@
     50% { opacity: 0.4; transform: scale(0.7); }
   }
 
+  /* ─── MOBILE TOUCH FIX ─── */
+  * { -webkit-tap-highlight-color: transparent; }
+  .bottom-nav-item, .hamburger, .drawer-nav a, .drawer-nav-parent,
+  .drawer-subnav a, .stats-tab, .history-tab, .team-chip,
+  .see-all, .week-nav-btn, .news-card, .score-card {
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
   /* ─── HISTORY SUBMENU ─── */
   .drawer-nav-group { border-bottom: 1px solid rgba(255,255,255,0.04); }
   .drawer-nav-group > .drawer-nav-parent {
@@ -1791,26 +1802,43 @@
 </nav>
 
 <script>
+  // ─── MOBILE-SAFE EVENT HELPER ───
+  // Fires on touchend (mobile) and click (desktop), prevents double-firing
+  function onTap(el, fn) {
+    let tapped = false;
+    el.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      if (tapped) return;
+      tapped = true;
+      setTimeout(() => { tapped = false; }, 300);
+      fn(e);
+    }, { passive: false });
+    el.addEventListener('click', function(e) {
+      if (tapped) return;
+      fn(e);
+    });
+  }
+
   // ─── HAMBURGER / DRAWER ───
   const hamburger = document.getElementById('hamburgerBtn');
   const drawer = document.getElementById('drawer');
   const overlay = document.getElementById('drawerOverlay');
-
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    drawer.classList.toggle('open');
-  });
-  overlay.addEventListener('click', closeDrawer);
 
   function closeDrawer() {
     hamburger.classList.remove('open');
     drawer.classList.remove('open');
   }
 
+  onTap(hamburger, () => {
+    hamburger.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+  onTap(overlay, closeDrawer);
+
   // ─── HISTORY SUBMENU TOGGLE ───
   const historyParentBtn = document.getElementById('historyParentBtn');
   const historySubnav = document.getElementById('historySubnav');
-  historyParentBtn.addEventListener('click', () => {
+  onTap(historyParentBtn, () => {
     historyParentBtn.classList.toggle('open');
     historySubnav.classList.toggle('open');
   });
@@ -1831,20 +1859,17 @@
 
   // Drawer subnav links
   document.querySelectorAll('.drawer-subnav a').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      navigateHistory(a.dataset.hsub);
-    });
+    onTap(a, () => navigateHistory(a.dataset.hsub));
   });
 
   // History page tabs
   document.querySelectorAll('.history-tab').forEach(tab => {
-    tab.addEventListener('click', () => navigateHistory(tab.dataset.hsub));
+    onTap(tab, () => navigateHistory(tab.dataset.hsub));
   });
 
   // Bottom nav history button
   document.querySelectorAll('.bottom-nav-item[data-page="history"]').forEach(btn => {
-    btn.addEventListener('click', () => navigateHistory(btn.dataset.hsub || 'team'));
+    onTap(btn, () => navigateHistory(btn.dataset.hsub || 'team'));
   });
 
   // ─── PAGE NAVIGATION ───
@@ -1864,30 +1889,24 @@
     closeDrawer();
   }
 
-  // Bottom nav
+  // Bottom nav (non-history)
   document.querySelectorAll('.bottom-nav-item:not([data-page="history"])').forEach(btn => {
-    btn.addEventListener('click', () => navigateTo(btn.dataset.page));
+    onTap(btn, () => navigateTo(btn.dataset.page));
   });
 
-  // Drawer nav
-  document.querySelectorAll('.drawer-nav a').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      navigateTo(a.dataset.page);
-    });
+  // Drawer nav links (non-subnav)
+  document.querySelectorAll('.drawer-nav > a[data-page]').forEach(a => {
+    onTap(a, () => navigateTo(a.dataset.page));
   });
 
   // "See all" links on home
   document.querySelectorAll('.see-all[data-page]').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      navigateTo(a.dataset.page);
-    });
+    onTap(a, () => navigateTo(a.dataset.page));
   });
 
   // ─── STATS TABS ───
   document.querySelectorAll('#page-stats-tabs .stats-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
+    onTap(tab, () => {
       document.querySelectorAll('#page-stats-tabs .stats-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       ['passing','rushing','receiving','blocking','tackles','interceptions','fumbles'].forEach(s => {
@@ -1899,7 +1918,7 @@
 
   // ─── ROSTER TEAM CHIPS ───
   document.querySelectorAll('.team-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
+    onTap(chip, () => {
       document.querySelectorAll('.team-chip').forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
     });
@@ -2137,15 +2156,6 @@
       body.appendChild(confBlock);
     });
   }
-
-  // Conference tab filtering
-  document.getElementById('conf-tabs').addEventListener('click', e => {
-    const tab = e.target.closest('.stats-tab');
-    if (!tab) return;
-    document.querySelectorAll('#conf-tabs .stats-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    renderStandings(tab.dataset.conf);
-  });
 
   // ─── SCHEDULE DATA — REAL 2025 CFB SEASON ───
   // Weeks 0-8 · FBS games with real scores · FCS opponents labeled as FCS
@@ -2587,21 +2597,30 @@
   }
 
   // Week nav
-  document.getElementById('weekPrev').addEventListener('click', () => {
+  onTap(document.getElementById('weekPrev'), () => {
     if (currentWeek > 0) { currentWeek--; renderSchedule(); }
   });
-  document.getElementById('weekNext').addEventListener('click', () => {
+  onTap(document.getElementById('weekNext'), () => {
     if (currentWeek < 8) { currentWeek++; renderSchedule(); }
   });
 
   // Schedule conf filter
-  document.getElementById('schedule-conf-tabs').addEventListener('click', e => {
-    const tab = e.target.closest('.stats-tab');
-    if (!tab) return;
-    document.querySelectorAll('#schedule-conf-tabs .stats-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    currentSchedConf = tab.dataset.sconf;
-    renderSchedule();
+  document.querySelectorAll('#schedule-conf-tabs .stats-tab').forEach(tab => {
+    onTap(tab, () => {
+      document.querySelectorAll('#schedule-conf-tabs .stats-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentSchedConf = tab.dataset.sconf;
+      renderSchedule();
+    });
+  });
+
+  // Standings conf filter
+  document.querySelectorAll('#conf-tabs .stats-tab').forEach(tab => {
+    onTap(tab, () => {
+      document.querySelectorAll('#conf-tabs .stats-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      renderStandings(tab.dataset.conf);
+    });
   });
 
   renderSchedule();
