@@ -157,30 +157,27 @@
   /* ─── HOME PAGE ─── */
   .hero {
     position: relative;
-    min-height: 52vw; max-height: 340px;
-    background: linear-gradient(135deg, #0a0a0c 0%, #1a1010 50%, #0a0a0c 100%);
+    min-height: 52vw; max-height: 380px;
+    background: #0a0a0c;
     overflow: hidden;
     display: flex; align-items: flex-end;
     padding: 24px 16px;
   }
   .hero-field {
     position: absolute; inset: 0;
-    background:
-      repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 80px),
-      repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 60px);
-    background-size: 80px 60px;
+    background-image: url('https://images.ctfassets.net/45eypz94062x/65NEusJ9qQ5ipuEp13Ei21/665e3b400e3c1d846b808111626f1ac2/Sanford_Stadium.webp');
+    background-size: cover;
+    background-position: center 30%;
+    filter: brightness(0.55) saturate(1.2);
   }
   .hero-yardlines {
     position: absolute; inset: 0;
-    background: repeating-linear-gradient(90deg,
-      transparent 0%, transparent calc(10% - 2px),
-      rgba(255,255,255,0.07) calc(10% - 2px), rgba(255,255,255,0.07) 10%
-    );
+    background: linear-gradient(to top, rgba(10,10,12,0.92) 0%, rgba(10,10,12,0.3) 50%, rgba(10,10,12,0.15) 100%);
   }
   .hero-glow {
     position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%);
     width: 80%; height: 120px;
-    background: radial-gradient(ellipse, rgba(245,197,24,0.2) 0%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(245,197,24,0.15) 0%, transparent 70%);
   }
   .hero-content { position: relative; z-index: 2; }
   .hero-eyebrow {
@@ -711,7 +708,7 @@
 <body>
 
 <!-- TOP BAR -->
-<div class="topbar">⚡ WEEK 11 NOW LIVE — 3 GAMES IN PROGRESS</div>
+<div class="topbar">⚡ WEEK 12 NOW LIVE — 4 GAMES IN PROGRESS</div>
 
 <!-- NAV -->
 <nav>
@@ -753,9 +750,9 @@
       <div class="hero-yardlines"></div>
       <div class="hero-glow"></div>
       <div class="hero-content">
-        <div class="hero-eyebrow">Season 4 · Week 11</div>
+        <div class="hero-eyebrow">Season 4 · Week 12</div>
         <h1>THE <em>GRIDIRON</em><br>IS LIVE</h1>
-        <div class="hero-sub">3 games in progress · Tuesday night slate</div>
+        <div class="hero-sub">4 games in progress · Saturday slate</div>
       </div>
     </div>
 
@@ -763,75 +760,83 @@
     <div class="ticker-wrap">
       <div class="ticker-label">LIVE</div>
       <div class="ticker-track">
-        <div class="ticker-item">BLITZ FC 28 <span class="sep">·</span> THE RAID 21 — Q3 8:42</div>
-        <div class="ticker-item">IRON HAWKS 14 <span class="sep">·</span> VENOM SC 14 — HALFTIME</div>
-        <div class="ticker-item">DYNASTY KINGS 35 <span class="sep">·</span> RED ZONE 7 — Q4 2:01</div>
-        <div class="ticker-item">STORM CHASERS 24 <span class="sep">·</span> GRAVEL PITS 17 — FINAL</div>
-        <div class="ticker-item">BLITZ FC 28 <span class="sep">·</span> THE RAID 21 — Q3 8:42</div>
-        <div class="ticker-item">IRON HAWKS 14 <span class="sep">·</span> VENOM SC 14 — HALFTIME</div>
-        <div class="ticker-item">DYNASTY KINGS 35 <span class="sep">·</span> RED ZONE 7 — Q4 2:01</div>
-        <div class="ticker-item">STORM CHASERS 24 <span class="sep">·</span> GRAVEL PITS 17 — FINAL</div>
+        <div class="ticker-item">🐘 ALABAMA 28 <span class="sep">·</span> 🐯 LSU 21 — Q3 8:42</div>
+        <div class="ticker-item">🌰 OHIO STATE 14 <span class="sep">·</span> 🐺 MICHIGAN 17 — HALFTIME</div>
+        <div class="ticker-item">🐾 GEORGIA 35 <span class="sep">·</span> 🐶 TENNESSEE 7 — Q4 2:01</div>
+        <div class="ticker-item">🏇 USC 24 <span class="sep">·</span> 🐶 WASHINGTON 17 — FINAL</div>
+        <div class="ticker-item">🐾 KANSAS STATE 31 <span class="sep">·</span> 🐸 TCU 28 — Q2 4:15</div>
+        <div class="ticker-item">🐯 CLEMSON 10 <span class="sep">·</span> 🏹 FLORIDA STATE 13 — Q3 1:55</div>
+        <div class="ticker-item">🦁 PENN STATE 21 <span class="sep">·</span> 🦅 IOWA 14 — FINAL</div>
+        <div class="ticker-item">🐂 TEXAS 38 <span class="sep">·</span> 🛢️ OKLAHOMA 24 — FINAL</div>
+        <div class="ticker-item">🐘 ALABAMA 28 <span class="sep">·</span> 🐯 LSU 21 — Q3 8:42</div>
+        <div class="ticker-item">🌰 OHIO STATE 14 <span class="sep">·</span> 🐺 MICHIGAN 17 — HALFTIME</div>
+        <div class="ticker-item">🐾 GEORGIA 35 <span class="sep">·</span> 🐶 TENNESSEE 7 — Q4 2:01</div>
+        <div class="ticker-item">🏇 USC 24 <span class="sep">·</span> 🐶 WASHINGTON 17 — FINAL</div>
+        <div class="ticker-item">🐾 KANSAS STATE 31 <span class="sep">·</span> 🐸 TCU 28 — Q2 4:15</div>
+        <div class="ticker-item">🐯 CLEMSON 10 <span class="sep">·</span> 🏹 FLORIDA STATE 13 — Q3 1:55</div>
+        <div class="ticker-item">🦁 PENN STATE 21 <span class="sep">·</span> 🦅 IOWA 14 — FINAL</div>
+        <div class="ticker-item">🐂 TEXAS 38 <span class="sep">·</span> 🛢️ OKLAHOMA 24 — FINAL</div>
       </div>
     </div>
 
     <!-- SCORES -->
     <div class="section">
       <div class="section-header">
-        <div class="section-title">WEEK 11 <span>SCORES</span></div>
+        <div class="section-title">WEEK 12 <span>SCORES</span></div>
         <a class="see-all" data-page="scores">Full Schedule →</a>
       </div>
       <div class="scores-grid">
         <div class="score-card">
           <div class="score-status live"><span class="live-dot"></span>Q3 8:42</div>
           <div class="score-team">
-            <div class="score-team-name">BLITZ FC</div>
+            <div class="score-team-name">🐘 ALABAMA</div>
             <div class="score-team-pts">28</div>
           </div>
           <div class="score-divider"></div>
           <div class="score-team loser">
-            <div class="score-team-name">THE RAID</div>
+            <div class="score-team-name">🐯 LSU</div>
             <div class="score-team-pts">21</div>
           </div>
-          <div class="score-meta">North Division</div>
+          <div class="score-meta">SEC West</div>
         </div>
         <div class="score-card">
           <div class="score-status live"><span class="live-dot"></span>HALFTIME</div>
-          <div class="score-team">
-            <div class="score-team-name">IRON HAWKS</div>
+          <div class="score-team loser">
+            <div class="score-team-name">🌰 OHIO STATE</div>
             <div class="score-team-pts">14</div>
           </div>
           <div class="score-divider"></div>
           <div class="score-team">
-            <div class="score-team-name">VENOM SC</div>
-            <div class="score-team-pts">14</div>
+            <div class="score-team-name">🐺 MICHIGAN</div>
+            <div class="score-team-pts">17</div>
           </div>
-          <div class="score-meta">South Division</div>
+          <div class="score-meta">Big Ten East</div>
         </div>
         <div class="score-card final">
           <div class="score-status final">Final</div>
           <div class="score-team">
-            <div class="score-team-name">STORM</div>
-            <div class="score-team-pts">24</div>
+            <div class="score-team-name">🐂 TEXAS</div>
+            <div class="score-team-pts">38</div>
           </div>
           <div class="score-divider"></div>
           <div class="score-team loser">
-            <div class="score-team-name">GRAVEL PITS</div>
-            <div class="score-team-pts">17</div>
+            <div class="score-team-name">🛢️ OKLAHOMA</div>
+            <div class="score-team-pts">24</div>
           </div>
-          <div class="score-meta">North Division</div>
+          <div class="score-meta">Big 12</div>
         </div>
         <div class="score-card">
-          <div class="score-status upcoming">Thu 8PM</div>
+          <div class="score-status upcoming">Sat 8PM</div>
           <div class="score-team">
-            <div class="score-team-name">DYNASTY</div>
+            <div class="score-team-name">☘️ NOTRE DAME</div>
             <div class="score-team-pts">—</div>
           </div>
           <div class="score-divider"></div>
           <div class="score-team">
-            <div class="score-team-name">BOLT CITY</div>
+            <div class="score-team-name">🏇 USC</div>
             <div class="score-team-pts">—</div>
           </div>
-          <div class="score-meta">Rivalry Week</div>
+          <div class="score-meta">Independent vs Pac-12</div>
         </div>
       </div>
     </div>
@@ -889,127 +894,26 @@
   <div class="page" id="page-scores">
     <div class="page-header">
       <h1>SCHEDULE</h1>
-      <p>Season 4 · 14-Week Regular Season</p>
+      <p>Season 4 · Week 12 · All Conferences</p>
     </div>
     <div class="week-nav">
-      <button class="week-nav-btn">‹</button>
-      <div class="week-label">WEEK 11</div>
-      <button class="week-nav-btn">›</button>
+      <button class="week-nav-btn" id="weekPrev">‹</button>
+      <div class="week-label" id="weekLabel">WEEK 12</div>
+      <button class="week-nav-btn" id="weekNext">›</button>
     </div>
 
-    <div style="padding:16px 0">
-      <!-- Matchup 1 -->
-      <div class="matchup-card">
-        <div class="matchup-header">
-          <span>North Division</span>
-          <span><span class="live-dot"></span>LIVE — Q3 8:42</span>
-        </div>
-        <div class="matchup-body">
-          <div class="matchup-score-wrap">
-            <div>
-              <div class="matchup-team-name" style="text-align:center">BLITZ FC</div>
-              <div class="matchup-score">28</div>
-            </div>
-            <div class="matchup-score-sep">—</div>
-            <div>
-              <div class="matchup-team-name" style="text-align:center">THE RAID</div>
-              <div class="matchup-score loser">21</div>
-            </div>
-          </div>
-          <div class="matchup-time">
-            <span class="matchup-badge live">LIVE</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Matchup 2 -->
-      <div class="matchup-card">
-        <div class="matchup-header">
-          <span>South Division</span>
-          <span>LIVE — HALFTIME</span>
-        </div>
-        <div class="matchup-body">
-          <div class="matchup-score-wrap">
-            <div style="text-align:center">
-              <div class="matchup-team-name">IRON HAWKS</div>
-              <div class="matchup-score" style="color:var(--text)">14</div>
-            </div>
-            <div class="matchup-score-sep">—</div>
-            <div style="text-align:center">
-              <div class="matchup-team-name">VENOM SC</div>
-              <div class="matchup-score" style="color:var(--text)">14</div>
-            </div>
-          </div>
-          <div class="matchup-time"><span class="matchup-badge live">HALFTIME</span></div>
-        </div>
-      </div>
-
-      <!-- Matchup 3 - Final -->
-      <div class="matchup-card">
-        <div class="matchup-header">
-          <span>North Division</span>
-          <span>FINAL</span>
-        </div>
-        <div class="matchup-body">
-          <div class="matchup-score-wrap">
-            <div style="text-align:center">
-              <div class="matchup-team-name">STORM CHASERS</div>
-              <div class="matchup-score">24</div>
-            </div>
-            <div class="matchup-score-sep">—</div>
-            <div style="text-align:center">
-              <div class="matchup-team-name">GRAVEL PITS</div>
-              <div class="matchup-score loser">17</div>
-            </div>
-          </div>
-          <div class="matchup-time"><span class="matchup-badge final">FINAL</span></div>
-        </div>
-      </div>
-
-      <!-- Matchup 4 - Upcoming -->
-      <div class="matchup-card">
-        <div class="matchup-header">
-          <span>Rivalry Week</span>
-          <span>Thursday Night</span>
-        </div>
-        <div class="matchup-body">
-          <div class="matchup-teams">
-            <div class="matchup-team away">
-              <div class="matchup-team-name">DYNASTY KINGS</div>
-              <div class="matchup-team-record">8-2 · 1st North</div>
-            </div>
-            <div class="matchup-vs">VS</div>
-            <div class="matchup-team home" style="text-align:right">
-              <div class="matchup-team-name">BOLT CITY</div>
-              <div class="matchup-team-record">7-3 · 2nd South</div>
-            </div>
-          </div>
-          <div class="matchup-time">Thursday · 8:00 PM ET <span class="matchup-badge upcoming">UPCOMING</span></div>
-        </div>
-      </div>
-
-      <!-- Matchup 5 - Upcoming -->
-      <div class="matchup-card">
-        <div class="matchup-header">
-          <span>South Division</span>
-          <span>Friday Night</span>
-        </div>
-        <div class="matchup-body">
-          <div class="matchup-teams">
-            <div class="matchup-team away">
-              <div class="matchup-team-name">RED ZONE</div>
-              <div class="matchup-team-record">4-6</div>
-            </div>
-            <div class="matchup-vs">VS</div>
-            <div class="matchup-team home" style="text-align:right">
-              <div class="matchup-team-name">NIGHT OWLS</div>
-              <div class="matchup-team-record">5-5</div>
-            </div>
-          </div>
-          <div class="matchup-time">Friday · 7:30 PM ET <span class="matchup-badge upcoming">UPCOMING</span></div>
-        </div>
-      </div>
+    <!-- Conference filter for schedule -->
+    <div class="stats-tabs" id="schedule-conf-tabs" style="margin-bottom:4px">
+      <button class="stats-tab active" data-sconf="all">All</button>
+      <button class="stats-tab" data-sconf="SEC">SEC</button>
+      <button class="stats-tab" data-sconf="Big Ten">Big Ten</button>
+      <button class="stats-tab" data-sconf="Big 12">Big 12</button>
+      <button class="stats-tab" data-sconf="ACC">ACC</button>
+      <button class="stats-tab" data-sconf="Pac-12">Pac-12</button>
+      <button class="stats-tab" data-sconf="G5">G5</button>
     </div>
+
+    <div id="schedule-body" style="padding:8px 0 16px"></div>
   </div>
 
   <!-- ░░ STANDINGS PAGE ░░ -->
@@ -1570,6 +1474,57 @@
   // ─── STANDINGS DATA ───
   // All FBS teams by conference, with divisions where applicable
   // W/L randomized so all teams total exactly 12 games
+  // ─── MASCOT EMOJI MAP ───
+  const MASCOT = {
+    // SEC
+    'Alabama':'🐘','LSU':'🐯','Georgia':'🐾','Tennessee':'🐶','Ole Miss':'🐻','Mississippi State':'🐶',
+    'Auburn':'🦅','Texas A&M':'🐕','Arkansas':'🐗','Florida':'🐊','Kentucky':'🐴','Missouri':'🐯',
+    'South Carolina':'🐓','Vanderbilt':'⭐',
+    // Big Ten
+    'Ohio State':'🌰','Michigan':'🐺','Penn State':'🦁','Michigan State':'🐾','Iowa':'🦅','Wisconsin':'🦡',
+    'Minnesota':'🐿️','Nebraska':'🌽','Illinois':'🦣','Purdue':'🚂','Northwestern':'🐱','Indiana':'🐘',
+    'Maryland':'🐢','Rutgers':'🦔',
+    // Big 12
+    'Texas':'🐂','Oklahoma':'🛢️','Kansas State':'🐾','Kansas':'🐦','TCU':'🐸','Baylor':'🐻',
+    'Oklahoma State':'🤠','Iowa State':'🌪️','Texas Tech':'🔴','West Virginia':'🏔️','BYU':'🦁',
+    'Cincinnati':'🐻','UCF':'⚔️','Houston':'🚀',
+    // ACC
+    'Clemson':'🐯','Florida State':'🏹','NC State':'🐺','Louisville':'🐦','North Carolina':'🐏',
+    'Miami':'🦅','Duke':'🐉','Virginia Tech':'🦃','Georgia Tech':'🐝','Virginia':'🐴',
+    'Pittsburgh':'🐻','Syracuse':'🟠','Wake Forest':'🍃','Boston College':'🦅',
+    // Pac-12
+    'Washington':'🐶','Oregon':'🦆','USC':'🏇','UCLA':'🐻','Utah':'🏔️','Arizona State':'🌵',
+    'Oregon State':'🦫','Washington State':'🐾','California':'🐻','Stanford':'🌲',
+    'Arizona':'🐱','Colorado':'🦬',
+    // AAC
+    'Tulane':'🟢','SMU':'🐴','Memphis':'🐯','Tulsa':'🌪️','South Florida':'🐂','Temple':'🦉',
+    'East Carolina':'☠️','Navy':'⚓','Army':'⭐','Air Force':'✈️','Rice':'🦉','North Texas':'🦅',
+    'UTSA':'🐦',
+    // MWC
+    'Boise State':'🔵','Fresno State':'🐶','San Diego State':'🦅','Utah State':'🐴',
+    'Colorado State':'🐏','Nevada':'🐺','UNLV':'🎰','Hawaii':'🌺','San Jose State':'🐦',
+    'Wyoming':'🤠','New Mexico':'🌵',
+    // C-USA
+    'Florida Atlantic':'🦉','Western Kentucky':'🏔️','Louisiana Tech':'🐶','UTEP':'🏜️',
+    'Southern Miss':'🦅','UAB':'🔥','Marshall':'🏹','Charlotte':'🏙️',
+    'Middle Tennessee':'🔵','Old Dominion':'🦁','FIU':'🦅',
+    // MAC
+    'Toledo':'🚀','Miami (OH)':'🦅','Ohio':'🐱','Ball State':'🐦','Bowling Green':'🦅',
+    'Western Michigan':'🐎','Central Michigan':'🔥','Eastern Michigan':'🦅',
+    'Northern Illinois':'🤠','Buffalo':'🦬','Akron':'🦔','Kent State':'🦅',
+    // Sun Belt
+    'Coastal Carolina':'🐓','App State':'🏔️','Louisiana':'🐊','Troy':'🐎',
+    'Georgia Southern':'🦅','Georgia State':'🐾','South Alabama':'🦬',
+    'Arkansas State':'🐺','Texas State':'🐱','ULM':'🦅','Louisiana Monroe':'🦅',
+    // Independents
+    'Notre Dame':'☘️','Liberty':'🦅','UConn':'🐺','New Mexico State':'🔴',
+    'Jacksonville State':'🐓','Sam Houston State':'🤠',
+  };
+
+  function mascot(name) {
+    return MASCOT[name] || '🏈';
+  }
+
   const CONFERENCES = [
     {
       id: 'sec', name: 'SEC — Southeastern Conference', power5: true,
@@ -1729,7 +1684,7 @@
           row.innerHTML = `
             <div class="rank ${isTop ? 'top' : ''}">${i + 1}</div>
             <div class="team-info">
-              <div class="team-name-stand" style="font-size:13px">${team.name}</div>
+              <div class="team-name-stand" style="font-size:13px;display:flex;align-items:center;gap:6px"><span style="font-size:16px;line-height:1">${mascot(team.name)}</span>${team.name}</div>
             </div>
             <div class="stat-cell">${team.w}</div>
             <div class="stat-cell">${team.l}</div>
@@ -1758,7 +1713,170 @@
     renderStandings(tab.dataset.conf);
   });
 
-  // Initial render
+  // ─── SCHEDULE DATA ───
+  const SCHEDULE = {
+    12: [
+      // SEC
+      { conf:'SEC', away:'Alabama', awayRec:'9-2', home:'LSU', homeRec:'8-3', status:'live', detail:'Q3 8:42', awayScore:28, homeScore:21 },
+      { conf:'SEC', away:'Georgia', awayRec:'10-1', home:'Tennessee', homeRec:'8-3', status:'live', detail:'Q4 2:01', awayScore:35, homeScore:7 },
+      { conf:'SEC', away:'Ole Miss', awayRec:'8-3', home:'Mississippi State', homeRec:'6-5', status:'final', awayScore:30, homeScore:20 },
+      { conf:'SEC', away:'Missouri', awayRec:'7-4', home:'Kentucky', homeRec:'6-5', status:'final', awayScore:17, homeScore:24 },
+      { conf:'SEC', away:'Auburn', awayRec:'5-6', home:'Texas A&M', homeRec:'7-4', status:'final', awayScore:14, homeScore:28 },
+      { conf:'SEC', away:'Arkansas', awayRec:'4-7', home:'Florida', homeRec:'5-6', status:'upcoming', detail:'Sat 7:30 PM' },
+      { conf:'SEC', away:'South Carolina', awayRec:'5-6', home:'Vanderbilt', homeRec:'2-9', status:'upcoming', detail:'Sat 12:00 PM' },
+      // Big Ten
+      { conf:'Big Ten', away:'Ohio State', awayRec:'10-1', home:'Michigan', homeRec:'10-1', status:'live', detail:'HALFTIME', awayScore:14, homeScore:17 },
+      { conf:'Big Ten', away:'Penn State', awayRec:'9-2', home:'Iowa', homeRec:'7-4', status:'final', awayScore:21, homeScore:14 },
+      { conf:'Big Ten', away:'Wisconsin', awayRec:'6-5', home:'Minnesota', homeRec:'7-4', status:'final', awayScore:27, homeScore:13 },
+      { conf:'Big Ten', away:'Nebraska', awayRec:'5-6', home:'Illinois', homeRec:'5-6', status:'final', awayScore:20, homeScore:17 },
+      { conf:'Big Ten', away:'Michigan State', awayRec:'4-7', home:'Maryland', homeRec:'6-5', status:'upcoming', detail:'Sat 3:30 PM' },
+      { conf:'Big Ten', away:'Indiana', awayRec:'3-8', home:'Purdue', homeRec:'4-7', status:'upcoming', detail:'Sat 12:00 PM' },
+      { conf:'Big Ten', away:'Rutgers', awayRec:'5-6', home:'Northwestern', homeRec:'3-8', status:'upcoming', detail:'Sat 3:30 PM' },
+      // Big 12
+      { conf:'Big 12', away:'Texas', awayRec:'9-2', home:'Oklahoma', homeRec:'8-3', status:'final', awayScore:38, homeScore:24 },
+      { conf:'Big 12', away:'Kansas State', awayRec:'8-3', home:'TCU', homeRec:'7-4', status:'live', detail:'Q2 4:15', awayScore:31, homeScore:28 },
+      { conf:'Big 12', away:'Oklahoma State', awayRec:'7-4', home:'Baylor', homeRec:'6-5', status:'final', awayScore:24, homeScore:21 },
+      { conf:'Big 12', away:'Kansas', awayRec:'8-3', home:'Iowa State', homeRec:'6-5', status:'final', awayScore:35, homeScore:14 },
+      { conf:'Big 12', away:'BYU', awayRec:'6-5', home:'West Virginia', homeRec:'5-6', status:'upcoming', detail:'Sat 7:00 PM' },
+      { conf:'Big 12', away:'Cincinnati', awayRec:'7-4', home:'UCF', homeRec:'5-6', status:'upcoming', detail:'Sat 3:30 PM' },
+      { conf:'Big 12', away:'Texas Tech', awayRec:'4-7', home:'Houston', homeRec:'4-7', status:'upcoming', detail:'Sat 12:00 PM' },
+      // ACC
+      { conf:'ACC', away:'Clemson', awayRec:'8-3', home:'Florida State', homeRec:'9-2', status:'live', detail:'Q3 1:55', awayScore:10, homeScore:13 },
+      { conf:'ACC', away:'North Carolina', awayRec:'8-3', home:'NC State', homeRec:'7-4', status:'final', awayScore:28, homeScore:31 },
+      { conf:'ACC', away:'Louisville', awayRec:'8-3', home:'Miami', homeRec:'7-4', status:'final', awayScore:35, homeScore:21 },
+      { conf:'ACC', away:'Duke', awayRec:'6-5', home:'Wake Forest', homeRec:'5-6', status:'final', awayScore:17, homeScore:20 },
+      { conf:'ACC', away:'Pittsburgh', awayRec:'7-4', home:'Virginia Tech', homeRec:'6-5', status:'upcoming', detail:'Sat 12:00 PM' },
+      { conf:'ACC', away:'Syracuse', awayRec:'5-6', home:'Georgia Tech', homeRec:'4-7', status:'upcoming', detail:'Sat 3:30 PM' },
+      { conf:'ACC', away:'Virginia', awayRec:'3-8', home:'Boston College', homeRec:'3-8', status:'upcoming', detail:'Sat 12:00 PM' },
+      // Pac-12
+      { conf:'Pac-12', away:'Washington', awayRec:'10-1', home:'Oregon', homeRec:'9-2', status:'final', awayScore:36, homeScore:33 },
+      { conf:'Pac-12', away:'USC', awayRec:'9-2', home:'UCLA', homeRec:'7-4', status:'final', awayScore:48, homeScore:28 },
+      { conf:'Pac-12', away:'Utah', awayRec:'7-4', home:'Arizona State', homeRec:'5-6', status:'final', awayScore:31, homeScore:17 },
+      { conf:'Pac-12', away:'Oregon State', awayRec:'8-3', home:'Washington State', homeRec:'7-4', status:'upcoming', detail:'Sat 8:00 PM' },
+      { conf:'Pac-12', away:'California', awayRec:'4-7', home:'Stanford', homeRec:'3-8', status:'upcoming', detail:'Sat 3:30 PM' },
+      { conf:'Pac-12', away:'Arizona', awayRec:'6-5', home:'Colorado', homeRec:'4-7', status:'upcoming', detail:'Sat 7:00 PM' },
+      // G5 — AAC
+      { conf:'G5', away:'Tulane', awayRec:'9-2', home:'SMU', homeRec:'8-3', status:'final', awayScore:27, homeScore:24 },
+      { conf:'G5', away:'Memphis', awayRec:'7-4', home:'Tulsa', homeRec:'5-6', status:'final', awayScore:35, homeScore:14 },
+      { conf:'G5', away:'Army', awayRec:'6-5', home:'Navy', homeRec:'5-6', status:'upcoming', detail:'Sat 2:30 PM' },
+      // G5 — MWC
+      { conf:'G5', away:'Boise State', awayRec:'9-2', home:'Fresno State', homeRec:'8-3', status:'final', awayScore:38, homeScore:28 },
+      { conf:'G5', away:'UNLV', awayRec:'7-4', home:'San Diego State', homeRec:'7-4', status:'upcoming', detail:'Sat 9:00 PM' },
+      { conf:'G5', away:'Utah State', awayRec:'6-5', home:'Colorado State', homeRec:'5-6', status:'upcoming', detail:'Sat 3:30 PM' },
+      // G5 — MAC
+      { conf:'G5', away:'Toledo', awayRec:'8-3', home:'Miami (OH)', homeRec:'7-4', status:'final', awayScore:24, homeScore:21 },
+      { conf:'G5', away:'Ohio', awayRec:'6-5', home:'Bowling Green', homeRec:'5-6', status:'upcoming', detail:'Sat 12:00 PM' },
+      // G5 — Sun Belt
+      { conf:'G5', away:'Coastal Carolina', awayRec:'8-3', home:'App State', homeRec:'7-4', status:'final', awayScore:31, homeScore:27 },
+      { conf:'G5', away:'Louisiana', awayRec:'8-3', home:'Troy', homeRec:'6-5', status:'upcoming', detail:'Sat 3:00 PM' },
+      // Independents
+      { conf:'Big 12', away:'Notre Dame', awayRec:'9-2', home:'USC', homeRec:'9-2', status:'upcoming', detail:'Sat 8:00 PM' },
+    ]
+  };
+
+  let currentWeek = 12;
+  let currentSchedConf = 'all';
+
+  function renderSchedule() {
+    const body = document.getElementById('schedule-body');
+    document.getElementById('weekLabel').textContent = 'WEEK ' + currentWeek;
+    const games = SCHEDULE[currentWeek] || [];
+    const filtered = currentSchedConf === 'all' ? games : games.filter(g => g.conf === currentSchedConf);
+
+    if (!filtered.length) {
+      body.innerHTML = '<div style="text-align:center;padding:40px 16px;color:var(--muted);font-family:\'Barlow Condensed\',sans-serif;font-size:15px;">No games found for this filter.</div>';
+      return;
+    }
+
+    // Group by conference
+    const grouped = {};
+    filtered.forEach(g => {
+      if (!grouped[g.conf]) grouped[g.conf] = [];
+      grouped[g.conf].push(g);
+    });
+
+    body.innerHTML = '';
+    Object.entries(grouped).forEach(([conf, games]) => {
+      const confDiv = document.createElement('div');
+      confDiv.style.cssText = 'padding:12px 16px 4px;';
+      confDiv.innerHTML = `<div class="division-label" style="font-size:11px;margin-bottom:8px">${conf}</div>`;
+
+      games.forEach(g => {
+        const isLive = g.status === 'live';
+        const isFinal = g.status === 'final';
+        const isUpcoming = g.status === 'upcoming';
+
+        let statusHtml = '';
+        if (isLive) statusHtml = `<span style="display:inline-flex;align-items:center;gap:4px"><span class="live-dot"></span>${g.detail}</span>`;
+        else if (isFinal) statusHtml = 'FINAL';
+        else statusHtml = g.detail || 'TBD';
+
+        let bodyHtml = '';
+        if (isUpcoming) {
+          bodyHtml = `
+            <div class="matchup-teams">
+              <div class="matchup-team away">
+                <div class="matchup-team-name" style="font-size:15px">${mascot(g.away)} ${g.away}</div>
+                <div class="matchup-team-record">${g.awayRec}</div>
+              </div>
+              <div class="matchup-vs">VS</div>
+              <div class="matchup-team home" style="text-align:right">
+                <div class="matchup-team-name" style="font-size:15px">${g.home} ${mascot(g.home)}</div>
+                <div class="matchup-team-record">${g.homeRec}</div>
+              </div>
+            </div>
+            <div class="matchup-time">${g.detail || 'TBD'} <span class="matchup-badge upcoming">UPCOMING</span></div>`;
+        } else {
+          const awayWin = g.awayScore > g.homeScore;
+          const homeWin = g.homeScore > g.awayScore;
+          bodyHtml = `
+            <div class="matchup-score-wrap">
+              <div style="text-align:center;flex:1">
+                <div class="matchup-team-name" style="font-size:14px">${mascot(g.away)} ${g.away}</div>
+                <div class="matchup-score ${awayWin ? '' : 'loser'}">${g.awayScore}</div>
+              </div>
+              <div class="matchup-score-sep">—</div>
+              <div style="text-align:center;flex:1">
+                <div class="matchup-team-name" style="font-size:14px">${mascot(g.home)} ${g.home}</div>
+                <div class="matchup-score ${homeWin ? '' : 'loser'}">${g.homeScore}</div>
+              </div>
+            </div>
+            <div class="matchup-time"><span class="matchup-badge ${isLive ? 'live' : 'final'}">${isLive ? g.detail : 'FINAL'}</span></div>`;
+        }
+
+        confDiv.innerHTML += `
+          <div class="matchup-card" style="margin:0 0 10px">
+            <div class="matchup-header">
+              <span>${conf}</span>
+              <span>${statusHtml}</span>
+            </div>
+            <div class="matchup-body">${bodyHtml}</div>
+          </div>`;
+      });
+
+      body.appendChild(confDiv);
+    });
+  }
+
+  // Week nav
+  document.getElementById('weekPrev').addEventListener('click', () => {
+    if (currentWeek > 1) { currentWeek--; renderSchedule(); }
+  });
+  document.getElementById('weekNext').addEventListener('click', () => {
+    if (currentWeek < 14) { currentWeek++; renderSchedule(); }
+  });
+
+  // Schedule conf filter
+  document.getElementById('schedule-conf-tabs').addEventListener('click', e => {
+    const tab = e.target.closest('.stats-tab');
+    if (!tab) return;
+    document.querySelectorAll('#schedule-conf-tabs .stats-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentSchedConf = tab.dataset.sconf;
+    renderSchedule();
+  });
+
+  renderSchedule();
   renderStandings('all');
 </script>
 </body>
