@@ -1802,48 +1802,29 @@
 </nav>
 
 <script>
-  // ─── MOBILE-SAFE EVENT HELPER ───
-  // Fires on touchend (mobile) and click (desktop), prevents double-firing
-  function onTap(el, fn) {
-    let tapped = false;
-    el.addEventListener('touchend', function(e) {
-      e.preventDefault();
-      if (tapped) return;
-      tapped = true;
-      setTimeout(() => { tapped = false; }, 300);
-      fn(e);
-    }, { passive: false });
-    el.addEventListener('click', function(e) {
-      if (tapped) return;
-      fn(e);
-    });
-  }
+  // All navigation uses standard click events.
+  // Mobile touch delay is eliminated purely via CSS: touch-action: manipulation
 
-  // ─── HAMBURGER / DRAWER ───
-  const hamburger = document.getElementById('hamburgerBtn');
-  const drawer = document.getElementById('drawer');
-  const overlay = document.getElementById('drawerOverlay');
-
+  // ─── CORE FUNCTIONS ───
   function closeDrawer() {
-    hamburger.classList.remove('open');
-    drawer.classList.remove('open');
+    document.getElementById('hamburgerBtn').classList.remove('open');
+    document.getElementById('drawer').classList.remove('open');
   }
 
-  onTap(hamburger, () => {
-    hamburger.classList.toggle('open');
-    drawer.classList.toggle('open');
-  });
-  onTap(overlay, closeDrawer);
+  function navigateTo(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + pageId);
+    if (target) target.classList.add('active');
+    document.querySelectorAll('.bottom-nav-item').forEach(b => {
+      b.classList.toggle('active', b.dataset.page === pageId);
+    });
+    document.querySelectorAll('.drawer-nav a[data-page]').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === pageId);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    closeDrawer();
+  }
 
-  // ─── HISTORY SUBMENU TOGGLE ───
-  const historyParentBtn = document.getElementById('historyParentBtn');
-  const historySubnav = document.getElementById('historySubnav');
-  onTap(historyParentBtn, () => {
-    historyParentBtn.classList.toggle('open');
-    historySubnav.classList.toggle('open');
-  });
-
-  // Navigate to a history sub-section
   function navigateHistory(subId) {
     navigateTo('history');
     document.querySelectorAll('.history-section').forEach(s => s.classList.remove('active'));
@@ -1857,56 +1838,54 @@
     });
   }
 
-  // Drawer subnav links
-  document.querySelectorAll('.drawer-subnav a').forEach(a => {
-    onTap(a, () => navigateHistory(a.dataset.hsub));
+  // ─── HAMBURGER ───
+  document.getElementById('hamburgerBtn').addEventListener('click', () => {
+    document.getElementById('hamburgerBtn').classList.toggle('open');
+    document.getElementById('drawer').classList.toggle('open');
+  });
+  document.getElementById('drawerOverlay').addEventListener('click', closeDrawer);
+
+  // ─── HISTORY SUBMENU ───
+  document.getElementById('historyParentBtn').addEventListener('click', () => {
+    document.getElementById('historyParentBtn').classList.toggle('open');
+    document.getElementById('historySubnav').classList.toggle('open');
   });
 
-  // History page tabs
-  document.querySelectorAll('.history-tab').forEach(tab => {
-    onTap(tab, () => navigateHistory(tab.dataset.hsub));
-  });
-
-  // Bottom nav history button
-  document.querySelectorAll('.bottom-nav-item[data-page="history"]').forEach(btn => {
-    onTap(btn, () => navigateHistory(btn.dataset.hsub || 'team'));
-  });
-
-  // ─── PAGE NAVIGATION ───
-  function navigateTo(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const target = document.getElementById('page-' + pageId);
-    if (target) target.classList.add('active');
-
-    document.querySelectorAll('.bottom-nav-item').forEach(b => {
-      b.classList.toggle('active', b.dataset.page === pageId);
+  // ─── BOTTOM NAV ───
+  document.querySelectorAll('.bottom-nav-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const page = btn.dataset.page;
+      const hsub = btn.dataset.hsub;
+      if (page === 'history') navigateHistory(hsub || 'team');
+      else navigateTo(page);
     });
-    document.querySelectorAll('.drawer-nav a').forEach(a => {
-      a.classList.toggle('active', a.dataset.page === pageId);
-    });
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    closeDrawer();
-  }
-
-  // Bottom nav (non-history)
-  document.querySelectorAll('.bottom-nav-item:not([data-page="history"])').forEach(btn => {
-    onTap(btn, () => navigateTo(btn.dataset.page));
   });
 
-  // Drawer nav links (non-subnav)
+  // ─── DRAWER NAV ───
   document.querySelectorAll('.drawer-nav > a[data-page]').forEach(a => {
-    onTap(a, () => navigateTo(a.dataset.page));
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      navigateTo(a.dataset.page);
+    });
+  });
+  document.querySelectorAll('.drawer-subnav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      navigateHistory(a.dataset.hsub);
+    });
   });
 
-  // "See all" links on home
+  // ─── HOME "SEE ALL" LINKS ───
   document.querySelectorAll('.see-all[data-page]').forEach(a => {
-    onTap(a, () => navigateTo(a.dataset.page));
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      navigateTo(a.dataset.page);
+    });
   });
 
   // ─── STATS TABS ───
   document.querySelectorAll('#page-stats-tabs .stats-tab').forEach(tab => {
-    onTap(tab, () => {
+    tab.addEventListener('click', () => {
       document.querySelectorAll('#page-stats-tabs .stats-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       ['passing','rushing','receiving','blocking','tackles','interceptions','fumbles'].forEach(s => {
@@ -1916,9 +1895,14 @@
     });
   });
 
-  // ─── ROSTER TEAM CHIPS ───
+  // ─── HISTORY TABS ───
+  document.querySelectorAll('.history-tab').forEach(tab => {
+    tab.addEventListener('click', () => navigateHistory(tab.dataset.hsub));
+  });
+
+  // ─── ROSTER CHIPS ───
   document.querySelectorAll('.team-chip').forEach(chip => {
-    onTap(chip, () => {
+    chip.addEventListener('click', () => {
       document.querySelectorAll('.team-chip').forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
     });
@@ -2597,16 +2581,16 @@
   }
 
   // Week nav
-  onTap(document.getElementById('weekPrev'), () => {
+  document.getElementById('weekPrev').addEventListener('click', () => {
     if (currentWeek > 0) { currentWeek--; renderSchedule(); }
   });
-  onTap(document.getElementById('weekNext'), () => {
+  document.getElementById('weekNext').addEventListener('click', () => {
     if (currentWeek < 8) { currentWeek++; renderSchedule(); }
   });
 
   // Schedule conf filter
   document.querySelectorAll('#schedule-conf-tabs .stats-tab').forEach(tab => {
-    onTap(tab, () => {
+    tab.addEventListener('click', () => {
       document.querySelectorAll('#schedule-conf-tabs .stats-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       currentSchedConf = tab.dataset.sconf;
@@ -2616,7 +2600,7 @@
 
   // Standings conf filter
   document.querySelectorAll('#conf-tabs .stats-tab').forEach(tab => {
-    onTap(tab, () => {
+    tab.addEventListener('click', () => {
       document.querySelectorAll('#conf-tabs .stats-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       renderStandings(tab.dataset.conf);
