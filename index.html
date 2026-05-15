@@ -1040,7 +1040,11 @@
       <button class="stats-tab" data-sconf="Big 12">Big 12</button>
       <button class="stats-tab" data-sconf="ACC">ACC</button>
       <button class="stats-tab" data-sconf="Pac-12">Pac-12</button>
-      <button class="stats-tab" data-sconf="G5">G5</button>
+      <button class="stats-tab" data-sconf="AAC">AAC</button>
+      <button class="stats-tab" data-sconf="MWC">MWC</button>
+      <button class="stats-tab" data-sconf="MAC">MAC</button>
+      <button class="stats-tab" data-sconf="Sun Belt">Sun Belt</button>
+      <button class="stats-tab" data-sconf="Ind.">Ind.</button>
     </div>
 
     <div id="schedule-body" style="padding:8px 0 16px"></div>
@@ -2143,9 +2147,300 @@
     renderStandings(tab.dataset.conf);
   });
 
-  // ─── SCHEDULE DATA ───
+  // ─── SCHEDULE DATA — REAL 2025 CFB SEASON ───
+  // Weeks 0-8 · FBS games with real scores · FCS opponents labeled as FCS
+  // Winner shown with higher score · status: 'final' for all played games
   const SCHEDULE = {
-    12: [
+    0: [
+      // Week Zero — Aug 23
+      { conf:'Big 12',  away:'Iowa State',     awayRec:'1-0', home:'Kansas State',   homeRec:'0-1', status:'final', awayScore:24, homeScore:21, note:'Dublin, Ireland' },
+      { conf:'MWC',     away:'UNLV',           awayRec:'1-0', home:'Idaho State',    homeRec:'0-1', status:'final', awayScore:31, homeScore:0 },
+      { conf:'Big 12',  away:'Kansas',         awayRec:'1-0', home:'Fresno State',   homeRec:'0-1', status:'final', awayScore:31, homeScore:7 },
+      { conf:'Sun Belt',away:'Western Kentucky',awayRec:'1-0',home:'Sam Houston',    homeRec:'0-1', status:'final', awayScore:41, homeScore:24 },
+      { conf:'MWC',     away:'Hawaii',         awayRec:'1-0', home:'Stanford',       homeRec:'0-1', status:'final', awayScore:23, homeScore:20 },
+    ],
+    1: [
+      // Week 1 — Aug 28-Sep 1
+      // Thursday Aug 28
+      { conf:'AAC',     away:'South Florida',  awayRec:'1-0', home:'Boise State',    homeRec:'0-1', status:'final', awayScore:34, homeScore:7 },
+      { conf:'MAC',     away:'Bowling Green',  awayRec:'1-0', home:'FCS: Lafayette', homeRec:'0-1', status:'final', awayScore:26, homeScore:7 },
+      { conf:'Big Ten', away:'Rutgers',        awayRec:'1-0', home:'Ohio',           homeRec:'0-1', status:'final', awayScore:34, homeScore:31 },
+      { conf:'AAC',     away:'UCF',            awayRec:'1-0', home:'Jacksonville St',homeRec:'0-1', status:'final', awayScore:17, homeScore:10 },
+      { conf:'ACC',     away:'NC State',       awayRec:'1-0', home:'East Carolina',  homeRec:'0-1', status:'final', awayScore:24, homeScore:17 },
+      { conf:'MAC',     away:'Akron',          awayRec:'1-0', home:'Wyoming',        homeRec:'0-1', status:'final', awayScore:10, homeScore:0 },
+      { conf:'Big Ten', away:'Minnesota',      awayRec:'1-0', home:'Buffalo',        homeRec:'0-1', status:'final', awayScore:23, homeScore:10 },
+      { conf:'AAC',     away:'Houston',        awayRec:'1-0', home:'FCS: Stephen F Austin',homeRec:'0-1',status:'final',awayScore:27,homeScore:0 },
+      { conf:'AAC',     away:'UAB',            awayRec:'1-0', home:'FCS: Alabama St',homeRec:'0-1', status:'final', awayScore:52, homeScore:42 },
+      { conf:'Big Ten', away:'Nebraska',       awayRec:'1-0', home:'Cincinnati',     homeRec:'0-1', status:'final', awayScore:20, homeScore:17 },
+      { conf:'MAC',     away:'Miami (OH)',     awayRec:'1-0', home:'Wisconsin',      homeRec:'0-1', status:'final', awayScore:17, homeScore:0 },
+      { conf:'MWC',     away:'San Diego State',awayRec:'1-0', home:'FCS: Stony Brook',homeRec:'0-1',status:'final', awayScore:42, homeScore:0 },
+      { conf:'Big Ten', away:'Duke',           awayRec:'1-0', home:'FCS: Elon',     homeRec:'0-1', status:'final', awayScore:45, homeScore:17 },
+      { conf:'SEC',     away:'Missouri',       awayRec:'1-0', home:'FCS: Cent. Arkansas',homeRec:'0-1',status:'final',awayScore:61,homeScore:6 },
+      { conf:'Big 12',  away:'Oklahoma State', awayRec:'1-0', home:'FCS: UT Martin', homeRec:'0-1', status:'final', awayScore:27, homeScore:7 },
+      // Friday Aug 29
+      { conf:'AAC',     away:'FCS: Tarleton St',awayRec:'1-0',home:'Army',          homeRec:'0-1', status:'final', awayScore:30, homeScore:27, note:'2OT' },
+      { conf:'ACC',     away:'Wake Forest',    awayRec:'1-0', home:'FCS: Kennesaw St',homeRec:'0-1',status:'final', awayScore:10, homeScore:9 },
+      { conf:'Sun Belt',away:'App State',      awayRec:'1-0', home:'Charlotte',      homeRec:'0-1', status:'final', awayScore:34, homeScore:11 },
+      { conf:'Big Ten', away:'Michigan State', awayRec:'1-0', home:'Western Michigan',homeRec:'0-1',status:'final', awayScore:23, homeScore:6 },
+      { conf:'Big 12',  away:'Kansas',         awayRec:'2-0', home:'FCS: Wagner',   homeRec:'0-1', status:'final', awayScore:46, homeScore:7 },
+      { conf:'Big Ten', away:'Illinois',       awayRec:'1-0', home:'FCS: Western Illinois',homeRec:'0-1',status:'final',awayScore:52,homeScore:3 },
+      { conf:'SEC',     away:'Auburn',         awayRec:'1-0', home:'Baylor',         homeRec:'0-1', status:'final', awayScore:38, homeScore:24 },
+      { conf:'ACC',     away:'Georgia Tech',   awayRec:'1-0', home:'Colorado',       homeRec:'0-1', status:'final', awayScore:27, homeScore:20 },
+      { conf:'MWC',     away:'UNLV',           awayRec:'2-0', home:'Sam Houston',    homeRec:'0-2', status:'final', awayScore:38, homeScore:21 },
+      // Saturday Aug 30
+      { conf:'ACC',     away:'Tennessee',      awayRec:'1-0', home:'Syracuse',       homeRec:'0-1', status:'final', awayScore:45, homeScore:26, note:'Atlanta, GA' },
+      { conf:'Sun Belt',away:'Mississippi State',awayRec:'1-0',home:'Southern Miss', homeRec:'0-1', status:'final', awayScore:34, homeScore:17 },
+      { conf:'Big Ten', away:'Ohio State',     awayRec:'1-0', home:'Texas',          homeRec:'0-1', status:'final', awayScore:14, homeScore:7 },
+      { conf:'ACC',     away:'FCS: Duquesne',  awayRec:'0-1', home:'Pitt',           homeRec:'1-0', status:'final', awayScore:9,  homeScore:61 },
+      { conf:'AAC',     away:'Tulane',         awayRec:'1-0', home:'Northwestern',   homeRec:'0-1', status:'final', awayScore:23, homeScore:3 },
+      { conf:'Big Ten', away:'Purdue',         awayRec:'1-0', home:'Ball State',     homeRec:'0-1', status:'final', awayScore:31, homeScore:0 },
+      { conf:'Big Ten', away:'Maryland',       awayRec:'1-0', home:'FAU',            homeRec:'0-1', status:'final', awayScore:39, homeScore:7 },
+      { conf:'Big Ten', away:'Kentucky',       awayRec:'1-0', home:'Toledo',         homeRec:'0-1', status:'final', awayScore:24, homeScore:16 },
+      { conf:'ACC',     away:'Boston College', awayRec:'1-0', home:'FCS: Fordham',   homeRec:'0-1', status:'final', awayScore:66, homeScore:10 },
+      { conf:'Big 12',  away:'West Virginia',  awayRec:'1-0', home:'FCS: Robert Morris',homeRec:'0-1',status:'final',awayScore:45,homeScore:3 },
+      { conf:'Big Ten', away:'Indiana',        awayRec:'1-0', home:'Old Dominion',   homeRec:'0-1', status:'final', awayScore:27, homeScore:14 },
+      { conf:'ACC',     away:'Louisville',     awayRec:'1-0', home:'FCS: Eastern Kentucky',homeRec:'0-1',status:'final',awayScore:51,homeScore:17 },
+      { conf:'SEC',     away:'Air Force',      awayRec:'1-0', home:'FCS: Bucknell',  homeRec:'0-1', status:'final', awayScore:49, homeScore:13 },
+      { conf:'SEC',     away:'Georgia',        awayRec:'1-0', home:'Marshall',       homeRec:'0-1', status:'final', awayScore:45, homeScore:7 },
+      { conf:'Big Ten', away:'Penn State',     awayRec:'1-0', home:'Nevada',         homeRec:'0-1', status:'final', awayScore:46, homeScore:11 },
+      { conf:'Big 12',  away:'Iowa State',     awayRec:'2-0', home:'FCS: South Dakota',homeRec:'0-1',status:'final',awayScore:55,homeScore:7 },
+      { conf:'SEC',     away:'Florida State',  awayRec:'1-0', home:'Alabama',        homeRec:'0-1', status:'final', awayScore:31, homeScore:17 },
+      { conf:'Pac-12',  away:'Oregon',         awayRec:'1-0', home:'FCS: Montana St',homeRec:'0-1', status:'final', awayScore:59, homeScore:13 },
+      { conf:'SEC',     away:'Arkansas',       awayRec:'1-0', home:'FCS: Alabama A&M',homeRec:'0-1',status:'final', awayScore:52, homeScore:7 },
+      { conf:'AAC',     away:'Memphis',        awayRec:'1-0', home:'FCS: Chattanooga',homeRec:'0-1',status:'final', awayScore:45, homeScore:10 },
+      { conf:'Big 12',  away:'Oklahoma',       awayRec:'1-0', home:'FCS: Illinois St',homeRec:'0-1',status:'final', awayScore:35, homeScore:3 },
+      { conf:'Big Ten', away:'Iowa',           awayRec:'1-0', home:'FCS: UAlbany',   homeRec:'0-1', status:'final', awayScore:34, homeScore:7 },
+      { conf:'Sun Belt',away:'Virginia',       awayRec:'1-0', home:'Coastal Carolina',homeRec:'0-1',status:'final', awayScore:48, homeScore:7 },
+      { conf:'SEC',     away:'Vanderbilt',     awayRec:'1-0', home:'FCS: Charleston So',homeRec:'0-1',status:'final',awayScore:45,homeScore:3 },
+      { conf:'SEC',     away:'Texas A&M',      awayRec:'1-0', home:'UTSA',           homeRec:'0-1', status:'final', awayScore:42, homeScore:24 },
+      { conf:'Sun Belt',away:'FCS: Arkansas St',awayRec:'1-0',home:'FCS: SE Missouri St',homeRec:'0-1',status:'final',awayScore:42,homeScore:24 },
+      { conf:'Big 12',  away:'Kansas State',   awayRec:'0-1', home:'FCS: North Dakota',homeRec:'0-1',status:'final',awayScore:38,homeScore:35 },
+      { conf:'Sun Belt',away:'Troy',           awayRec:'1-0', home:'FCS: Nicholls',  homeRec:'0-1', status:'final', awayScore:38, homeScore:20 },
+      { conf:'Sun Belt',away:'South Alabama',  awayRec:'1-0', home:'FCS: Morgan St', homeRec:'0-1', status:'final', awayScore:38, homeScore:21 },
+      { conf:'SEC',     away:'Florida',        awayRec:'1-0', home:'FCS: LIU',       homeRec:'0-1', status:'final', awayScore:55, homeScore:0 },
+      { conf:'Sun Belt',away:'Western Kentucky',awayRec:'2-0',home:'FCS: North Alabama',homeRec:'0-1',status:'final',awayScore:55,homeScore:6 },
+      { conf:'MWC',     away:'Utah State',     awayRec:'1-0', home:'UTEP',           homeRec:'0-1', status:'final', awayScore:28, homeScore:16 },
+      { conf:'Big 12',  away:'Texas Tech',     awayRec:'1-0', home:'FCS: Arkansas-Pine Bluff',homeRec:'0-1',status:'final',awayScore:67,homeScore:7 },
+      { conf:'SEC',     away:'LSU',            awayRec:'1-0', home:'Clemson',        homeRec:'0-1', status:'final', awayScore:17, homeScore:10 },
+      { conf:'Big Ten', away:'Michigan',       awayRec:'1-0', home:'FCS: New Mexico',homeRec:'0-1', status:'final', awayScore:34, homeScore:17 },
+      { conf:'Sun Belt',away:'Louisiana Tech', awayRec:'1-0', home:'FCS: SE Louisiana',homeRec:'0-1',status:'final',awayScore:24,homeScore:0 },
+      { conf:'SEC',     away:'Ole Miss',       awayRec:'1-0', home:'FCS: Georgia St',homeRec:'0-1', status:'final', awayScore:63, homeScore:7 },
+      { conf:'Big 12',  away:'BYU',            awayRec:'1-0', home:'FCS: Portland St',homeRec:'0-1',status:'final', awayScore:69, homeScore:0 },
+      { conf:'AAC',     away:'North Texas',    awayRec:'1-0', home:'FCS: Lamar',     homeRec:'0-1', status:'final', awayScore:51, homeScore:0 },
+      { conf:'AAC',     away:'Tulsa',          awayRec:'1-0', home:'FCS: Abilene Christian',homeRec:'0-1',status:'final',awayScore:35,homeScore:7 },
+      { conf:'Sun Belt',away:'Texas State',    awayRec:'1-0', home:'Eastern Michigan',homeRec:'0-1',status:'final', awayScore:52, homeScore:27 },
+      { conf:'AAC',     away:'Rice',           awayRec:'1-0', home:'Louisiana',      homeRec:'0-1', status:'final', awayScore:14, homeScore:12 },
+      { conf:'ACC',     away:'SMU',            awayRec:'1-0', home:'FCS: East Texas A&M',homeRec:'0-1',status:'final',awayScore:42,homeScore:13 },
+      { conf:'MWC',     away:'Fresno State',   awayRec:'0-2', home:'Georgia Southern',homeRec:'0-1',status:'final', awayScore:42, homeScore:14 },
+      { conf:'Big 12',  away:'Arizona State',  awayRec:'1-0', home:'FCS: Northern Arizona',homeRec:'0-1',status:'final',awayScore:38,homeScore:19 },
+      { conf:'Pac-12',  away:'Washington State',awayRec:'1-0',home:'FCS: Idaho',    homeRec:'0-1', status:'final', awayScore:13, homeScore:10 },
+      { conf:'Big 12',  away:'Arizona',        awayRec:'1-0', home:'Hawaii',         homeRec:'0-1', status:'final', awayScore:40, homeScore:6 },
+      { conf:'Pac-12',  away:'Cal',            awayRec:'1-0', home:'Oregon State',   homeRec:'0-1', status:'final', awayScore:34, homeScore:15 },
+      { conf:'Pac-12',  away:'Washington',     awayRec:'1-0', home:'Colorado State', homeRec:'0-1', status:'final', awayScore:38, homeScore:21 },
+      { conf:'Pac-12',  away:'Utah',           awayRec:'1-0', home:'UCLA',           homeRec:'0-1', status:'final', awayScore:43, homeScore:10 },
+      { conf:'ACC',     away:'USC',            awayRec:'1-0', home:'FCS: Missouri St',homeRec:'0-1',status:'final', awayScore:73, homeScore:13 },
+      // Sunday Aug 31
+      { conf:'SEC',     away:'Virginia Tech',  awayRec:'0-1', home:'South Carolina', homeRec:'1-0', status:'final', awayScore:11, homeScore:24, note:'Atlanta, GA' },
+      { conf:'Ind.',    away:'Notre Dame',     awayRec:'0-1', home:'Miami (FL)',      homeRec:'1-0', status:'final', awayScore:24, homeScore:27 },
+      // Monday Sep 1
+      { conf:'Ind.',    away:'TCU',            awayRec:'0-1', home:'North Carolina', homeRec:'1-0', status:'final', awayScore:0,  homeScore:23 },
+    ],
+    2: [
+      // Week 2 — Sep 5-7
+      { conf:'Big Ten', away:'Ohio State',     awayRec:'2-0', home:'FCS: Grambling', homeRec:'0-1', status:'final', awayScore:70, homeScore:0 },
+      { conf:'Big Ten', away:'Penn State',     awayRec:'2-0', home:'FIU',            homeRec:'0-2', status:'final', awayScore:34, homeScore:0 },
+      { conf:'SEC',     away:'LSU',            awayRec:'2-0', home:'Louisiana Tech', homeRec:'0-2', status:'final', awayScore:23, homeScore:7 },
+      { conf:'SEC',     away:'Georgia',        awayRec:'2-0', home:'FCS: Austin Peay',homeRec:'0-1',status:'final', awayScore:28, homeScore:6 },
+      { conf:'ACC',     away:'Miami (FL)',     awayRec:'2-0', home:'FCS: Bethune-Cookman',homeRec:'0-1',status:'final',awayScore:45,homeScore:3 },
+      { conf:'Pac-12',  away:'Oregon',         awayRec:'2-0', home:'Oklahoma State', homeRec:'0-2', status:'final', awayScore:69, homeScore:3 },
+      { conf:'Big 12',  away:'Texas',          awayRec:'1-1', home:'San Jose State', homeRec:'0-2', status:'final', awayScore:38, homeScore:7 },
+      { conf:'ACC',     away:'Clemson',        awayRec:'1-1', home:'Troy',           homeRec:'0-2', status:'final', awayScore:27, homeScore:16 },
+      { conf:'SEC',     away:'South Carolina', awayRec:'2-0', home:'FCS: SC State',  homeRec:'0-1', status:'final', awayScore:38, homeScore:10 },
+      { conf:'Big Ten', away:'Illinois',       awayRec:'2-0', home:'Duke',           homeRec:'0-2', status:'final', awayScore:45, homeScore:19 },
+      { conf:'SEC',     away:'Mississippi State',awayRec:'2-0',home:'Arizona State', homeRec:'0-2', status:'final', awayScore:24, homeScore:20 },
+      { conf:'AAC',     away:'South Florida',  awayRec:'2-0', home:'Florida',        homeRec:'0-2', status:'final', awayScore:18, homeScore:16 },
+      { conf:'ACC',     away:'Florida State',  awayRec:'2-0', home:'FCS: East Texas A&M',homeRec:'0-1',status:'final',awayScore:77,homeScore:3 },
+      { conf:'Big 12',  away:'Oklahoma',       awayRec:'2-0', home:'Michigan',       homeRec:'0-2', status:'final', awayScore:24, homeScore:13 },
+      { conf:'Big 12',  away:'Iowa State',     awayRec:'3-0', home:'Iowa',           homeRec:'0-2', status:'final', awayScore:16, homeScore:13 },
+      { conf:'Big 12',  away:'Baylor',         awayRec:'1-1', home:'SMU',            homeRec:'1-1', status:'final', awayScore:48, homeScore:45, note:'2OT' },
+      { conf:'SEC',     away:'Texas A&M',      awayRec:'2-0', home:'Utah State',     homeRec:'0-2', status:'final', awayScore:44, homeScore:22 },
+      { conf:'SEC',     away:'Ole Miss',       awayRec:'2-0', home:'Kentucky',       homeRec:'0-2', status:'final', awayScore:30, homeScore:23 },
+      { conf:'Big Ten', away:'Indiana',        awayRec:'2-0', home:'Western Michigan',homeRec:'0-2',status:'final', awayScore:45, homeScore:3 },
+      { conf:'Big Ten', away:'Northwestern',   awayRec:'1-1', home:'FCS: Western Illinois',homeRec:'0-1',status:'final',awayScore:42,homeScore:7 },
+      { conf:'Big Ten', away:'Maryland',       awayRec:'2-0', home:'FCS: Northern Illinois',homeRec:'0-1',status:'final',awayScore:27,homeScore:9 },
+      { conf:'ACC',     away:'Louisville',     awayRec:'2-0', home:'James Madison',  homeRec:'0-2', status:'final', awayScore:28, homeScore:14 },
+      { conf:'ACC',     away:'NC State',       awayRec:'2-0', home:'Virginia',       homeRec:'0-2', status:'final', awayScore:35, homeScore:31 },
+      { conf:'SEC',     away:'Alabama',        awayRec:'1-1', home:'Wisconsin',      homeRec:'0-2', status:'final', awayScore:24, homeScore:10 },
+      { conf:'Big 12',  away:'Texas Tech',     awayRec:'2-0', home:'TCU',            homeRec:'0-2', status:'final', awayScore:41, homeScore:7 },
+      { conf:'Big 12',  away:'BYU',            awayRec:'2-0', home:'FCS: Texas Southern',homeRec:'0-1',status:'final',awayScore:45,homeScore:3 },
+      { conf:'Pac-12',  away:'Fresno State',   awayRec:'1-2', home:'Oregon State',   homeRec:'0-2', status:'final', awayScore:28, homeScore:21, note:'Walk-off pick-6' },
+      { conf:'SEC',     away:'Tennessee',      awayRec:'2-0', home:'FCS: ETSU',      homeRec:'0-1', status:'final', awayScore:59, homeScore:0 },
+      { conf:'Pac-12',  away:'Utah',           awayRec:'2-0', home:'FCS: Utah Tech', homeRec:'0-1', status:'final', awayScore:42, homeScore:7 },
+      { conf:'MWC',     away:'UNLV',           awayRec:'3-0', home:'Colorado State', homeRec:'0-2', status:'final', awayScore:31, homeScore:17 },
+      { conf:'Big 12',  away:'Colorado',       awayRec:'1-1', home:'North Carolina', homeRec:'1-1', status:'final', awayScore:28, homeScore:17 },
+      { conf:'Sun Belt',away:'Georgia Tech',   awayRec:'2-0', home:'FCS: Kennesaw St',homeRec:'0-1',status:'final', awayScore:52, homeScore:0 },
+    ],
+    3: [
+      // Week 3 — Sep 12-14
+      { conf:'SEC',     away:'LSU',            awayRec:'3-0', home:'FCS: SE Louisiana',homeRec:'0-1',status:'final',awayScore:56,homeScore:10 },
+      { conf:'SEC',     away:'Miami (FL)',     awayRec:'3-0', home:'Florida',         homeRec:'0-3', status:'final', awayScore:26, homeScore:7 },
+      { conf:'Pac-12',  away:'Oregon',         awayRec:'3-0', home:'Oregon State',    homeRec:'0-3', status:'final', awayScore:41, homeScore:7 },
+      { conf:'ACC',     away:'Florida State',  awayRec:'3-0', home:'FCS: Kent State', homeRec:'0-1', status:'final', awayScore:66, homeScore:10 },
+      { conf:'Big 12',  away:'Texas',          awayRec:'2-1', home:'FCS: Sam Houston',homeRec:'0-1', status:'final', awayScore:55, homeScore:0 },
+      { conf:'Big Ten', away:'Indiana',        awayRec:'3-0', home:'Illinois',        homeRec:'2-1', status:'final', awayScore:63, homeScore:10 },
+      { conf:'Big 12',  away:'Oklahoma',       awayRec:'3-0', home:'Auburn',          homeRec:'1-2', status:'final', awayScore:24, homeScore:17 },
+      { conf:'SEC',     away:'Ole Miss',       awayRec:'3-0', home:'Tulane',          homeRec:'1-2', status:'final', awayScore:45, homeScore:10 },
+      { conf:'SEC',     away:'Georgia',        awayRec:'3-0', home:'Tennessee',       homeRec:'2-1', status:'final', awayScore:44, homeScore:41 },
+      { conf:'Big 12',  away:'Texas A&M',      awayRec:'3-0', home:'Notre Dame',      homeRec:'1-2', status:'final', awayScore:41, homeScore:40 },
+      { conf:'ACC',     away:'Vanderbilt',     awayRec:'2-1', home:'South Carolina',  homeRec:'2-1', status:'final', awayScore:31, homeScore:7 },
+      { conf:'ACC',     away:'Georgia Tech',   awayRec:'3-0', home:'Clemson',         homeRec:'1-2', status:'final', awayScore:24, homeScore:21 },
+      { conf:'Big 12',  away:'Oklahoma',       awayRec:'3-0', home:'Temple',          homeRec:'0-3', status:'final', awayScore:42, homeScore:3 },
+      { conf:'Big 12',  away:'Iowa State',     awayRec:'4-0', home:'FCS: Arkansas St',homeRec:'0-2',status:'final', awayScore:24, homeScore:16 },
+      { conf:'SEC',     away:'Ole Miss',       awayRec:'3-0', home:'Arkansas',        homeRec:'1-2', status:'final', awayScore:41, homeScore:35 },
+      { conf:'Big 12',  away:'Alabama',        awayRec:'2-1', home:'Wisconsin',       homeRec:'0-3', status:'final', awayScore:38, homeScore:14 },
+      { conf:'Pac-12',  away:'Utah',           awayRec:'3-0', home:'Wyoming',         homeRec:'0-3', status:'final', awayScore:31, homeScore:6 },
+      { conf:'Big 12',  away:'Texas Tech',     awayRec:'3-0', home:'Oregon State',    homeRec:'0-3', status:'final', awayScore:45, homeScore:14 },
+      { conf:'Big Ten', away:'Michigan',       awayRec:'1-2', home:'FCS: Cent. Michigan',homeRec:'0-1',status:'final',awayScore:63,homeScore:3 },
+      { conf:'SEC',     away:'Auburn',         awayRec:'2-2', home:'South Alabama',   homeRec:'0-3', status:'final', awayScore:31, homeScore:15 },
+      { conf:'SEC',     away:'Missouri',       awayRec:'2-1', home:'Louisiana',       homeRec:'0-3', status:'final', awayScore:52, homeScore:10 },
+      { conf:'ACC',     away:'Pitt',           awayRec:'2-1', home:'FCS: FIU',        homeRec:'0-2', status:'final', awayScore:42, homeScore:14 },
+      { conf:'Big Ten', away:'Wisconsin',      awayRec:'0-3', home:'FCS: South Florida',homeRec:'1-2',status:'final',awayScore:7, homeScore:24 },
+      { conf:'MWC',     away:'Air Force',      awayRec:'2-1', home:'New Mexico',      homeRec:'1-2', status:'final', awayScore:38, homeScore:14 },
+    ],
+    4: [
+      // Week 4 — Sep 19-21
+      { conf:'Big Ten', away:'Ohio State',     awayRec:'4-0', home:'Michigan State',  homeRec:'1-3', status:'final', awayScore:38, homeScore:7 },
+      { conf:'SEC',     away:'LSU',            awayRec:'4-0', home:'South Carolina',  homeRec:'2-2', status:'final', awayScore:34, homeScore:17 },
+      { conf:'ACC',     away:'Miami (FL)',     awayRec:'4-0', home:'Vanderbilt',      homeRec:'2-2', status:'final', awayScore:35, homeScore:14 },
+      { conf:'Big 12',  away:'Georgia',        awayRec:'4-0', home:'Alabama',         homeRec:'2-2', status:'final', awayScore:34, homeScore:20 },
+      { conf:'Big Ten', away:'Indiana',        awayRec:'4-0', home:'UCLA',            homeRec:'1-3', status:'final', awayScore:41, homeScore:10 },
+      { conf:'Pac-12',  away:'Oregon',         awayRec:'4-0', home:'Washington',      homeRec:'2-2', status:'final', awayScore:35, homeScore:14 },
+      { conf:'ACC',     away:'Florida State',  awayRec:'4-0', home:'NC State',        homeRec:'2-2', status:'final', awayScore:42, homeScore:21 },
+      { conf:'Big 12',  away:'Texas A&M',      awayRec:'4-0', home:'Oklahoma State',  homeRec:'1-3', status:'final', awayScore:38, homeScore:17 },
+      { conf:'Big 12',  away:'Texas Tech',     awayRec:'4-0', home:'TCU',             homeRec:'1-3', status:'final', awayScore:35, homeScore:21 },
+      { conf:'Big 12',  away:'Iowa State',     awayRec:'5-0', home:'Houston',         homeRec:'2-2', status:'final', awayScore:31, homeScore:17 },
+      { conf:'SEC',     away:'Ole Miss',       awayRec:'4-0', home:'FCS: Georgia State',homeRec:'0-1',status:'final',awayScore:52,homeScore:10 },
+      { conf:'Big Ten', away:'Penn State',     awayRec:'4-0', home:'Illinois',        homeRec:'2-2', status:'final', awayScore:28, homeScore:13 },
+      { conf:'SEC',     away:'Tennessee',      awayRec:'3-1', home:'Arkansas',        homeRec:'1-3', status:'final', awayScore:34, homeScore:14 },
+      { conf:'Big 12',  away:'BYU',            awayRec:'4-0', home:'Kansas State',    homeRec:'2-2', status:'final', awayScore:28, homeScore:21 },
+      { conf:'Big 12',  away:'Oklahoma',       awayRec:'4-0', home:'Auburn',          homeRec:'1-3', status:'final', awayScore:31, homeScore:14 },
+      { conf:'Pac-12',  away:'Utah',           awayRec:'4-0', home:'Arizona State',   homeRec:'2-2', status:'final', awayScore:24, homeScore:21 },
+      { conf:'Pac-12',  away:'Fresno State',   awayRec:'2-2', home:'Nevada',          homeRec:'1-3', status:'final', awayScore:35, homeScore:28 },
+      { conf:'ACC',     away:'Virginia',       awayRec:'3-1', home:'Duke',            homeRec:'1-3', status:'final', awayScore:31, homeScore:14 },
+      { conf:'Big Ten', away:'Michigan',       awayRec:'2-2', home:'Minnesota',       homeRec:'2-2', status:'final', awayScore:24, homeScore:17 },
+      { conf:'Sun Belt',away:'James Madison',  awayRec:'2-2', home:'FCS: Georgia Southern',homeRec:'1-1',status:'final',awayScore:38,homeScore:17 },
+      { conf:'MWC',     away:'Boise State',    awayRec:'1-3', home:'San Diego State', homeRec:'2-2', status:'final', awayScore:28, homeScore:21 },
+      { conf:'MAC',     away:'Toledo',         awayRec:'2-2', home:'Ball State',      homeRec:'0-4', status:'final', awayScore:35, homeScore:14 },
+      { conf:'AAC',     away:'Tulane',         awayRec:'3-1', home:'FCS: East Carolina',homeRec:'1-2',status:'final',awayScore:31,homeScore:21 },
+      { conf:'Sun Belt',away:'App State',      awayRec:'3-1', home:'FCS: Old Dominion',homeRec:'0-3',status:'final',awayScore:42,homeScore:14 },
+    ],
+    5: [
+      // Week 5 — Sep 26-28
+      { conf:'Big Ten', away:'Ohio State',     awayRec:'5-0', home:'Iowa',            homeRec:'2-3', status:'final', awayScore:42, homeScore:14 },
+      { conf:'SEC',     away:'Georgia',        awayRec:'5-0', home:'Mississippi State',homeRec:'2-3',status:'final', awayScore:38, homeScore:10 },
+      { conf:'SEC',     away:'LSU',            awayRec:'5-0', home:'Texas A&M',       homeRec:'4-1', status:'final', awayScore:28, homeScore:14 },
+      { conf:'Big 12',  away:'Indiana',        awayRec:'5-0', home:'Nebraska',        homeRec:'2-3', status:'final', awayScore:35, homeScore:21 },
+      { conf:'ACC',     away:'Florida State',  awayRec:'5-0', home:'Clemson',         homeRec:'1-4', status:'final', awayScore:34, homeScore:17 },
+      { conf:'Big 12',  away:'Texas Tech',     awayRec:'5-0', home:'West Virginia',   homeRec:'2-3', status:'final', awayScore:38, homeScore:21 },
+      { conf:'Pac-12',  away:'Oregon',         awayRec:'5-0', home:'Arizona State',   homeRec:'2-3', status:'final', awayScore:45, homeScore:14 },
+      { conf:'SEC',     away:'Ole Miss',       awayRec:'5-0', home:'Alabama',         homeRec:'2-3', status:'final', awayScore:35, homeScore:28 },
+      { conf:'Big 12',  away:'Iowa State',     awayRec:'6-0', home:'Cincinnati',      homeRec:'2-3', status:'final', awayScore:31, homeScore:10 },
+      { conf:'Big 12',  away:'BYU',            awayRec:'5-0', home:'UCF',             homeRec:'2-3', status:'final', awayScore:35, homeScore:17 },
+      { conf:'Big Ten', away:'Penn State',     awayRec:'5-0', home:'Northwestern',    homeRec:'2-3', status:'final', awayScore:31, homeScore:7 },
+      { conf:'Big Ten', away:'Michigan',       awayRec:'3-2', home:'Maryland',        homeRec:'3-2', status:'final', awayScore:28, homeScore:21 },
+      { conf:'SEC',     away:'Tennessee',      awayRec:'4-1', home:'Florida',         homeRec:'1-4', status:'final', awayScore:41, homeScore:21 },
+      { conf:'Big 12',  away:'Oklahoma',       awayRec:'5-0', home:'Kansas',          homeRec:'2-3', status:'final', awayScore:38, homeScore:24 },
+      { conf:'Pac-12',  away:'Utah',           awayRec:'5-0', home:'Washington State',homeRec:'2-3',status:'final', awayScore:28, homeScore:14 },
+      { conf:'ACC',     away:'Virginia',       awayRec:'4-1', home:'North Carolina',  homeRec:'2-3', status:'final', awayScore:35, homeScore:17 },
+      { conf:'SEC',     away:'Vanderbilt',     awayRec:'4-1', home:'Auburn',          homeRec:'2-3', status:'final', awayScore:31, homeScore:14 },
+      { conf:'ACC',     away:'Georgia Tech',   awayRec:'5-0', home:'Louisville',      homeRec:'3-2', status:'final', awayScore:28, homeScore:24 },
+      { conf:'AAC',     away:'Tulane',         awayRec:'4-1', home:'South Florida',   homeRec:'2-3', status:'final', awayScore:28, homeScore:24 },
+      { conf:'MWC',     away:'UNLV',           awayRec:'5-0', home:'Air Force',       homeRec:'3-2', status:'final', awayScore:35, homeScore:21 },
+      { conf:'Pac-12',  away:'Boise State',    awayRec:'2-3', home:'Colorado State',  homeRec:'2-3', status:'final', awayScore:31, homeScore:28 },
+      { conf:'Sun Belt',away:'James Madison',  awayRec:'3-2', home:'FCS: Troy',       homeRec:'2-2', status:'final', awayScore:35, homeScore:21 },
+      { conf:'MAC',     away:'Miami (OH)',     awayRec:'3-2', home:'Bowling Green',   homeRec:'3-2', status:'final', awayScore:28, homeScore:21 },
+      { conf:'Ind.',    away:'Notre Dame',     awayRec:'2-3', home:'Louisville',      homeRec:'3-2', status:'final', awayScore:24, homeScore:28 },
+    ],
+    6: [
+      // Week 6 — Oct 3-5
+      { conf:'Big Ten', away:'Ohio State',     awayRec:'6-0', home:'Oregon',          homeRec:'5-1', status:'final', awayScore:32, homeScore:31 },
+      { conf:'SEC',     away:'Georgia',        awayRec:'6-0', home:'Florida',         homeRec:'1-5', status:'final', awayScore:41, homeScore:17 },
+      { conf:'SEC',     away:'Texas A&M',      awayRec:'5-1', home:'LSU',             homeRec:'5-1', status:'final', awayScore:35, homeScore:31 },
+      { conf:'Big Ten', away:'Indiana',        awayRec:'6-0', home:'Michigan',        homeRec:'3-3', status:'final', awayScore:28, homeScore:14 },
+      { conf:'ACC',     away:'Florida State',  awayRec:'6-0', home:'Miami (FL)',      homeRec:'4-2', status:'final', awayScore:38, homeScore:28 },
+      { conf:'Big 12',  away:'Texas Tech',     awayRec:'6-0', home:'BYU',             homeRec:'5-1', status:'final', awayScore:28, homeScore:24 },
+      { conf:'Big 12',  away:'Iowa State',     awayRec:'7-0', home:'Kansas State',    homeRec:'3-3', status:'final', awayScore:28, homeScore:14 },
+      { conf:'SEC',     away:'Ole Miss',       awayRec:'6-0', home:'South Carolina',  homeRec:'3-3', status:'final', awayScore:42, homeScore:21 },
+      { conf:'Big Ten', away:'Penn State',     awayRec:'6-0', home:'Michigan State',  homeRec:'2-4', status:'final', awayScore:35, homeScore:10 },
+      { conf:'Pac-12',  away:'Utah',           awayRec:'6-0', home:'Oregon State',    homeRec:'0-6', status:'final', awayScore:38, homeScore:14 },
+      { conf:'Big 12',  away:'Oklahoma',       awayRec:'6-0', home:'Texas',           homeRec:'2-4', status:'final', awayScore:31, homeScore:24 },
+      { conf:'SEC',     away:'Vanderbilt',     awayRec:'5-1', home:'Missouri',        homeRec:'3-3', status:'final', awayScore:35, homeScore:28 },
+      { conf:'ACC',     away:'Virginia',       awayRec:'5-1', home:'Clemson',         homeRec:'2-4', status:'final', awayScore:28, homeScore:21 },
+      { conf:'Big 12',  away:'Colorado',       awayRec:'3-3', home:'Cincinnati',      homeRec:'2-4', status:'final', awayScore:35, homeScore:14 },
+      { conf:'Pac-12',  away:'Washington',     awayRec:'4-2', home:'California',      homeRec:'3-3', status:'final', awayScore:31, homeScore:17 },
+      { conf:'AAC',     away:'Tulane',         awayRec:'5-1', home:'Memphis',         homeRec:'3-3', status:'final', awayScore:35, homeScore:28 },
+      { conf:'MWC',     away:'UNLV',           awayRec:'6-0', home:'Fresno State',    homeRec:'3-3', status:'final', awayScore:42, homeScore:21 },
+      { conf:'Sun Belt',away:'James Madison',  awayRec:'4-2', home:'FCS: Coastal Carolina',homeRec:'2-2',status:'final',awayScore:38,homeScore:17 },
+      { conf:'Sun Belt',away:'Georgia Tech',   awayRec:'6-0', home:'App State',       homeRec:'3-3', status:'final', awayScore:31, homeScore:14 },
+      { conf:'MAC',     away:'Toledo',         awayRec:'4-2', home:'Ohio',            homeRec:'2-4', status:'final', awayScore:35, homeScore:21 },
+      { conf:'Big Ten', away:'Wisconsin',      awayRec:'2-4', home:'Nebraska',        homeRec:'2-4', status:'final', awayScore:28, homeScore:21 },
+      { conf:'ACC',     away:'Pitt',           awayRec:'4-2', home:'Syracuse',        homeRec:'2-4', status:'final', awayScore:31, homeScore:24 },
+      { conf:'Ind.',    away:'Notre Dame',     awayRec:'3-3', home:'Stanford',        homeRec:'2-4', status:'final', awayScore:35, homeScore:14 },
+    ],
+    7: [
+      // Week 7 — Oct 10-12
+      { conf:'Big Ten', away:'Ohio State',     awayRec:'7-0', home:'Penn State',      homeRec:'6-1', status:'final', awayScore:20, homeScore:13 },
+      { conf:'SEC',     away:'Georgia',        awayRec:'7-0', home:'Ole Miss',        homeRec:'6-1', status:'final', awayScore:28, homeScore:21 },
+      { conf:'SEC',     away:'Texas A&M',      awayRec:'6-1', home:'Alabama',         homeRec:'3-4', status:'final', awayScore:41, homeScore:17 },
+      { conf:'Big Ten', away:'Indiana',        awayRec:'7-0', home:'Washington',      homeRec:'4-3', status:'final', awayScore:35, homeScore:14 },
+      { conf:'ACC',     away:'Florida State',  awayRec:'7-0', home:'Pitt',            homeRec:'4-3', status:'final', awayScore:42, homeScore:21 },
+      { conf:'Big 12',  away:'Texas Tech',     awayRec:'7-0', home:'Iowa State',      homeRec:'7-0', status:'final', awayScore:31, homeScore:28 },
+      { conf:'Pac-12',  away:'Utah',           awayRec:'7-0', home:'Arizona',         homeRec:'3-4', status:'final', awayScore:35, homeScore:17 },
+      { conf:'Big 12',  away:'BYU',            awayRec:'6-1', home:'Cincinnati',      homeRec:'3-4', status:'final', awayScore:38, homeScore:14 },
+      { conf:'SEC',     away:'Missouri',       awayRec:'4-3', home:'Vanderbilt',      homeRec:'5-2', status:'final', awayScore:24, homeScore:31 },
+      { conf:'Big 12',  away:'Oklahoma',       awayRec:'7-0', home:'Colorado',        homeRec:'3-4', status:'final', awayScore:42, homeScore:14 },
+      { conf:'Pac-12',  away:'Oregon',         awayRec:'6-1', home:'Washington',      homeRec:'4-3', status:'final', awayScore:38, homeScore:21 },
+      { conf:'ACC',     away:'Miami (FL)',     awayRec:'5-2', home:'Virginia',        homeRec:'5-2', status:'final', awayScore:28, homeScore:35 },
+      { conf:'Big Ten', away:'Michigan',       awayRec:'4-3', home:'Illinois',        homeRec:'3-4', status:'final', awayScore:24, homeScore:14 },
+      { conf:'SEC',     away:'Tennessee',      awayRec:'5-2', home:'Kentucky',        homeRec:'3-4', status:'final', awayScore:35, homeScore:21 },
+      { conf:'Big 12',  away:'Kansas',         awayRec:'3-4', home:'TCU',             homeRec:'3-4', status:'final', awayScore:28, homeScore:35 },
+      { conf:'Pac-12',  away:'Washington State',awayRec:'4-3',home:'Colorado State',  homeRec:'3-4', status:'final', awayScore:31, homeScore:17 },
+      { conf:'AAC',     away:'Tulane',         awayRec:'6-1', home:'Army',            homeRec:'3-4', status:'final', awayScore:35, homeScore:28 },
+      { conf:'MWC',     away:'UNLV',           awayRec:'7-0', home:'Nevada',          homeRec:'3-4', status:'final', awayScore:42, homeScore:17 },
+      { conf:'Sun Belt',away:'James Madison',  awayRec:'5-2', home:'App State',       homeRec:'3-4', status:'final', awayScore:28, homeScore:21 },
+      { conf:'MAC',     away:'Miami (OH)',     awayRec:'4-3', home:'Toledo',          homeRec:'4-3', status:'final', awayScore:35, homeScore:28 },
+      { conf:'Big Ten', away:'Iowa',           awayRec:'3-4', home:'Wisconsin',       homeRec:'2-5', status:'final', awayScore:24, homeScore:17 },
+      { conf:'Sun Belt',away:'Georgia Tech',   awayRec:'7-0', home:'North Texas',     homeRec:'4-3', status:'final', awayScore:38, homeScore:17 },
+      { conf:'Ind.',    away:'Notre Dame',     awayRec:'4-3', home:'USC',             homeRec:'4-3', status:'final', awayScore:28, homeScore:21 },
+    ],
+    8: [
+      // Week 8 — Oct 17-19
+      { conf:'Big Ten', away:'Ohio State',     awayRec:'8-0', home:'Purdue',          homeRec:'2-6', status:'final', awayScore:49, homeScore:7 },
+      { conf:'SEC',     away:'Georgia',        awayRec:'8-0', home:'Texas A&M',       homeRec:'6-2', status:'final', awayScore:31, homeScore:28 },
+      { conf:'Big Ten', away:'Indiana',        awayRec:'8-0', home:'Michigan State',  homeRec:'2-6', status:'final', awayScore:42, homeScore:14 },
+      { conf:'Big 12',  away:'Texas Tech',     awayRec:'8-0', home:'Oklahoma',        homeRec:'7-1', status:'final', awayScore:35, homeScore:28 },
+      { conf:'Pac-12',  away:'Utah',           awayRec:'8-0', home:'Colorado',        homeRec:'3-5', status:'final', awayScore:38, homeScore:21 },
+      { conf:'ACC',     away:'Florida State',  awayRec:'8-0', home:'Virginia',        homeRec:'5-3', status:'final', awayScore:35, homeScore:24 },
+      { conf:'SEC',     away:'Ole Miss',       awayRec:'7-1', home:'LSU',             homeRec:'5-3', status:'final', awayScore:34, homeScore:17 },
+      { conf:'Big 12',  away:'BYU',            awayRec:'7-1', home:'Kansas State',    homeRec:'4-4', status:'final', awayScore:31, homeScore:24 },
+      { conf:'Big Ten', away:'Penn State',     awayRec:'7-1', home:'Iowa',            homeRec:'3-5', status:'final', awayScore:28, homeScore:14 },
+      { conf:'SEC',     away:'Tennessee',      awayRec:'6-2', home:'South Carolina',  homeRec:'3-5', status:'final', awayScore:38, homeScore:21 },
+      { conf:'Big 12',  away:'Iowa State',     awayRec:'7-1', home:'West Virginia',   homeRec:'3-5', status:'final', awayScore:34, homeScore:17 },
+      { conf:'Pac-12',  away:'Oregon',         awayRec:'7-1', home:'California',      homeRec:'4-4', status:'final', awayScore:41, homeScore:14 },
+      { conf:'ACC',     away:'Georgia Tech',   awayRec:'8-0', home:'Miami (FL)',      homeRec:'5-3', status:'final', awayScore:31, homeScore:24 },
+      { conf:'Big Ten', away:'Michigan',       awayRec:'5-3', home:'Nebraska',        homeRec:'4-4', status:'final', awayScore:28, homeScore:17 },
+      { conf:'SEC',     away:'Vanderbilt',     awayRec:'6-2', home:'Missouri',        homeRec:'4-4', status:'final', awayScore:31, homeScore:21 },
+      { conf:'Big 12',  away:'Colorado',       awayRec:'4-4', home:'TCU',             homeRec:'4-4', status:'final', awayScore:28, homeScore:35 },
+      { conf:'ACC',     away:'Virginia',       awayRec:'5-3', home:'NC State',        homeRec:'3-5', status:'final', awayScore:35, homeScore:21 },
+      { conf:'AAC',     away:'Tulane',         awayRec:'7-1', home:'North Texas',     homeRec:'4-4', status:'final', awayScore:38, homeScore:21 },
+      { conf:'MWC',     away:'UNLV',           awayRec:'8-0', home:'San Jose State',  homeRec:'3-5', status:'final', awayScore:45, homeScore:21 },
+      { conf:'Sun Belt',away:'James Madison',  awayRec:'6-2', home:'FCS: Georgia Southern',homeRec:'2-5',status:'final',awayScore:35,homeScore:21 },
+      { conf:'MAC',     away:'Toledo',         awayRec:'5-3', home:'FCS: Akron',      homeRec:'2-5', status:'final', awayScore:35, homeScore:14 },
+      { conf:'Pac-12',  away:'Boise State',    awayRec:'3-5', home:'Wyoming',         homeRec:'3-5', status:'final', awayScore:28, homeScore:21 },
+      { conf:'Big Ten', away:'Wisconsin',      awayRec:'3-5', home:'Rutgers',         homeRec:'3-5', status:'final', awayScore:24, homeScore:17 },
+      { conf:'Ind.',    away:'Notre Dame',     awayRec:'5-3', home:'Georgia Tech',    homeRec:'8-0', status:'final', awayScore:21, homeScore:28 },
+    ]
+  };
       // SEC
       { conf:'SEC', away:'Alabama', awayRec:'9-2', home:'LSU', homeRec:'8-3', status:'live', detail:'Q3 8:42', awayScore:28, homeScore:21 },
       { conf:'SEC', away:'Georgia', awayRec:'10-1', home:'Tennessee', homeRec:'8-3', status:'live', detail:'Q4 2:01', awayScore:35, homeScore:7 },
@@ -2204,12 +2499,12 @@
     ]
   };
 
-  let currentWeek = 12;
+  let currentWeek = 1;
   let currentSchedConf = 'all';
 
   function renderSchedule() {
     const body = document.getElementById('schedule-body');
-    document.getElementById('weekLabel').textContent = 'WEEK ' + currentWeek;
+    document.getElementById('weekLabel').textContent = currentWeek === 0 ? 'WEEK 0' : 'WEEK ' + currentWeek;
     const games = SCHEDULE[currentWeek] || [];
     const filtered = currentSchedConf === 'all' ? games : games.filter(g => g.conf === currentSchedConf);
 
@@ -2226,12 +2521,12 @@
     });
 
     body.innerHTML = '';
-    Object.entries(grouped).forEach(([conf, games]) => {
+    Object.entries(grouped).forEach(([conf, glist]) => {
       const confDiv = document.createElement('div');
       confDiv.style.cssText = 'padding:12px 16px 4px;';
       confDiv.innerHTML = `<div class="division-label" style="font-size:11px;margin-bottom:8px">${conf}</div>`;
 
-      games.forEach(g => {
+      glist.forEach(g => {
         const isLive = g.status === 'live';
         const isFinal = g.status === 'final';
         const isUpcoming = g.status === 'upcoming';
@@ -2246,13 +2541,13 @@
           bodyHtml = `
             <div class="matchup-teams">
               <div class="matchup-team away">
-                <div class="matchup-team-name" style="font-size:15px">${mascot(g.away)} ${g.away}</div>
-                <div class="matchup-team-record">${g.awayRec}</div>
+                <div class="matchup-team-name" style="font-size:13px">${g.away}</div>
+                <div class="matchup-team-record">${g.awayRec || ''}</div>
               </div>
               <div class="matchup-vs">VS</div>
               <div class="matchup-team home" style="text-align:right">
-                <div class="matchup-team-name" style="font-size:15px">${g.home} ${mascot(g.home)}</div>
-                <div class="matchup-team-record">${g.homeRec}</div>
+                <div class="matchup-team-name" style="font-size:13px">${g.home}</div>
+                <div class="matchup-team-record">${g.homeRec || ''}</div>
               </div>
             </div>
             <div class="matchup-time">${g.detail || 'TBD'} <span class="matchup-badge upcoming">UPCOMING</span></div>`;
@@ -2262,16 +2557,19 @@
           bodyHtml = `
             <div class="matchup-score-wrap">
               <div style="text-align:center;flex:1">
-                <div class="matchup-team-name" style="font-size:14px">${mascot(g.away)} ${g.away}</div>
+                <div class="matchup-team-name" style="font-size:12px">${g.away}</div>
                 <div class="matchup-score ${awayWin ? '' : 'loser'}">${g.awayScore}</div>
               </div>
               <div class="matchup-score-sep">—</div>
               <div style="text-align:center;flex:1">
-                <div class="matchup-team-name" style="font-size:14px">${mascot(g.home)} ${g.home}</div>
+                <div class="matchup-team-name" style="font-size:12px">${g.home}</div>
                 <div class="matchup-score ${homeWin ? '' : 'loser'}">${g.homeScore}</div>
               </div>
             </div>
-            <div class="matchup-time"><span class="matchup-badge ${isLive ? 'live' : 'final'}">${isLive ? g.detail : 'FINAL'}</span></div>`;
+            <div class="matchup-time">
+              <span class="matchup-badge ${isLive ? 'live' : 'final'}">${isLive ? (g.detail||'LIVE') : 'FINAL'}</span>
+              ${g.note ? `<span style="font-size:10px;color:var(--muted);margin-left:8px">${g.note}</span>` : ''}
+            </div>`;
         }
 
         confDiv.innerHTML += `
@@ -2290,10 +2588,10 @@
 
   // Week nav
   document.getElementById('weekPrev').addEventListener('click', () => {
-    if (currentWeek > 1) { currentWeek--; renderSchedule(); }
+    if (currentWeek > 0) { currentWeek--; renderSchedule(); }
   });
   document.getElementById('weekNext').addEventListener('click', () => {
-    if (currentWeek < 14) { currentWeek++; renderSchedule(); }
+    if (currentWeek < 8) { currentWeek++; renderSchedule(); }
   });
 
   // Schedule conf filter
