@@ -751,7 +751,7 @@
       <div class="hero-glow"></div>
       <div class="hero-content">
         <div class="hero-eyebrow">Season 4 · Week 12</div>
-        <h1>THE <em>NOT GAY LIVE</em><br>IS LIVE</h1>
+        <h1>THE <em>GRIDIRON</em><br>IS LIVE</h1>
         <div class="hero-sub">4 games in progress · Saturday slate</div>
       </div>
     </div>
@@ -857,7 +857,7 @@
         </div>
         <div class="featured-article-content">
           <h2>BLITZ FC's Marcus Webb Is the League's Most Dangerous Weapon</h2>
-          <p>With 1,847 passing yards and 22 TDs through 10 weeks, Webb is shattering every single-season record in Gridiron League history.</p>
+          <p>With 1,847 passing yards and 22 TDs through 10 weeks, Webb is shattering every single-season record in Not Gay League history.</p>
         </div>
       </div>
 
@@ -946,65 +946,38 @@
   <div class="page" id="page-stats">
     <div class="page-header">
       <h1>PLAYER STATS</h1>
-      <p>Season 4 · Through Week 10</p>
+      <p>Season 4 · Through Week 12</p>
     </div>
-    <div class="stats-tabs">
+    <div class="stats-tabs" id="page-stats-tabs">
       <button class="stats-tab active" data-stat="passing">Passing</button>
       <button class="stats-tab" data-stat="rushing">Rushing</button>
       <button class="stats-tab" data-stat="receiving">Receiving</button>
+      <button class="stats-tab" data-stat="blocking">Blocking</button>
+      <button class="stats-tab" data-stat="tackles">Tackles</button>
+      <button class="stats-tab" data-stat="interceptions">INTs</button>
+      <button class="stats-tab" data-stat="fumbles">Fumbles</button>
     </div>
 
     <!-- PASSING -->
     <div class="stat-table-wrap" id="stat-passing">
       <div class="stat-table">
         <div class="stat-row passing header">
-          <div>#</div>
-          <div>Player</div>
+          <div>#</div><div>Player</div>
           <div style="text-align:right">YDS</div>
           <div style="text-align:right">TD</div>
           <div style="text-align:right">INT</div>
           <div style="text-align:right">RTG</div>
         </div>
-        <div class="stat-row passing">
-          <div class="player-rank gold">1</div>
-          <div class="player-info"><div class="player-name">M. WEBB</div><div class="player-team">BLITZ FC · QB</div></div>
-          <div class="stat-val lead">1,847</div>
-          <div class="stat-val">22</div>
-          <div class="stat-val">4</div>
-          <div class="stat-val">118.4</div>
-        </div>
-        <div class="stat-row passing">
-          <div class="player-rank">2</div>
-          <div class="player-info"><div class="player-name">J. CARTER</div><div class="player-team">STORM CHASERS · QB</div></div>
-          <div class="stat-val lead">1,622</div>
-          <div class="stat-val">18</div>
-          <div class="stat-val">6</div>
-          <div class="stat-val">104.2</div>
-        </div>
-        <div class="stat-row passing">
-          <div class="player-rank">3</div>
-          <div class="player-info"><div class="player-name">T. ROSS</div><div class="player-team">DYNASTY KINGS · QB</div></div>
-          <div class="stat-val lead">1,580</div>
-          <div class="stat-val">16</div>
-          <div class="stat-val">5</div>
-          <div class="stat-val">101.8</div>
-        </div>
-        <div class="stat-row passing">
-          <div class="player-rank">4</div>
-          <div class="player-info"><div class="player-name">A. PRICE</div><div class="player-team">IRON HAWKS · QB</div></div>
-          <div class="stat-val lead">1,414</div>
-          <div class="stat-val">14</div>
-          <div class="stat-val">7</div>
-          <div class="stat-val">97.3</div>
-        </div>
-        <div class="stat-row passing">
-          <div class="player-rank">5</div>
-          <div class="player-info"><div class="player-name">R. DELANO</div><div class="player-team">BOLT CITY · QB</div></div>
-          <div class="stat-val lead">1,298</div>
-          <div class="stat-val">12</div>
-          <div class="stat-val">8</div>
-          <div class="stat-val">92.1</div>
-        </div>
+        <div class="stat-row passing"><div class="player-rank gold">1</div><div class="player-info"><div class="player-name">M. WEBB</div><div class="player-team">BLITZ FC · QB</div></div><div class="stat-val lead">2,214</div><div class="stat-val">26</div><div class="stat-val">4</div><div class="stat-val">118.4</div></div>
+        <div class="stat-row passing"><div class="player-rank">2</div><div class="player-info"><div class="player-name">J. CARTER</div><div class="player-team">STORM CHASERS · QB</div></div><div class="stat-val lead">1,988</div><div class="stat-val">21</div><div class="stat-val">6</div><div class="stat-val">109.2</div></div>
+        <div class="stat-row passing"><div class="player-rank">3</div><div class="player-info"><div class="player-name">T. ROSS</div><div class="player-team">DYNASTY KINGS · QB</div></div><div class="stat-val lead">1,874</div><div class="stat-val">19</div><div class="stat-val">5</div><div class="stat-val">104.7</div></div>
+        <div class="stat-row passing"><div class="player-rank">4</div><div class="player-info"><div class="player-name">A. PRICE</div><div class="player-team">IRON HAWKS · QB</div></div><div class="stat-val lead">1,731</div><div class="stat-val">17</div><div class="stat-val">7</div><div class="stat-val">99.1</div></div>
+        <div class="stat-row passing"><div class="player-rank">5</div><div class="player-info"><div class="player-name">R. DELANO</div><div class="player-team">BOLT CITY · QB</div></div><div class="stat-val lead">1,612</div><div class="stat-val">14</div><div class="stat-val">8</div><div class="stat-val">95.3</div></div>
+        <div class="stat-row passing"><div class="player-rank">6</div><div class="player-info"><div class="player-name">C. VEGA</div><div class="player-team">VENOM SC · QB</div></div><div class="stat-val lead">1,540</div><div class="stat-val">13</div><div class="stat-val">9</div><div class="stat-val">91.8</div></div>
+        <div class="stat-row passing"><div class="player-rank">7</div><div class="player-info"><div class="player-name">D. HOLLIS</div><div class="player-team">NIGHT OWLS · QB</div></div><div class="stat-val lead">1,487</div><div class="stat-val">12</div><div class="stat-val">10</div><div class="stat-val">88.4</div></div>
+        <div class="stat-row passing"><div class="player-rank">8</div><div class="player-info"><div class="player-name">B. SHAW</div><div class="player-team">RED ZONE · QB</div></div><div class="stat-val lead">1,344</div><div class="stat-val">11</div><div class="stat-val">11</div><div class="stat-val">84.2</div></div>
+        <div class="stat-row passing"><div class="player-rank">9</div><div class="player-info"><div class="player-name">K. JAMES</div><div class="player-team">THE RAID · QB</div></div><div class="stat-val lead">1,289</div><div class="stat-val">9</div><div class="stat-val">12</div><div class="stat-val">79.6</div></div>
+        <div class="stat-row passing"><div class="player-rank">10</div><div class="player-info"><div class="player-name">O. MUNN</div><div class="player-team">GRAVEL PITS · QB</div></div><div class="stat-val lead">1,102</div><div class="stat-val">7</div><div class="stat-val">14</div><div class="stat-val">71.3</div></div>
       </div>
     </div>
 
@@ -1012,47 +985,21 @@
     <div class="stat-table-wrap" id="stat-rushing" style="display:none">
       <div class="stat-table">
         <div class="stat-row rushing header">
-          <div>#</div>
-          <div>Player</div>
+          <div>#</div><div>Player</div>
           <div style="text-align:right">CAR</div>
           <div style="text-align:right">YDS</div>
           <div style="text-align:right">TD</div>
         </div>
-        <div class="stat-row rushing">
-          <div class="player-rank gold">1</div>
-          <div class="player-info"><div class="player-name">T. MILES</div><div class="player-team">DYNASTY KINGS · RB</div></div>
-          <div class="stat-val">187</div>
-          <div class="stat-val lead">1,102</div>
-          <div class="stat-val">11</div>
-        </div>
-        <div class="stat-row rushing">
-          <div class="player-rank">2</div>
-          <div class="player-info"><div class="player-name">K. FORD</div><div class="player-team">STORM CHASERS · RB</div></div>
-          <div class="stat-val">162</div>
-          <div class="stat-val lead">974</div>
-          <div class="stat-val">9</div>
-        </div>
-        <div class="stat-row rushing">
-          <div class="player-rank">3</div>
-          <div class="player-info"><div class="player-name">D. RUSH</div><div class="player-team">VENOM SC · RB</div></div>
-          <div class="stat-val">148</div>
-          <div class="stat-val lead">856</div>
-          <div class="stat-val">7</div>
-        </div>
-        <div class="stat-row rushing">
-          <div class="player-rank">4</div>
-          <div class="player-info"><div class="player-name">L. BANKS</div><div class="player-team">IRON HAWKS · RB</div></div>
-          <div class="stat-val">139</div>
-          <div class="stat-val lead">788</div>
-          <div class="stat-val">6</div>
-        </div>
-        <div class="stat-row rushing">
-          <div class="player-rank">5</div>
-          <div class="player-info"><div class="player-name">M. CLAY</div><div class="player-team">BLITZ FC · RB</div></div>
-          <div class="stat-val">121</div>
-          <div class="stat-val lead">712</div>
-          <div class="stat-val">8</div>
-        </div>
+        <div class="stat-row rushing"><div class="player-rank gold">1</div><div class="player-info"><div class="player-name">T. MILES</div><div class="player-team">DYNASTY KINGS · RB</div></div><div class="stat-val">224</div><div class="stat-val lead">1,348</div><div class="stat-val">14</div></div>
+        <div class="stat-row rushing"><div class="player-rank">2</div><div class="player-info"><div class="player-name">K. FORD</div><div class="player-team">STORM CHASERS · RB</div></div><div class="stat-val">198</div><div class="stat-val lead">1,187</div><div class="stat-val">11</div></div>
+        <div class="stat-row rushing"><div class="player-rank">3</div><div class="player-info"><div class="player-name">M. CLAY</div><div class="player-team">BLITZ FC · RB</div></div><div class="stat-val">181</div><div class="stat-val lead">1,044</div><div class="stat-val">10</div></div>
+        <div class="stat-row rushing"><div class="player-rank">4</div><div class="player-info"><div class="player-name">D. RUSH</div><div class="player-team">VENOM SC · RB</div></div><div class="stat-val">172</div><div class="stat-val lead">991</div><div class="stat-val">8</div></div>
+        <div class="stat-row rushing"><div class="player-rank">5</div><div class="player-info"><div class="player-name">L. BANKS</div><div class="player-team">IRON HAWKS · RB</div></div><div class="stat-val">164</div><div class="stat-val lead">932</div><div class="stat-val">7</div></div>
+        <div class="stat-row rushing"><div class="player-rank">6</div><div class="player-info"><div class="player-name">F. CROSS</div><div class="player-team">BOLT CITY · RB</div></div><div class="stat-val">151</div><div class="stat-val lead">874</div><div class="stat-val">9</div></div>
+        <div class="stat-row rushing"><div class="player-rank">7</div><div class="player-info"><div class="player-name">J. POPE</div><div class="player-team">RED ZONE · RB</div></div><div class="stat-val">143</div><div class="stat-val lead">798</div><div class="stat-val">6</div></div>
+        <div class="stat-row rushing"><div class="player-rank">8</div><div class="player-info"><div class="player-name">A. SIMMS</div><div class="player-team">NIGHT OWLS · RB</div></div><div class="stat-val">138</div><div class="stat-val lead">741</div><div class="stat-val">5</div></div>
+        <div class="stat-row rushing"><div class="player-rank">9</div><div class="player-info"><div class="player-name">W. HOLT</div><div class="player-team">THE RAID · RB</div></div><div class="stat-val">119</div><div class="stat-val lead">612</div><div class="stat-val">4</div></div>
+        <div class="stat-row rushing"><div class="player-rank">10</div><div class="player-info"><div class="player-name">P. DUNN</div><div class="player-team">GRAVEL PITS · RB</div></div><div class="stat-val">104</div><div class="stat-val lead">534</div><div class="stat-val">3</div></div>
       </div>
     </div>
 
@@ -1060,47 +1007,125 @@
     <div class="stat-table-wrap" id="stat-receiving" style="display:none">
       <div class="stat-table">
         <div class="stat-row receiving header">
-          <div>#</div>
-          <div>Player</div>
+          <div>#</div><div>Player</div>
           <div style="text-align:right">REC</div>
           <div style="text-align:right">YDS</div>
           <div style="text-align:right">TD</div>
         </div>
-        <div class="stat-row receiving">
-          <div class="player-rank gold">1</div>
-          <div class="player-info"><div class="player-name">B. THOMAS</div><div class="player-team">STORM CHASERS · WR</div></div>
-          <div class="stat-val">72</div>
-          <div class="stat-val lead">1,048</div>
-          <div class="stat-val">11</div>
+        <div class="stat-row receiving"><div class="player-rank gold">1</div><div class="player-info"><div class="player-name">B. THOMAS</div><div class="player-team">STORM CHASERS · WR</div></div><div class="stat-val">88</div><div class="stat-val lead">1,287</div><div class="stat-val">13</div></div>
+        <div class="stat-row receiving"><div class="player-rank">2</div><div class="player-info"><div class="player-name">V. HAYES</div><div class="player-team">BLITZ FC · WR</div></div><div class="stat-val">81</div><div class="stat-val lead">1,174</div><div class="stat-val">11</div></div>
+        <div class="stat-row receiving"><div class="player-rank">3</div><div class="player-info"><div class="player-name">A. KNIGHT</div><div class="player-team">DYNASTY KINGS · TE</div></div><div class="stat-val">69</div><div class="stat-val lead">988</div><div class="stat-val">10</div></div>
+        <div class="stat-row receiving"><div class="player-rank">4</div><div class="player-info"><div class="player-name">D. CARTER</div><div class="player-team">VENOM SC · WR</div></div><div class="stat-val">72</div><div class="stat-val lead">914</div><div class="stat-val">7</div></div>
+        <div class="stat-row receiving"><div class="player-rank">5</div><div class="player-info"><div class="player-name">R. STONE</div><div class="player-team">BOLT CITY · WR</div></div><div class="stat-val">64</div><div class="stat-val lead">871</div><div class="stat-val">6</div></div>
+        <div class="stat-row receiving"><div class="player-rank">6</div><div class="player-info"><div class="player-name">M. OKAFOR</div><div class="player-team">IRON HAWKS · WR</div></div><div class="stat-val">58</div><div class="stat-val lead">802</div><div class="stat-val">8</div></div>
+        <div class="stat-row receiving"><div class="player-rank">7</div><div class="player-info"><div class="player-name">T. LIND</div><div class="player-team">NIGHT OWLS · WR</div></div><div class="stat-val">54</div><div class="stat-val lead">748</div><div class="stat-val">5</div></div>
+        <div class="stat-row receiving"><div class="player-rank">8</div><div class="player-info"><div class="player-name">C. MADDOX</div><div class="player-team">BLITZ FC · TE</div></div><div class="stat-val">47</div><div class="stat-val lead">611</div><div class="stat-val">6</div></div>
+        <div class="stat-row receiving"><div class="player-rank">9</div><div class="player-info"><div class="player-name">E. BANKS</div><div class="player-team">RED ZONE · WR</div></div><div class="stat-val">43</div><div class="stat-val lead">574</div><div class="stat-val">4</div></div>
+        <div class="stat-row receiving"><div class="player-rank">10</div><div class="player-info"><div class="player-name">S. TROY</div><div class="player-team">DYNASTY KINGS · WR</div></div><div class="stat-val">39</div><div class="stat-val lead">521</div><div class="stat-val">4</div></div>
+      </div>
+    </div>
+
+    <!-- BLOCKING -->
+    <div class="stat-table-wrap" id="stat-blocking" style="display:none">
+      <div style="padding:12px 0 4px">
+        <div class="division-label" style="padding:0 0 8px;font-size:11px">Pancake Blocks — Season Leaders</div>
+      </div>
+      <div class="stat-table" style="margin-bottom:16px">
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px" class="header">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);background:var(--dark4);padding:8px 12px;display:contents">
+          </div>
         </div>
-        <div class="stat-row receiving">
-          <div class="player-rank">2</div>
-          <div class="player-info"><div class="player-name">V. HAYES</div><div class="player-team">BLITZ FC · WR</div></div>
-          <div class="stat-val">68</div>
-          <div class="stat-val lead">984</div>
-          <div class="stat-val">9</div>
-        </div>
-        <div class="stat-row receiving">
-          <div class="player-rank">3</div>
-          <div class="player-info"><div class="player-name">A. KNIGHT</div><div class="player-team">DYNASTY KINGS · TE</div></div>
-          <div class="stat-val">55</div>
-          <div class="stat-val lead">742</div>
-          <div class="stat-val">8</div>
-        </div>
-        <div class="stat-row receiving">
-          <div class="player-rank">4</div>
-          <div class="player-info"><div class="player-name">D. CARTER</div><div class="player-team">VENOM SC · WR</div></div>
-          <div class="stat-val">59</div>
-          <div class="stat-val lead">718</div>
-          <div class="stat-val">6</div>
-        </div>
-        <div class="stat-row receiving">
-          <div class="player-rank">5</div>
-          <div class="player-info"><div class="player-name">R. STONE</div><div class="player-team">BOLT CITY · WR</div></div>
-          <div class="stat-val">51</div>
-          <div class="stat-val lead">672</div>
-          <div class="stat-val">5</div>
-        </div>
+        <div class="stat-row header" style="grid-template-columns:22px 1fr 52px 52px"><div>#</div><div>Player</div><div style="text-align:right">PCK</div><div style="text-align:right">GP</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank gold">1</div><div class="player-info"><div class="player-name">O. GRANT</div><div class="player-team">STORM CHASERS · OT</div></div><div class="stat-val lead">54</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">2</div><div class="player-info"><div class="player-name">D. WALSH</div><div class="player-team">DYNASTY KINGS · OG</div></div><div class="stat-val lead">49</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">3</div><div class="player-info"><div class="player-name">T. BRIGGS</div><div class="player-team">BLITZ FC · C</div></div><div class="stat-val lead">47</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">4</div><div class="player-info"><div class="player-name">M. LOWE</div><div class="player-team">IRON HAWKS · OT</div></div><div class="stat-val lead">43</div><div class="stat-val">11</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">5</div><div class="player-info"><div class="player-name">R. PIKE</div><div class="player-team">BOLT CITY · OG</div></div><div class="stat-val lead">41</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">6</div><div class="player-info"><div class="player-name">J. NGUYEN</div><div class="player-team">VENOM SC · OT</div></div><div class="stat-val lead">38</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">7</div><div class="player-info"><div class="player-name">C. REED</div><div class="player-team">NIGHT OWLS · C</div></div><div class="stat-val lead">35</div><div class="stat-val">11</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">8</div><div class="player-info"><div class="player-name">A. FULLER</div><div class="player-team">RED ZONE · OT</div></div><div class="stat-val lead">31</div><div class="stat-val">10</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">9</div><div class="player-info"><div class="player-name">B. CROSS</div><div class="player-team">THE RAID · OG</div></div><div class="stat-val lead">28</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">10</div><div class="player-info"><div class="player-name">N. PARISH</div><div class="player-team">GRAVEL PITS · OT</div></div><div class="stat-val lead">22</div><div class="stat-val">9</div></div>
+      </div>
+      <div class="division-label" style="padding:0 0 8px;font-size:11px">Sacks Allowed — Season Leaders (Fewest = Best)</div>
+      <div class="stat-table">
+        <div class="stat-row header" style="grid-template-columns:22px 1fr 52px 52px"><div>#</div><div>Player</div><div style="text-align:right">SA</div><div style="text-align:right">GP</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank gold">1</div><div class="player-info"><div class="player-name">O. GRANT</div><div class="player-team">STORM CHASERS · OT</div></div><div class="stat-val lead">1</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">2</div><div class="player-info"><div class="player-name">T. BRIGGS</div><div class="player-team">BLITZ FC · C</div></div><div class="stat-val lead">2</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">3</div><div class="player-info"><div class="player-name">D. WALSH</div><div class="player-team">DYNASTY KINGS · OG</div></div><div class="stat-val lead">2</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">4</div><div class="player-info"><div class="player-name">R. PIKE</div><div class="player-team">BOLT CITY · OG</div></div><div class="stat-val lead">3</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">5</div><div class="player-info"><div class="player-name">M. LOWE</div><div class="player-team">IRON HAWKS · OT</div></div><div class="stat-val lead">3</div><div class="stat-val">11</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">6</div><div class="player-info"><div class="player-name">J. NGUYEN</div><div class="player-team">VENOM SC · OT</div></div><div class="stat-val lead">4</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">7</div><div class="player-info"><div class="player-name">C. REED</div><div class="player-team">NIGHT OWLS · C</div></div><div class="stat-val lead">5</div><div class="stat-val">11</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">8</div><div class="player-info"><div class="player-name">A. FULLER</div><div class="player-team">RED ZONE · OT</div></div><div class="stat-val lead">6</div><div class="stat-val">10</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">9</div><div class="player-info"><div class="player-name">B. CROSS</div><div class="player-team">THE RAID · OG</div></div><div class="stat-val lead">7</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">10</div><div class="player-info"><div class="player-name">N. PARISH</div><div class="player-team">GRAVEL PITS · OT</div></div><div class="stat-val lead">9</div><div class="stat-val">9</div></div>
+      </div>
+    </div>
+
+    <!-- TACKLES -->
+    <div class="stat-table-wrap" id="stat-tackles" style="display:none">
+      <div class="stat-table">
+        <div class="stat-row header" style="grid-template-columns:22px 1fr 44px 44px 48px"><div>#</div><div>Player</div><div style="text-align:right">TOT</div><div style="text-align:right">SOLO</div><div style="text-align:right">TFL</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 44px 48px"><div class="player-rank gold">1</div><div class="player-info"><div class="player-name">J. REEVES</div><div class="player-team">IRON HAWKS · LB</div></div><div class="stat-val lead">114</div><div class="stat-val">79</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 44px 48px"><div class="player-rank">2</div><div class="player-info"><div class="player-name">C. HUNT</div><div class="player-team">STORM CHASERS · LB</div></div><div class="stat-val lead">108</div><div class="stat-val">74</div><div class="stat-val">9</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 44px 48px"><div class="player-rank">3</div><div class="player-info"><div class="player-name">M. PIERCE</div><div class="player-team">DYNASTY KINGS · SS</div></div><div class="stat-val lead">97</div><div class="stat-val">68</div><div class="stat-val">7</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 44px 48px"><div class="player-rank">4</div><div class="player-info"><div class="player-name">T. WADE</div><div class="player-team">BLITZ FC · MLB</div></div><div class="stat-val lead">91</div><div class="stat-val">61</div><div class="stat-val">11</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 44px 48px"><div class="player-rank">5</div><div class="player-info"><div class="player-name">D. OSEI</div><div class="player-team">VENOM SC · OLB</div></div><div class="stat-val lead">88</div><div class="stat-val">59</div><div class="stat-val">8</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 44px 48px"><div class="player-rank">6</div><div class="player-info"><div class="player-name">R. FITCH</div><div class="player-team">BOLT CITY · FS</div></div><div class="stat-val lead">84</div><div class="stat-val">57</div><div class="stat-val">5</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 44px 48px"><div class="player-rank">7</div><div class="player-info"><div class="player-name">L. HAYES</div><div class="player-team">NIGHT OWLS · LB</div></div><div class="stat-val lead">79</div><div class="stat-val">52</div><div class="stat-val">6</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 44px 48px"><div class="player-rank">8</div><div class="player-info"><div class="player-name">P. COLE</div><div class="player-team">RED ZONE · CB</div></div><div class="stat-val lead">74</div><div class="stat-val">51</div><div class="stat-val">4</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 44px 48px"><div class="player-rank">9</div><div class="player-info"><div class="player-name">A. QUINN</div><div class="player-team">THE RAID · DE</div></div><div class="stat-val lead">71</div><div class="stat-val">48</div><div class="stat-val">14</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 44px 48px"><div class="player-rank">10</div><div class="player-info"><div class="player-name">S. LANG</div><div class="player-team">GRAVEL PITS · LB</div></div><div class="stat-val lead">68</div><div class="stat-val">44</div><div class="stat-val">5</div></div>
+      </div>
+    </div>
+
+    <!-- INTERCEPTIONS -->
+    <div class="stat-table-wrap" id="stat-interceptions" style="display:none">
+      <div class="stat-table">
+        <div class="stat-row header" style="grid-template-columns:22px 1fr 44px 52px 44px"><div>#</div><div>Player</div><div style="text-align:right">INT</div><div style="text-align:right">YDS</div><div style="text-align:right">TD</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 52px 44px"><div class="player-rank gold">1</div><div class="player-info"><div class="player-name">D. CROSS</div><div class="player-team">STORM CHASERS · CB</div></div><div class="stat-val lead">7</div><div class="stat-val">148</div><div class="stat-val">2</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 52px 44px"><div class="player-rank">2</div><div class="player-info"><div class="player-name">M. PIERCE</div><div class="player-team">DYNASTY KINGS · SS</div></div><div class="stat-val lead">6</div><div class="stat-val">112</div><div class="stat-val">1</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 52px 44px"><div class="player-rank">3</div><div class="player-info"><div class="player-name">R. FITCH</div><div class="player-team">BOLT CITY · FS</div></div><div class="stat-val lead">5</div><div class="stat-val">97</div><div class="stat-val">1</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 52px 44px"><div class="player-rank">4</div><div class="player-info"><div class="player-name">T. WADE</div><div class="player-team">BLITZ FC · MLB</div></div><div class="stat-val lead">5</div><div class="stat-val">84</div><div class="stat-val">0</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 52px 44px"><div class="player-rank">5</div><div class="player-info"><div class="player-name">P. COLE</div><div class="player-team">RED ZONE · CB</div></div><div class="stat-val lead">4</div><div class="stat-val">71</div><div class="stat-val">1</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 52px 44px"><div class="player-rank">6</div><div class="player-info"><div class="player-name">J. REEVES</div><div class="player-team">IRON HAWKS · LB</div></div><div class="stat-val lead">4</div><div class="stat-val">63</div><div class="stat-val">0</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 52px 44px"><div class="player-rank">7</div><div class="player-info"><div class="player-name">N. BOWEN</div><div class="player-team">VENOM SC · CB</div></div><div class="stat-val lead">3</div><div class="stat-val">58</div><div class="stat-val">1</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 52px 44px"><div class="player-rank">8</div><div class="player-info"><div class="player-name">C. HUNT</div><div class="player-team">STORM CHASERS · LB</div></div><div class="stat-val lead">3</div><div class="stat-val">44</div><div class="stat-val">0</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 52px 44px"><div class="player-rank">9</div><div class="player-info"><div class="player-name">L. HAYES</div><div class="player-team">NIGHT OWLS · LB</div></div><div class="stat-val lead">2</div><div class="stat-val">37</div><div class="stat-val">0</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 44px 52px 44px"><div class="player-rank">10</div><div class="player-info"><div class="player-name">S. LANG</div><div class="player-team">GRAVEL PITS · LB</div></div><div class="stat-val lead">2</div><div class="stat-val">21</div><div class="stat-val">0</div></div>
+      </div>
+    </div>
+
+    <!-- FUMBLES -->
+    <div class="stat-table-wrap" id="stat-fumbles" style="display:none">
+      <div class="division-label" style="padding:0 0 8px;font-size:11px">Forced Fumbles</div>
+      <div class="stat-table" style="margin-bottom:16px">
+        <div class="stat-row header" style="grid-template-columns:22px 1fr 52px 52px"><div>#</div><div>Player</div><div style="text-align:right">FF</div><div style="text-align:right">GP</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank gold">1</div><div class="player-info"><div class="player-name">A. QUINN</div><div class="player-team">THE RAID · DE</div></div><div class="stat-val lead">6</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">2</div><div class="player-info"><div class="player-name">D. OSEI</div><div class="player-team">VENOM SC · OLB</div></div><div class="stat-val lead">5</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">3</div><div class="player-info"><div class="player-name">J. REEVES</div><div class="player-team">IRON HAWKS · LB</div></div><div class="stat-val lead">4</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">4</div><div class="player-info"><div class="player-name">C. HUNT</div><div class="player-team">STORM CHASERS · LB</div></div><div class="stat-val lead">4</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">5</div><div class="player-info"><div class="player-name">T. WADE</div><div class="player-team">BLITZ FC · MLB</div></div><div class="stat-val lead">3</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">6</div><div class="player-info"><div class="player-name">R. FITCH</div><div class="player-team">BOLT CITY · FS</div></div><div class="stat-val lead">3</div><div class="stat-val">12</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">7</div><div class="player-info"><div class="player-name">M. PIERCE</div><div class="player-team">DYNASTY KINGS · SS</div></div><div class="stat-val lead">2</div><div class="stat-val">11</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">8</div><div class="player-info"><div class="player-name">P. COLE</div><div class="player-team">RED ZONE · CB</div></div><div class="stat-val lead">2</div><div class="stat-val">10</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">9</div><div class="player-info"><div class="player-name">L. HAYES</div><div class="player-team">NIGHT OWLS · LB</div></div><div class="stat-val lead">2</div><div class="stat-val">11</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">10</div><div class="player-info"><div class="player-name">S. LANG</div><div class="player-team">GRAVEL PITS · LB</div></div><div class="stat-val lead">1</div><div class="stat-val">9</div></div>
+      </div>
+      <div class="division-label" style="padding:0 0 8px;font-size:11px">Fumbles Recovered</div>
+      <div class="stat-table">
+        <div class="stat-row header" style="grid-template-columns:22px 1fr 52px 52px"><div>#</div><div>Player</div><div style="text-align:right">FR</div><div style="text-align:right">TD</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank gold">1</div><div class="player-info"><div class="player-name">C. HUNT</div><div class="player-team">STORM CHASERS · LB</div></div><div class="stat-val lead">4</div><div class="stat-val">1</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">2</div><div class="player-info"><div class="player-name">A. QUINN</div><div class="player-team">THE RAID · DE</div></div><div class="stat-val lead">3</div><div class="stat-val">1</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">3</div><div class="player-info"><div class="player-name">T. WADE</div><div class="player-team">BLITZ FC · MLB</div></div><div class="stat-val lead">3</div><div class="stat-val">0</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">4</div><div class="player-info"><div class="player-name">D. OSEI</div><div class="player-team">VENOM SC · OLB</div></div><div class="stat-val lead">3</div><div class="stat-val">0</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">5</div><div class="player-info"><div class="player-name">J. REEVES</div><div class="player-team">IRON HAWKS · LB</div></div><div class="stat-val lead">2</div><div class="stat-val">1</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">6</div><div class="player-info"><div class="player-name">M. PIERCE</div><div class="player-team">DYNASTY KINGS · SS</div></div><div class="stat-val lead">2</div><div class="stat-val">0</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">7</div><div class="player-info"><div class="player-name">R. FITCH</div><div class="player-team">BOLT CITY · FS</div></div><div class="stat-val lead">2</div><div class="stat-val">0</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">8</div><div class="player-info"><div class="player-name">N. BOWEN</div><div class="player-team">VENOM SC · CB</div></div><div class="stat-val lead">1</div><div class="stat-val">1</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">9</div><div class="player-info"><div class="player-name">L. HAYES</div><div class="player-team">NIGHT OWLS · LB</div></div><div class="stat-val lead">1</div><div class="stat-val">0</div></div>
+        <div class="stat-row" style="grid-template-columns:22px 1fr 52px 52px"><div class="player-rank">10</div><div class="player-info"><div class="player-name">P. COLE</div><div class="player-team">RED ZONE · CB</div></div><div class="stat-val lead">1</div><div class="stat-val">0</div></div>
       </div>
     </div>
   </div>
@@ -1320,7 +1345,7 @@
         </div>
         <div class="featured-article-content">
           <h2>BLITZ FC's Marcus Webb Is the League's Most Dangerous Weapon</h2>
-          <p>With 1,847 passing yards and 22 TDs through 10 weeks, Webb is shattering every single-season record in Gridiron League history. We sit down with the owner to break down the playbook.</p>
+          <p>With 1,847 passing yards and 22 TDs through 10 weeks, Webb is shattering every single-season record in Not Gay League history. We sit down with the owner to break down the playbook.</p>
         </div>
       </div>
 
@@ -1452,11 +1477,11 @@
   });
 
   // ─── STATS TABS ───
-  document.querySelectorAll('#page-stats .stats-tab').forEach(tab => {
+  document.querySelectorAll('#page-stats-tabs .stats-tab').forEach(tab => {
     tab.addEventListener('click', () => {
-      document.querySelectorAll('#page-stats .stats-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('#page-stats-tabs .stats-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      ['passing','rushing','receiving'].forEach(s => {
+      ['passing','rushing','receiving','blocking','tackles','interceptions','fumbles'].forEach(s => {
         const el = document.getElementById('stat-' + s);
         if (el) el.style.display = s === tab.dataset.stat ? 'block' : 'none';
       });
