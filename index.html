@@ -682,7 +682,7 @@
     font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
     border: none; background: none;
   }
-  .bottom-nav-item .nav-icon { font-size: 20px; line-height: 1; }
+  .bottom-nav-item .nav-icon { font-size: 20px; line-height: 1; display:flex; align-items:center; justify-content:center; }
   .bottom-nav-item.active { color: var(--gold); }
 
   /* ─── MAIN CONTENT PADDING ─── */
@@ -832,12 +832,49 @@
     font-size: 15px; font-weight: 700;
   }
   .award-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* ─── SVG ICONS ─── */
+  .nav-icon, .icon, .sub-icon, .award-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .nav-icon svg, .icon svg, .sub-icon svg { stroke: currentColor; }
+  .nav-icon svg { width: 22px; height: 22px; }
+  .icon svg { width: 20px; height: 20px; }
+  .sub-icon svg { width: 16px; height: 16px; }
+  .award-icon svg { width: 32px; height: 32px; stroke: var(--gold); }
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">⚡ WEEK 12 NOW LIVE — 4 GAMES IN PROGRESS</div>
+<!-- SVG ICON DEFINITIONS (reusable) -->
+<svg style="display:none">
+  <symbol id="ico-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 9H4a2 2 0 0 0-2 2v1a5 5 0 0 0 5 5h.4M18 9h2a2 2 0 0 1 2 2v1a5 5 0 0 1-5 5h-.4"/>
+    <path d="M6 2h12v10a6 6 0 0 1-12 0V2z"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/>
+  </symbol>
+  <symbol id="ico-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+  </symbol>
+  <symbol id="ico-medal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+  </symbol>
+  <symbol id="ico-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+  </symbol>
+  <symbol id="ico-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+    <line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="15" y2="16"/>
+  </symbol>
+  <symbol id="ico-shoe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 18l4-8 4 3 4-6 4 5v6H2z"/><line x1="2" y1="18" x2="22" y2="18"/>
+  </symbol>
+  <symbol id="ico-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+  </symbol>
+</svg>
+<div class="topbar">WEEK 12 NOW LIVE — 4 GAMES IN PROGRESS</div>
 
 <!-- NAV -->
 <nav>
@@ -856,25 +893,49 @@
       <p>Season 4 · Week 11 of 14</p>
     </div>
     <nav class="drawer-nav">
-      <a href="#" class="active" data-page="home"><span class="icon">🏈</span> Home</a>
-      <a href="#" data-page="scores"><span class="icon">📊</span> Scores & Schedule</a>
-      <a href="#" data-page="standings"><span class="icon">🏆</span> Standings</a>
-      <a href="#" data-page="stats"><span class="icon">📈</span> Player Stats</a>
-      <a href="#" data-page="roster"><span class="icon">👥</span> Rosters</a>
-      <a href="#" data-page="playoffs"><span class="icon">🎯</span> Playoff Picture</a>
+      <a href="#" class="active" data-page="home">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span> Home
+      </a>
+      <a href="#" data-page="scores">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/><path d="M15 3v6"/></svg></span> Scores &amp; Schedule
+      </a>
+      <a href="#" data-page="standings">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21V10M12 21V4M16 21v-7"/><rect x="5" y="10" width="6" height="11" rx="1"/><rect x="9" y="4" width="6" height="17" rx="1"/><rect x="13" y="14" width="6" height="7" rx="1"/></svg></span> Standings
+      </a>
+      <a href="#" data-page="stats">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></span> Player Stats
+      </a>
+      <a href="#" data-page="roster">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> Rosters
+      </a>
+      <a href="#" data-page="playoffs">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="6" height="4" rx="1"/><rect x="16" y="7" width="6" height="4" rx="1"/><rect x="9" y="3" width="6" height="4" rx="1"/><rect x="9" y="17" width="6" height="4" rx="1"/><line x1="8" y1="9" x2="9" y2="9"/><line x1="15" y1="9" x2="16" y2="9"/><line x1="12" y1="7" x2="12" y2="5"/><line x1="12" y1="17" x2="12" y2="11"/></svg></span> Playoff Picture
+      </a>
       <div class="drawer-nav-group">
         <button class="drawer-nav-parent" id="historyParentBtn">
-          <div class="drawer-nav-parent-left"><span class="icon">📜</span> History</div>
+          <div class="drawer-nav-parent-left">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span> History
+          </div>
           <span class="chevron">›</span>
         </button>
         <div class="drawer-subnav" id="historySubnav">
-          <a href="#" data-page="history" data-hsub="team"><span class="sub-icon">🏟️</span> Team History</a>
-          <a href="#" data-page="history" data-hsub="coach"><span class="sub-icon">📋</span> Coach History</a>
-          <a href="#" data-page="history" data-hsub="bowl"><span class="sub-icon">🥣</span> Bowl Game History</a>
-          <a href="#" data-page="history" data-hsub="award"><span class="sub-icon">🏅</span> Award History</a>
+          <a href="#" data-page="history" data-hsub="team">
+            <span class="sub-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span> Team History
+          </a>
+          <a href="#" data-page="history" data-hsub="coach">
+            <span class="sub-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span> Coach History
+          </a>
+          <a href="#" data-page="history" data-hsub="bowl">
+            <span class="sub-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span> Bowl Game History
+          </a>
+          <a href="#" data-page="history" data-hsub="award">
+            <span class="sub-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></span> Award History
+          </a>
         </div>
       </div>
-      <a href="#" data-page="news"><span class="icon">📰</span> News & Articles</a>
+      <a href="#" data-page="news">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a4 4 0 01-4-4V6"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span> News &amp; Articles
+      </a>
     </nav>
     <div class="drawer-footer">NOT GAY ONLINE LEAGUE &nbsp;·&nbsp; S4 2025</div>
   </div>
@@ -901,22 +962,22 @@
     <div class="ticker-wrap">
       <div class="ticker-label">LIVE</div>
       <div class="ticker-track">
-        <div class="ticker-item">🐘 ALABAMA 28 <span class="sep">·</span> 🐯 LSU 21 — Q3 8:42</div>
-        <div class="ticker-item">🌰 OHIO STATE 14 <span class="sep">·</span> 🐺 MICHIGAN 17 — HALFTIME</div>
-        <div class="ticker-item">🐾 GEORGIA 35 <span class="sep">·</span> 🐶 TENNESSEE 7 — Q4 2:01</div>
-        <div class="ticker-item">🏇 USC 24 <span class="sep">·</span> 🐶 WASHINGTON 17 — FINAL</div>
-        <div class="ticker-item">🐾 KANSAS STATE 31 <span class="sep">·</span> 🐸 TCU 28 — Q2 4:15</div>
-        <div class="ticker-item">🐯 CLEMSON 10 <span class="sep">·</span> 🏹 FLORIDA STATE 13 — Q3 1:55</div>
-        <div class="ticker-item">🦁 PENN STATE 21 <span class="sep">·</span> 🦅 IOWA 14 — FINAL</div>
-        <div class="ticker-item">🐂 TEXAS 38 <span class="sep">·</span> 🛢️ OKLAHOMA 24 — FINAL</div>
-        <div class="ticker-item">🐘 ALABAMA 28 <span class="sep">·</span> 🐯 LSU 21 — Q3 8:42</div>
-        <div class="ticker-item">🌰 OHIO STATE 14 <span class="sep">·</span> 🐺 MICHIGAN 17 — HALFTIME</div>
-        <div class="ticker-item">🐾 GEORGIA 35 <span class="sep">·</span> 🐶 TENNESSEE 7 — Q4 2:01</div>
-        <div class="ticker-item">🏇 USC 24 <span class="sep">·</span> 🐶 WASHINGTON 17 — FINAL</div>
-        <div class="ticker-item">🐾 KANSAS STATE 31 <span class="sep">·</span> 🐸 TCU 28 — Q2 4:15</div>
-        <div class="ticker-item">🐯 CLEMSON 10 <span class="sep">·</span> 🏹 FLORIDA STATE 13 — Q3 1:55</div>
-        <div class="ticker-item">🦁 PENN STATE 21 <span class="sep">·</span> 🦅 IOWA 14 — FINAL</div>
-        <div class="ticker-item">🐂 TEXAS 38 <span class="sep">·</span> 🛢️ OKLAHOMA 24 — FINAL</div>
+        <div class="ticker-item">ALABAMA 28 <span class="sep">·</span> LSU 21 — Q3 8:42</div>
+        <div class="ticker-item">OHIO STATE 14 <span class="sep">·</span> MICHIGAN 17 — HALFTIME</div>
+        <div class="ticker-item">GEORGIA 35 <span class="sep">·</span> TENNESSEE 7 — Q4 2:01</div>
+        <div class="ticker-item">USC 24 <span class="sep">·</span> WASHINGTON 17 — FINAL</div>
+        <div class="ticker-item">KANSAS STATE 31 <span class="sep">·</span> TCU 28 — Q2 4:15</div>
+        <div class="ticker-item">CLEMSON 10 <span class="sep">·</span> FLORIDA STATE 13 — Q3 1:55</div>
+        <div class="ticker-item">PENN STATE 21 <span class="sep">·</span> IOWA 14 — FINAL</div>
+        <div class="ticker-item">TEXAS 38 <span class="sep">·</span> OKLAHOMA 24 — FINAL</div>
+        <div class="ticker-item">ALABAMA 28 <span class="sep">·</span> LSU 21 — Q3 8:42</div>
+        <div class="ticker-item">OHIO STATE 14 <span class="sep">·</span> MICHIGAN 17 — HALFTIME</div>
+        <div class="ticker-item">GEORGIA 35 <span class="sep">·</span> TENNESSEE 7 — Q4 2:01</div>
+        <div class="ticker-item">USC 24 <span class="sep">·</span> WASHINGTON 17 — FINAL</div>
+        <div class="ticker-item">KANSAS STATE 31 <span class="sep">·</span> TCU 28 — Q2 4:15</div>
+        <div class="ticker-item">CLEMSON 10 <span class="sep">·</span> FLORIDA STATE 13 — Q3 1:55</div>
+        <div class="ticker-item">PENN STATE 21 <span class="sep">·</span> IOWA 14 — FINAL</div>
+        <div class="ticker-item">TEXAS 38 <span class="sep">·</span> OKLAHOMA 24 — FINAL</div>
       </div>
     </div>
 
@@ -930,12 +991,12 @@
         <div class="score-card">
           <div class="score-status live"><span class="live-dot"></span>Q3 8:42</div>
           <div class="score-team">
-            <div class="score-team-name">🐘 ALABAMA</div>
+            <div class="score-team-name">ALABAMA</div>
             <div class="score-team-pts">28</div>
           </div>
           <div class="score-divider"></div>
           <div class="score-team loser">
-            <div class="score-team-name">🐯 LSU</div>
+            <div class="score-team-name">LSU</div>
             <div class="score-team-pts">21</div>
           </div>
           <div class="score-meta">SEC West</div>
@@ -943,12 +1004,12 @@
         <div class="score-card">
           <div class="score-status live"><span class="live-dot"></span>HALFTIME</div>
           <div class="score-team loser">
-            <div class="score-team-name">🌰 OHIO STATE</div>
+            <div class="score-team-name">OHIO STATE</div>
             <div class="score-team-pts">14</div>
           </div>
           <div class="score-divider"></div>
           <div class="score-team">
-            <div class="score-team-name">🐺 MICHIGAN</div>
+            <div class="score-team-name">MICHIGAN</div>
             <div class="score-team-pts">17</div>
           </div>
           <div class="score-meta">Big Ten East</div>
@@ -956,12 +1017,12 @@
         <div class="score-card final">
           <div class="score-status final">Final</div>
           <div class="score-team">
-            <div class="score-team-name">🐂 TEXAS</div>
+            <div class="score-team-name">TEXAS</div>
             <div class="score-team-pts">38</div>
           </div>
           <div class="score-divider"></div>
           <div class="score-team loser">
-            <div class="score-team-name">🛢️ OKLAHOMA</div>
+            <div class="score-team-name">OKLAHOMA</div>
             <div class="score-team-pts">24</div>
           </div>
           <div class="score-meta">Big 12</div>
@@ -969,12 +1030,12 @@
         <div class="score-card">
           <div class="score-status upcoming">Sat 8PM</div>
           <div class="score-team">
-            <div class="score-team-name">☘️ NOTRE DAME</div>
+            <div class="score-team-name">NOTRE DAME</div>
             <div class="score-team-pts">—</div>
           </div>
           <div class="score-divider"></div>
           <div class="score-team">
-            <div class="score-team-name">🏇 USC</div>
+            <div class="score-team-name">USC</div>
             <div class="score-team-pts">—</div>
           </div>
           <div class="score-meta">Independent vs Pac-12</div>
@@ -992,7 +1053,7 @@
       </div>
       <div class="featured-article">
         <div class="featured-article-img">
-          <div class="field-art">🏈</div>
+          <div class="field-art"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1" style="width:80px;height:80px"><ellipse cx="12" cy="12" rx="10" ry="6"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="6" x2="12" y2="18"/><line x1="9" y1="7.5" x2="9" y2="16.5"/><line x1="15" y1="7.5" x2="15" y2="16.5"/></svg></div>
           <div class="featured-article-img-overlay"></div>
           <div class="featured-article-img-tag">COVER STORY</div>
         </div>
@@ -1384,7 +1445,7 @@
     </div>
 
     <div class="champion-card">
-      <div class="trophy">🏆</div>
+      <div class="trophy"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><path d="M6 9H4a2 2 0 0 0-2 2v1a5 5 0 0 0 5 5h.4M18 9h2a2 2 0 0 1 2 2v1a5 5 0 0 1-5 5h-.4"/><path d="M6 2h12v10a6 6 0 0 1-12 0V2z"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></div>
       <h2>Not Gay Championship</h2>
       <h3>TBD</h3>
       <p>Week 14 · Championship Game</p>
@@ -1484,7 +1545,7 @@
     <div class="section">
       <div class="featured-article">
         <div class="featured-article-img">
-          <div class="field-art">🏈</div>
+          <div class="field-art"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1" style="width:80px;height:80px"><ellipse cx="12" cy="12" rx="10" ry="6"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="6" x2="12" y2="18"/><line x1="9" y1="7.5" x2="9" y2="16.5"/><line x1="15" y1="7.5" x2="15" y2="16.5"/></svg></div>
           <div class="featured-article-img-overlay"></div>
           <div class="featured-article-img-tag">COVER STORY</div>
         </div>
@@ -1552,10 +1613,10 @@
       <p>Not Gay League · All-Time Records</p>
     </div>
     <div class="history-subnav">
-      <button class="history-tab active" data-hsub="team">🏟️ Team</button>
-      <button class="history-tab" data-hsub="coach">📋 Coach</button>
-      <button class="history-tab" data-hsub="bowl">🥣 Bowl Games</button>
-      <button class="history-tab" data-hsub="award">🏅 Awards</button>
+      <button class="history-tab active" data-hsub="team">Team</button>
+      <button class="history-tab" data-hsub="coach">Coach</button>
+      <button class="history-tab" data-hsub="bowl">Bowl Games</button>
+      <button class="history-tab" data-hsub="award">Awards</button>
     </div>
 
     <!-- TEAM HISTORY -->
@@ -1566,7 +1627,7 @@
       <div class="history-card">
         <div class="history-card-header">
           <div class="history-season">Season 3 · 2024</div>
-          <span class="history-badge champ">🏆 Champion</span>
+          <span class="history-badge champ">Champion</span>
         </div>
         <div class="history-card-body">
           <div class="history-stat-row"><span class="history-stat-label">Team</span><span class="history-stat-val gold">Georgia Bulldogs</span></div>
@@ -1578,7 +1639,7 @@
       <div class="history-card">
         <div class="history-card-header">
           <div class="history-season">Season 2 · 2023</div>
-          <span class="history-badge champ">🏆 Champion</span>
+          <span class="history-badge champ">Champion</span>
         </div>
         <div class="history-card-body">
           <div class="history-stat-row"><span class="history-stat-label">Team</span><span class="history-stat-val gold">Ohio State Buckeyes</span></div>
@@ -1590,7 +1651,7 @@
       <div class="history-card">
         <div class="history-card-header">
           <div class="history-season">Season 1 · 2022</div>
-          <span class="history-badge champ">🏆 Champion</span>
+          <span class="history-badge champ">Champion</span>
         </div>
         <div class="history-card-body">
           <div class="history-stat-row"><span class="history-stat-label">Team</span><span class="history-stat-val gold">Alabama Crimson Tide</span></div>
@@ -1623,7 +1684,7 @@
       <div class="history-card">
         <div class="history-card-header">
           <div class="history-season">@GridironKing</div>
-          <span class="history-badge champ">🏆 1 Title</span>
+          <span class="history-badge champ">1 Title</span>
         </div>
         <div class="history-card-body">
           <div class="history-stat-row"><span class="history-stat-label">Team</span><span class="history-stat-val gold">Georgia Bulldogs</span></div>
@@ -1636,7 +1697,7 @@
       <div class="history-card">
         <div class="history-card-header">
           <div class="history-season">@BuckeyeBoss</div>
-          <span class="history-badge champ">🏆 1 Title</span>
+          <span class="history-badge champ">1 Title</span>
         </div>
         <div class="history-card-body">
           <div class="history-stat-row"><span class="history-stat-label">Team</span><span class="history-stat-val gold">Ohio State Buckeyes</span></div>
@@ -1649,7 +1710,7 @@
       <div class="history-card">
         <div class="history-card-header">
           <div class="history-season">@TideRoller</div>
-          <span class="history-badge champ">🏆 1 Title</span>
+          <span class="history-badge champ">1 Title</span>
         </div>
         <div class="history-card-body">
           <div class="history-stat-row"><span class="history-stat-label">Team</span><span class="history-stat-val gold">Alabama Crimson Tide</span></div>
@@ -1710,7 +1771,7 @@
         <div class="division-label" style="font-size:11px">Season 3 · 2024 Awards</div>
       </div>
       <div class="award-card">
-        <div class="award-icon">🏆</div>
+        <div class="award-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4a2 2 0 0 0-2 2v1a5 5 0 0 0 5 5h.4M18 9h2a2 2 0 0 1 2 2v1a5 5 0 0 1-5 5h-.4"/><path d="M6 2h12v10a6 6 0 0 1-12 0V2z"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></div>
         <div class="award-info">
           <div class="award-name">Heisman Trophy</div>
           <div class="award-winner">Carson Beck · QB · Georgia</div>
@@ -1718,7 +1779,7 @@
         </div>
       </div>
       <div class="award-card">
-        <div class="award-icon">🛡️</div>
+        <div class="award-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <div class="award-info">
           <div class="award-name">Bednarik Award (Def. Player)</div>
           <div class="award-winner">Malaki Starks · S · Georgia</div>
@@ -1726,7 +1787,7 @@
         </div>
       </div>
       <div class="award-card">
-        <div class="award-icon">🥾</div>
+        <div class="award-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18l4-8 4 3 4-6 4 5v6H2z"/><line x1="2" y1="18" x2="22" y2="18"/></svg></div>
         <div class="award-info">
           <div class="award-name">Doak Walker Award (RB)</div>
           <div class="award-winner">Trevor Etienne · RB · Georgia</div>
@@ -1734,7 +1795,7 @@
         </div>
       </div>
       <div class="award-card">
-        <div class="award-icon">🎯</div>
+        <div class="award-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
         <div class="award-info">
           <div class="award-name">Biletnikoff Award (WR)</div>
           <div class="award-winner">Dayton Wade · WR · Florida State</div>
@@ -1742,7 +1803,7 @@
         </div>
       </div>
       <div class="award-card">
-        <div class="award-icon">📋</div>
+        <div class="award-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="15" y2="16"/></svg></div>
         <div class="award-info">
           <div class="award-name">Coach of the Year</div>
           <div class="award-winner">@GridironKing · Georgia</div>
@@ -1754,7 +1815,7 @@
         <div class="division-label" style="font-size:11px">Season 2 · 2023 Awards</div>
       </div>
       <div class="award-card">
-        <div class="award-icon">🏆</div>
+        <div class="award-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4a2 2 0 0 0-2 2v1a5 5 0 0 0 5 5h.4M18 9h2a2 2 0 0 1 2 2v1a5 5 0 0 1-5 5h-.4"/><path d="M6 2h12v10a6 6 0 0 1-12 0V2z"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></div>
         <div class="award-info">
           <div class="award-name">Heisman Trophy</div>
           <div class="award-winner">Kyle McCord · QB · Ohio State</div>
@@ -1762,7 +1823,7 @@
         </div>
       </div>
       <div class="award-card">
-        <div class="award-icon">🛡️</div>
+        <div class="award-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <div class="award-info">
           <div class="award-name">Bednarik Award (Def. Player)</div>
           <div class="award-winner">J.T. Tuimoloau · DE · Ohio State</div>
@@ -1770,7 +1831,7 @@
         </div>
       </div>
       <div class="award-card">
-        <div class="award-icon">📋</div>
+        <div class="award-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="15" y2="16"/></svg></div>
         <div class="award-info">
           <div class="award-name">Coach of the Year</div>
           <div class="award-winner">@BuckeyeBoss · Ohio State</div>
@@ -1785,19 +1846,19 @@
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <button class="bottom-nav-item active" data-page="home">
-    <span class="nav-icon">🏈</span>Home
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>Home
   </button>
   <button class="bottom-nav-item" data-page="scores">
-    <span class="nav-icon">📊</span>Scores
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>Scores
   </button>
   <button class="bottom-nav-item" data-page="standings">
-    <span class="nav-icon">🏆</span>Standings
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></span>Standings
   </button>
   <button class="bottom-nav-item" data-page="stats">
-    <span class="nav-icon">📈</span>Stats
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>Stats
   </button>
   <button class="bottom-nav-item" data-page="history" data-hsub="team">
-    <span class="nav-icon">📜</span>History
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span>History
   </button>
 </nav>
 
@@ -1912,54 +1973,10 @@
   // All FBS teams by conference, with divisions where applicable
   // W/L randomized so all teams total exactly 12 games
   // ─── MASCOT EMOJI MAP ───
-  const MASCOT = {
-    // SEC
-    'Alabama':'🐘','LSU':'🐯','Georgia':'🐾','Tennessee':'🐶','Ole Miss':'🐻','Mississippi State':'🐶',
-    'Auburn':'🦅','Texas A&M':'🐕','Arkansas':'🐗','Florida':'🐊','Kentucky':'🐴','Missouri':'🐯',
-    'South Carolina':'🐓','Vanderbilt':'⭐',
-    // Big Ten
-    'Ohio State':'🌰','Michigan':'🐺','Penn State':'🦁','Michigan State':'🐾','Iowa':'🦅','Wisconsin':'🦡',
-    'Minnesota':'🐿️','Nebraska':'🌽','Illinois':'🦣','Purdue':'🚂','Northwestern':'🐱','Indiana':'🐘',
-    'Maryland':'🐢','Rutgers':'🦔',
-    // Big 12
-    'Texas':'🐂','Oklahoma':'🛢️','Kansas State':'🐾','Kansas':'🐦','TCU':'🐸','Baylor':'🐻',
-    'Oklahoma State':'🤠','Iowa State':'🌪️','Texas Tech':'🔴','West Virginia':'🏔️','BYU':'🦁',
-    'Cincinnati':'🐻','UCF':'⚔️','Houston':'🚀',
-    // ACC
-    'Clemson':'🐯','Florida State':'🏹','NC State':'🐺','Louisville':'🐦','North Carolina':'🐏',
-    'Miami':'🦅','Duke':'🐉','Virginia Tech':'🦃','Georgia Tech':'🐝','Virginia':'🐴',
-    'Pittsburgh':'🐻','Syracuse':'🟠','Wake Forest':'🍃','Boston College':'🦅',
-    // Pac-12
-    'Washington':'🐶','Oregon':'🦆','USC':'🏇','UCLA':'🐻','Utah':'🏔️','Arizona State':'🌵',
-    'Oregon State':'🦫','Washington State':'🐾','California':'🐻','Stanford':'🌲',
-    'Arizona':'🐱','Colorado':'🦬',
-    // AAC
-    'Tulane':'🟢','SMU':'🐴','Memphis':'🐯','Tulsa':'🌪️','South Florida':'🐂','Temple':'🦉',
-    'East Carolina':'☠️','Navy':'⚓','Army':'⭐','Air Force':'✈️','Rice':'🦉','North Texas':'🦅',
-    'UTSA':'🐦',
-    // MWC
-    'Boise State':'🔵','Fresno State':'🐶','San Diego State':'🦅','Utah State':'🐴',
-    'Colorado State':'🐏','Nevada':'🐺','UNLV':'🎰','Hawaii':'🌺','San Jose State':'🐦',
-    'Wyoming':'🤠','New Mexico':'🌵',
-    // C-USA
-    'Florida Atlantic':'🦉','Western Kentucky':'🏔️','Louisiana Tech':'🐶','UTEP':'🏜️',
-    'Southern Miss':'🦅','UAB':'🔥','Marshall':'🏹','Charlotte':'🏙️',
-    'Middle Tennessee':'🔵','Old Dominion':'🦁','FIU':'🦅',
-    // MAC
-    'Toledo':'🚀','Miami (OH)':'🦅','Ohio':'🐱','Ball State':'🐦','Bowling Green':'🦅',
-    'Western Michigan':'🐎','Central Michigan':'🔥','Eastern Michigan':'🦅',
-    'Northern Illinois':'🤠','Buffalo':'🦬','Akron':'🦔','Kent State':'🦅',
-    // Sun Belt
-    'Coastal Carolina':'🐓','App State':'🏔️','Louisiana':'🐊','Troy':'🐎',
-    'Georgia Southern':'🦅','Georgia State':'🐾','South Alabama':'🦬',
-    'Arkansas State':'🐺','Texas State':'🐱','ULM':'🦅','Louisiana Monroe':'🦅',
-    // Independents
-    'Notre Dame':'☘️','Liberty':'🦅','UConn':'🐺','New Mexico State':'🔴',
-    'Jacksonville State':'🐓','Sam Houston State':'🤠',
-  };
+  const MASCOT = {};
 
   function mascot(name) {
-    return MASCOT[name] || '🏈';
+    return MASCOT[name] || '';
   }
 
   const CONFERENCES = [
