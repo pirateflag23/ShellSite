@@ -700,9 +700,127 @@
     50% { opacity: 0.4; transform: scale(0.7); }
   }
 
-  /* ─── UTIL ─── */
-  .divider { height: 1px; background: var(--border); margin: 0 16px; }
-  .pb16 { padding-bottom: 16px; }
+  /* ─── HISTORY SUBMENU ─── */
+  .drawer-nav-group { border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .drawer-nav-group > .drawer-nav-parent {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 24px;
+    color: var(--text); text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 600; letter-spacing: 0.04em;
+    cursor: pointer; transition: all 0.2s;
+    justify-content: space-between;
+    border: none; background: none; width: 100%;
+  }
+  .drawer-nav-parent-left { display: flex; align-items: center; gap: 14px; }
+  .drawer-nav-parent .chevron {
+    font-size: 12px; color: var(--muted);
+    transition: transform 0.25s ease;
+    margin-right: 4px;
+  }
+  .drawer-nav-parent.open .chevron { transform: rotate(90deg); }
+  .drawer-nav-parent:hover, .drawer-nav-parent.active {
+    color: var(--gold);
+    background: rgba(245,197,24,0.05);
+  }
+  .drawer-subnav {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+    background: rgba(0,0,0,0.2);
+  }
+  .drawer-subnav.open { max-height: 300px; }
+  .drawer-subnav a {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 24px 11px 52px;
+    color: var(--muted); text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 600; letter-spacing: 0.04em;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    transition: all 0.2s;
+  }
+  .drawer-subnav a:last-child { border-bottom: none; }
+  .drawer-subnav a:hover, .drawer-subnav a.active {
+    color: var(--gold);
+    padding-left: 58px;
+    background: rgba(245,197,24,0.04);
+  }
+  .drawer-subnav a .sub-icon { font-size: 14px; }
+
+  /* ─── HISTORY PAGE ─── */
+  .history-subnav {
+    display: flex; overflow-x: auto; gap: 0;
+    background: var(--dark2);
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: none;
+  }
+  .history-subnav::-webkit-scrollbar { display: none; }
+  .history-tab {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted);
+    padding: 12px 18px; cursor: pointer; white-space: nowrap;
+    border-bottom: 2px solid transparent; transition: all 0.2s;
+    background: none; border-top: none; border-left: none; border-right: none;
+    flex-shrink: 0;
+  }
+  .history-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  .history-section { display: none; }
+  .history-section.active { display: block; }
+
+  .history-card {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 8px; margin: 0 16px 10px;
+    overflow: hidden;
+  }
+  .history-card-header {
+    background: var(--dark4);
+    padding: 8px 14px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .history-season {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; color: var(--gold); letter-spacing: 0.06em;
+  }
+  .history-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    padding: 3px 10px; border-radius: 3px; text-transform: uppercase;
+  }
+  .history-badge.champ { background: rgba(245,197,24,0.15); color: var(--gold); border: 1px solid rgba(245,197,24,0.3); }
+  .history-badge.runner { background: rgba(255,255,255,0.06); color: var(--muted); border: 1px solid var(--border); }
+  .history-card-body { padding: 12px 14px; }
+  .history-stat-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 13px;
+  }
+  .history-stat-row:last-child { border-bottom: none; }
+  .history-stat-label { color: var(--muted); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .history-stat-val { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; }
+  .history-stat-val.gold { color: var(--gold); }
+
+  .award-card {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 8px; margin: 0 16px 10px;
+    padding: 14px;
+    display: flex; gap: 14px; align-items: center;
+  }
+  .award-icon { font-size: 32px; flex-shrink: 0; }
+  .award-info { flex: 1; }
+  .award-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 17px; color: var(--gold); letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+  .award-winner {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700;
+  }
+  .award-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
 </style>
 </head>
 <body>
@@ -733,6 +851,18 @@
       <a href="#" data-page="stats"><span class="icon">📈</span> Player Stats</a>
       <a href="#" data-page="roster"><span class="icon">👥</span> Rosters</a>
       <a href="#" data-page="playoffs"><span class="icon">🎯</span> Playoff Picture</a>
+      <div class="drawer-nav-group">
+        <button class="drawer-nav-parent" id="historyParentBtn">
+          <div class="drawer-nav-parent-left"><span class="icon">📜</span> History</div>
+          <span class="chevron">›</span>
+        </button>
+        <div class="drawer-subnav" id="historySubnav">
+          <a href="#" data-page="history" data-hsub="team"><span class="sub-icon">🏟️</span> Team History</a>
+          <a href="#" data-page="history" data-hsub="coach"><span class="sub-icon">📋</span> Coach History</a>
+          <a href="#" data-page="history" data-hsub="bowl"><span class="sub-icon">🥣</span> Bowl Game History</a>
+          <a href="#" data-page="history" data-hsub="award"><span class="sub-icon">🏅</span> Award History</a>
+        </div>
+      </div>
       <a href="#" data-page="news"><span class="icon">📰</span> News & Articles</a>
     </nav>
     <div class="drawer-footer">NOT GAY ONLINE LEAGUE &nbsp;·&nbsp; S4 2025</div>
@@ -1400,6 +1530,241 @@
     </div>
   </div>
 
+  <!-- ░░ HISTORY PAGE ░░ -->
+  <div class="page" id="page-history">
+    <div class="page-header">
+      <h1>HISTORY</h1>
+      <p>Not Gay League · All-Time Records</p>
+    </div>
+    <div class="history-subnav">
+      <button class="history-tab active" data-hsub="team">🏟️ Team</button>
+      <button class="history-tab" data-hsub="coach">📋 Coach</button>
+      <button class="history-tab" data-hsub="bowl">🥣 Bowl Games</button>
+      <button class="history-tab" data-hsub="award">🏅 Awards</button>
+    </div>
+
+    <!-- TEAM HISTORY -->
+    <div class="history-section active" id="hsub-team">
+      <div style="padding:16px 16px 8px">
+        <div class="division-label" style="font-size:11px">Championship History</div>
+      </div>
+      <div class="history-card">
+        <div class="history-card-header">
+          <div class="history-season">Season 3 · 2024</div>
+          <span class="history-badge champ">🏆 Champion</span>
+        </div>
+        <div class="history-card-body">
+          <div class="history-stat-row"><span class="history-stat-label">Team</span><span class="history-stat-val gold">Georgia Bulldogs</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Record</span><span class="history-stat-val">13-1</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Championship Game</span><span class="history-stat-val">Georgia 38 · Alabama 24</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Coach</span><span class="history-stat-val">@GridironKing</span></div>
+        </div>
+      </div>
+      <div class="history-card">
+        <div class="history-card-header">
+          <div class="history-season">Season 2 · 2023</div>
+          <span class="history-badge champ">🏆 Champion</span>
+        </div>
+        <div class="history-card-body">
+          <div class="history-stat-row"><span class="history-stat-label">Team</span><span class="history-stat-val gold">Ohio State Buckeyes</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Record</span><span class="history-stat-val">12-2</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Championship Game</span><span class="history-stat-val">Ohio State 31 · Clemson 17</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Coach</span><span class="history-stat-val">@BuckeyeBoss</span></div>
+        </div>
+      </div>
+      <div class="history-card">
+        <div class="history-card-header">
+          <div class="history-season">Season 1 · 2022</div>
+          <span class="history-badge champ">🏆 Champion</span>
+        </div>
+        <div class="history-card-body">
+          <div class="history-stat-row"><span class="history-stat-label">Team</span><span class="history-stat-val gold">Alabama Crimson Tide</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Record</span><span class="history-stat-val">14-0</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Championship Game</span><span class="history-stat-val">Alabama 42 · Texas 28</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Coach</span><span class="history-stat-val">@TideRoller</span></div>
+        </div>
+      </div>
+
+      <div style="padding:16px 16px 8px">
+        <div class="division-label" style="font-size:11px">All-Time Win Leaders</div>
+      </div>
+      <div class="standings-table" style="margin:0 16px 16px">
+        <div class="standings-row header" style="grid-template-columns:28px 1fr 40px 40px 40px">
+          <div>#</div><div>Team</div><div style="text-align:center">W</div><div style="text-align:center">L</div><div style="text-align:center">Titles</div>
+        </div>
+        <div class="standings-row" style="grid-template-columns:28px 1fr 40px 40px 40px"><div class="rank top">1</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Georgia</div></div><div class="stat-cell">38</div><div class="stat-cell">10</div><div class="stat-cell" style="color:var(--gold)">1</div></div>
+        <div class="standings-row" style="grid-template-columns:28px 1fr 40px 40px 40px"><div class="rank top">2</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Alabama</div></div><div class="stat-cell">36</div><div class="stat-cell">12</div><div class="stat-cell" style="color:var(--gold)">1</div></div>
+        <div class="standings-row" style="grid-template-columns:28px 1fr 40px 40px 40px"><div class="rank">3</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Ohio State</div></div><div class="stat-cell">35</div><div class="stat-cell">13</div><div class="stat-cell" style="color:var(--gold)">1</div></div>
+        <div class="standings-row" style="grid-template-columns:28px 1fr 40px 40px 40px"><div class="rank">4</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Clemson</div></div><div class="stat-cell">31</div><div class="stat-cell">17</div><div class="stat-cell">0</div></div>
+        <div class="standings-row" style="grid-template-columns:28px 1fr 40px 40px 40px"><div class="rank">5</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Texas</div></div><div class="stat-cell">29</div><div class="stat-cell">19</div><div class="stat-cell">0</div></div>
+      </div>
+    </div>
+
+    <!-- COACH HISTORY -->
+    <div class="history-section" id="hsub-coach">
+      <div style="padding:16px 16px 8px">
+        <div class="division-label" style="font-size:11px">All-Time Coach Records</div>
+      </div>
+      <div class="history-card">
+        <div class="history-card-header">
+          <div class="history-season">@GridironKing</div>
+          <span class="history-badge champ">🏆 1 Title</span>
+        </div>
+        <div class="history-card-body">
+          <div class="history-stat-row"><span class="history-stat-label">Team</span><span class="history-stat-val gold">Georgia Bulldogs</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Overall Record</span><span class="history-stat-val">38-10</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Seasons</span><span class="history-stat-val">3</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Bowl Record</span><span class="history-stat-val">4-1</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Championships</span><span class="history-stat-val gold">Season 3 (2024)</span></div>
+        </div>
+      </div>
+      <div class="history-card">
+        <div class="history-card-header">
+          <div class="history-season">@BuckeyeBoss</div>
+          <span class="history-badge champ">🏆 1 Title</span>
+        </div>
+        <div class="history-card-body">
+          <div class="history-stat-row"><span class="history-stat-label">Team</span><span class="history-stat-val gold">Ohio State Buckeyes</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Overall Record</span><span class="history-stat-val">35-13</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Seasons</span><span class="history-stat-val">3</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Bowl Record</span><span class="history-stat-val">3-2</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Championships</span><span class="history-stat-val gold">Season 2 (2023)</span></div>
+        </div>
+      </div>
+      <div class="history-card">
+        <div class="history-card-header">
+          <div class="history-season">@TideRoller</div>
+          <span class="history-badge champ">🏆 1 Title</span>
+        </div>
+        <div class="history-card-body">
+          <div class="history-stat-row"><span class="history-stat-label">Team</span><span class="history-stat-val gold">Alabama Crimson Tide</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Overall Record</span><span class="history-stat-val">36-12</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Seasons</span><span class="history-stat-val">3</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Bowl Record</span><span class="history-stat-val">5-0</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Championships</span><span class="history-stat-val gold">Season 1 (2022)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOWL HISTORY -->
+    <div class="history-section" id="hsub-bowl">
+      <div style="padding:16px 16px 8px">
+        <div class="division-label" style="font-size:11px">Bowl Game Results · All Seasons</div>
+      </div>
+      <div class="history-card">
+        <div class="history-card-header">
+          <div class="history-season">Season 3 · 2024</div>
+          <span class="history-badge champ">Championship</span>
+        </div>
+        <div class="history-card-body">
+          <div class="history-stat-row"><span class="history-stat-label">Not Gay Championship</span><span class="history-stat-val gold">Georgia 38 · Alabama 24</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Rose Bowl</span><span class="history-stat-val">Ohio State 28 · USC 21</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Sugar Bowl</span><span class="history-stat-val">Texas 35 · Ole Miss 17</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Orange Bowl</span><span class="history-stat-val">Florida State 24 · Michigan 20</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Cotton Bowl</span><span class="history-stat-val">Penn State 31 · Clemson 14</span></div>
+        </div>
+      </div>
+      <div class="history-card">
+        <div class="history-card-header">
+          <div class="history-season">Season 2 · 2023</div>
+          <span class="history-badge champ">Championship</span>
+        </div>
+        <div class="history-card-body">
+          <div class="history-stat-row"><span class="history-stat-label">Not Gay Championship</span><span class="history-stat-val gold">Ohio State 31 · Clemson 17</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Rose Bowl</span><span class="history-stat-val">Alabama 42 · Washington 28</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Sugar Bowl</span><span class="history-stat-val">Georgia 24 · TCU 10</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Orange Bowl</span><span class="history-stat-val">Notre Dame 21 · LSU 17</span></div>
+        </div>
+      </div>
+      <div class="history-card">
+        <div class="history-card-header">
+          <div class="history-season">Season 1 · 2022</div>
+          <span class="history-badge champ">Championship</span>
+        </div>
+        <div class="history-card-body">
+          <div class="history-stat-row"><span class="history-stat-label">Not Gay Championship</span><span class="history-stat-val gold">Alabama 42 · Texas 28</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Rose Bowl</span><span class="history-stat-val">Georgia 38 · Oregon 24</span></div>
+          <div class="history-stat-row"><span class="history-stat-label">Sugar Bowl</span><span class="history-stat-val">Clemson 27 · Oklahoma 14</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AWARD HISTORY -->
+    <div class="history-section" id="hsub-award">
+      <div style="padding:16px 16px 8px">
+        <div class="division-label" style="font-size:11px">Season 3 · 2024 Awards</div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🏆</div>
+        <div class="award-info">
+          <div class="award-name">Heisman Trophy</div>
+          <div class="award-winner">Carson Beck · QB · Georgia</div>
+          <div class="award-meta">4,204 YDS · 38 TD · 5 INT · 142.1 RTG</div>
+        </div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🛡️</div>
+        <div class="award-info">
+          <div class="award-name">Bednarik Award (Def. Player)</div>
+          <div class="award-winner">Malaki Starks · S · Georgia</div>
+          <div class="award-meta">94 Tackles · 7 INT · 2 FR</div>
+        </div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🥾</div>
+        <div class="award-info">
+          <div class="award-name">Doak Walker Award (RB)</div>
+          <div class="award-winner">Trevor Etienne · RB · Georgia</div>
+          <div class="award-meta">1,487 YDS · 18 TD · 6.2 YPC</div>
+        </div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🎯</div>
+        <div class="award-info">
+          <div class="award-name">Biletnikoff Award (WR)</div>
+          <div class="award-winner">Dayton Wade · WR · Florida State</div>
+          <div class="award-meta">94 REC · 1,312 YDS · 14 TD</div>
+        </div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">📋</div>
+        <div class="award-info">
+          <div class="award-name">Coach of the Year</div>
+          <div class="award-winner">@GridironKing · Georgia</div>
+          <div class="award-meta">13-1 Record · League Champion</div>
+        </div>
+      </div>
+
+      <div style="padding:16px 16px 8px">
+        <div class="division-label" style="font-size:11px">Season 2 · 2023 Awards</div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🏆</div>
+        <div class="award-info">
+          <div class="award-name">Heisman Trophy</div>
+          <div class="award-winner">Kyle McCord · QB · Ohio State</div>
+          <div class="award-meta">3,888 YDS · 31 TD · 8 INT · 131.4 RTG</div>
+        </div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🛡️</div>
+        <div class="award-info">
+          <div class="award-name">Bednarik Award (Def. Player)</div>
+          <div class="award-winner">J.T. Tuimoloau · DE · Ohio State</div>
+          <div class="award-meta">14.5 Sacks · 8 FF · 72 Tackles</div>
+        </div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">📋</div>
+        <div class="award-info">
+          <div class="award-name">Coach of the Year</div>
+          <div class="award-winner">@BuckeyeBoss · Ohio State</div>
+          <div class="award-meta">12-2 Record · League Champion</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <!-- BOTTOM NAV -->
@@ -1416,8 +1781,8 @@
   <button class="bottom-nav-item" data-page="stats">
     <span class="nav-icon">📈</span>Stats
   </button>
-  <button class="bottom-nav-item" data-page="news">
-    <span class="nav-icon">📰</span>News
+  <button class="bottom-nav-item" data-page="history" data-hsub="team">
+    <span class="nav-icon">📜</span>History
   </button>
 </nav>
 
@@ -1438,6 +1803,46 @@
     drawer.classList.remove('open');
   }
 
+  // ─── HISTORY SUBMENU TOGGLE ───
+  const historyParentBtn = document.getElementById('historyParentBtn');
+  const historySubnav = document.getElementById('historySubnav');
+  historyParentBtn.addEventListener('click', () => {
+    historyParentBtn.classList.toggle('open');
+    historySubnav.classList.toggle('open');
+  });
+
+  // Navigate to a history sub-section
+  function navigateHistory(subId) {
+    navigateTo('history');
+    document.querySelectorAll('.history-section').forEach(s => s.classList.remove('active'));
+    const target = document.getElementById('hsub-' + subId);
+    if (target) target.classList.add('active');
+    document.querySelectorAll('.history-tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.hsub === subId);
+    });
+    document.querySelectorAll('.drawer-subnav a').forEach(a => {
+      a.classList.toggle('active', a.dataset.hsub === subId);
+    });
+  }
+
+  // Drawer subnav links
+  document.querySelectorAll('.drawer-subnav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      navigateHistory(a.dataset.hsub);
+    });
+  });
+
+  // History page tabs
+  document.querySelectorAll('.history-tab').forEach(tab => {
+    tab.addEventListener('click', () => navigateHistory(tab.dataset.hsub));
+  });
+
+  // Bottom nav history button
+  document.querySelectorAll('.bottom-nav-item[data-page="history"]').forEach(btn => {
+    btn.addEventListener('click', () => navigateHistory(btn.dataset.hsub || 'team'));
+  });
+
   // ─── PAGE NAVIGATION ───
   function navigateTo(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1456,7 +1861,7 @@
   }
 
   // Bottom nav
-  document.querySelectorAll('.bottom-nav-item').forEach(btn => {
+  document.querySelectorAll('.bottom-nav-item:not([data-page="history"])').forEach(btn => {
     btn.addEventListener('click', () => navigateTo(btn.dataset.page));
   });
 
