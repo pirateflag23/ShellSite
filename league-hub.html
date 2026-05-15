@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRIDIRON LEAGUE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #F5C518;
+    --gold-dim: #c49a10;
+    --red: #C0392B;
+    --dark: #0a0a0c;
+    --dark2: #111114;
+    --dark3: #1a1a1f;
+    --dark4: #22222a;
+    --border: rgba(245,197,24,0.15);
+    --text: #e8e8e8;
+    --muted: #888;
+    --nav-h: 56px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 1000; opacity: 0.4;
+  }
+
+  /* ─── TOP BAR ─── */
+  .topbar {
+    background: var(--gold);
+    color: var(--dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-align: center;
+    padding: 6px 16px;
+    text-transform: uppercase;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: sticky; top: 0; z-index: 900;
+    height: var(--nav-h);
+    background: rgba(10,10,12,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 16px;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .nav-logo span { color: #fff; }
+
+  .hamburger {
+    width: 40px; height: 40px;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center; gap: 5px;
+    cursor: pointer; border: none; background: none; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--gold); border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ─── DRAWER ─── */
+  .drawer {
+    position: fixed; inset: 0; z-index: 800;
+    pointer-events: none;
+  }
+  .drawer-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.7);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .drawer-panel {
+    position: absolute; top: 0; right: 0;
+    width: min(320px, 85vw); height: 100%;
+    background: var(--dark2);
+    border-left: 1px solid var(--border);
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+    display: flex; flex-direction: column;
+    padding-top: var(--nav-h);
+  }
+  .drawer.open { pointer-events: all; }
+  .drawer.open .drawer-overlay { opacity: 1; }
+  .drawer.open .drawer-panel { transform: translateX(0); }
+
+  .drawer-header {
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+  .drawer-header p { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .drawer-nav { padding: 12px 0; flex: 1; overflow-y: auto; }
+  .drawer-nav a {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 24px;
+    color: var(--text); text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 600; letter-spacing: 0.04em;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: all 0.2s;
+  }
+  .drawer-nav a:hover, .drawer-nav a.active {
+    color: var(--gold);
+    background: rgba(245,197,24,0.05);
+    padding-left: 30px;
+  }
+  .drawer-nav a .icon { font-size: 20px; width: 24px; text-align: center; }
+
+  .drawer-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── PAGES ─── */
+  .page { display: none; animation: fadeIn 0.35s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: none; } }
+
+  /* ─── HOME PAGE ─── */
+  .hero {
+    position: relative;
+    min-height: 52vw; max-height: 340px;
+    background: linear-gradient(135deg, #0a0a0c 0%, #1a1010 50%, #0a0a0c 100%);
+    overflow: hidden;
+    display: flex; align-items: flex-end;
+    padding: 24px 16px;
+  }
+  .hero-field {
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 80px),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 60px);
+    background-size: 80px 60px;
+  }
+  .hero-yardlines {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg,
+      transparent 0%, transparent calc(10% - 2px),
+      rgba(255,255,255,0.07) calc(10% - 2px), rgba(255,255,255,0.07) 10%
+    );
+  }
+  .hero-glow {
+    position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%);
+    width: 80%; height: 120px;
+    background: radial-gradient(ellipse, rgba(245,197,24,0.2) 0%, transparent 70%);
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+    color: var(--gold); text-transform: uppercase;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 20px; height: 2px; background: var(--gold);
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(38px, 10vw, 68px);
+    line-height: 0.9; letter-spacing: 0.02em;
+    margin: 6px 0 10px;
+  }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .hero-sub { font-size: 13px; color: var(--muted); }
+
+  /* LIVE SCORES TICKER */
+  .ticker-wrap {
+    background: var(--gold);
+    overflow: hidden; position: relative;
+  }
+  .ticker-label {
+    position: absolute; left: 0; top: 0; bottom: 0; z-index: 2;
+    background: var(--dark);
+    color: var(--gold);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px; letter-spacing: 0.1em;
+    padding: 0 14px;
+    display: flex; align-items: center;
+  }
+  .ticker-track {
+    display: flex; gap: 0;
+    animation: ticker 28s linear infinite;
+    white-space: nowrap;
+    padding-left: 80px;
+  }
+  .ticker-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    color: var(--dark);
+    padding: 7px 28px 7px 0;
+    letter-spacing: 0.04em;
+  }
+  .ticker-item .sep { color: rgba(0,0,0,0.35); margin: 0 8px; }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* SECTION HEADERS */
+  .section { padding: 24px 16px; }
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 0.06em;
+  }
+  .section-title span { color: var(--gold); }
+  .see-all {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--gold); text-transform: uppercase;
+    cursor: pointer; border: none; background: none;
+    text-decoration: none;
+  }
+
+  /* SCORE CARDS */
+  .scores-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  }
+  .score-card {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px;
+    position: relative; overflow: hidden;
+  }
+  .score-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--gold);
+  }
+  .score-card.final::before { background: var(--muted); }
+  .score-status {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .score-status.live { color: #4ade80; }
+  .score-status.final { color: var(--muted); }
+  .score-status.upcoming { color: var(--gold); }
+  .score-team {
+    display: flex; justify-content: space-between; align-items: center;
+    margin: 4px 0;
+  }
+  .score-team-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700; letter-spacing: 0.02em;
+  }
+  .score-team-pts {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; color: var(--gold);
+  }
+  .score-team.loser .score-team-pts { color: var(--muted); }
+  .score-divider { height: 1px; background: var(--border); margin: 6px 0; }
+  .score-meta { font-size: 10px; color: var(--muted); margin-top: 6px; }
+
+  /* NEWS FEED */
+  .news-card {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 8px; padding: 16px;
+    margin-bottom: 10px;
+    display: flex; gap: 14px; align-items: flex-start;
+    cursor: pointer; transition: border-color 0.2s;
+  }
+  .news-card:hover { border-color: rgba(245,197,24,0.4); }
+  .news-card-tag {
+    background: var(--gold); color: var(--dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    padding: 2px 7px; border-radius: 3px; text-transform: uppercase;
+    white-space: nowrap; margin-top: 2px; flex-shrink: 0;
+  }
+  .news-card-tag.trade { background: #3b82f6; color: #fff; }
+  .news-card-tag.injury { background: var(--red); color: #fff; }
+  .news-card-tag.recap { background: #22c55e; color: #fff; }
+  .news-card-body h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700; line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  .news-card-body p { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .news-card-body .ts { font-size: 11px; color: var(--gold); margin-top: 6px; }
+
+  /* FEATURED ARTICLE */
+  .featured-article {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .featured-article-img {
+    height: 160px;
+    background: linear-gradient(135deg, #1a0808 0%, #0a1a0a 100%);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .featured-article-img .field-art {
+    font-size: 80px; opacity: 0.15;
+  }
+  .featured-article-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, var(--dark3) 0%, transparent 60%);
+  }
+  .featured-article-img-tag {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--gold); color: var(--dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    padding: 3px 10px; border-radius: 4px; text-transform: uppercase;
+  }
+  .featured-article-content { padding: 16px; }
+  .featured-article-content h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; font-weight: 700; line-height: 1.2; margin-bottom: 8px;
+  }
+  .featured-article-content p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* ─── STANDINGS PAGE ─── */
+  .page-header {
+    background: var(--dark2);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 16px 16px;
+  }
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px; letter-spacing: 0.06em;
+    color: var(--gold);
+  }
+  .page-header p { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+  .division-block { padding: 20px 16px 8px; }
+  .division-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .division-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .standings-table {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 8px; overflow: hidden;
+  }
+  .standings-row {
+    display: grid;
+    grid-template-columns: 28px 1fr 36px 36px 36px 52px;
+    align-items: center;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    gap: 4px;
+  }
+  .standings-row:last-child { border-bottom: none; }
+  .standings-row.header {
+    background: var(--dark4);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    padding: 8px 12px;
+  }
+  .standings-row.playoff-bubble { border-top: 2px dashed rgba(245,197,24,0.3); }
+  .rank { font-family: 'Bebas Neue', sans-serif; font-size: 15px; color: var(--muted); }
+  .rank.top { color: var(--gold); }
+  .team-info { display: flex; flex-direction: column; }
+  .team-name-stand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700;
+  }
+  .team-conf { font-size: 10px; color: var(--muted); }
+  .stat-cell {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 600;
+    text-align: center;
+  }
+  .stat-pct { color: var(--muted); font-size: 13px; }
+  .pct-bar-wrap { display: flex; align-items: center; gap: 6px; }
+  .pct-bar {
+    flex: 1; height: 3px; background: var(--dark4); border-radius: 2px; overflow: hidden;
+  }
+  .pct-bar-fill { height: 100%; background: var(--gold); border-radius: 2px; }
+  .clinched { color: var(--gold); font-size: 9px; font-weight: 700; letter-spacing: 0.08em; }
+  .elim { color: var(--red); font-size: 9px; font-weight: 700; }
+
+  /* ─── STATS PAGE ─── */
+  .stats-tabs {
+    display: flex; overflow-x: auto; gap: 0;
+    background: var(--dark2);
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: none;
+  }
+  .stats-tabs::-webkit-scrollbar { display: none; }
+  .stats-tab {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted);
+    padding: 12px 18px; cursor: pointer; white-space: nowrap;
+    border-bottom: 2px solid transparent; transition: all 0.2s;
+    background: none; border-top: none; border-left: none; border-right: none;
+  }
+  .stats-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  .stat-table-wrap { padding: 16px; }
+  .stat-table {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 8px; overflow: hidden; width: 100%;
+  }
+  .stat-row {
+    display: grid;
+    align-items: center;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    gap: 8px;
+  }
+  .stat-row.passing { grid-template-columns: 22px 1fr 48px 48px 44px 44px; }
+  .stat-row.rushing { grid-template-columns: 22px 1fr 52px 52px 52px; }
+  .stat-row.receiving { grid-template-columns: 22px 1fr 44px 52px 48px; }
+  .stat-row.header {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    background: var(--dark4); padding: 8px 12px;
+  }
+  .stat-row:last-child { border-bottom: none; }
+  .player-rank { font-family: 'Bebas Neue', sans-serif; font-size: 14px; color: var(--muted); }
+  .player-rank.gold { color: var(--gold); }
+  .player-info { display: flex; flex-direction: column; }
+  .player-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700; line-height: 1;
+  }
+  .player-team { font-size: 10px; color: var(--muted); }
+  .stat-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 600;
+    text-align: right;
+  }
+  .stat-val.lead { color: var(--gold); font-size: 16px; }
+
+  /* ─── SCHEDULE PAGE ─── */
+  .week-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--dark2);
+    border-bottom: 1px solid var(--border);
+  }
+  .week-nav-btn {
+    background: var(--dark4); border: 1px solid var(--border);
+    color: var(--text); width: 36px; height: 36px;
+    border-radius: 6px; cursor: pointer; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s;
+  }
+  .week-nav-btn:hover { border-color: var(--gold); }
+  .week-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; letter-spacing: 0.06em; color: var(--gold);
+  }
+
+  .matchup-card {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 8px; margin: 0 16px 10px;
+    overflow: hidden;
+  }
+  .matchup-header {
+    background: var(--dark4);
+    padding: 6px 12px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+    display: flex; justify-content: space-between;
+  }
+  .matchup-body { padding: 14px 12px; }
+  .matchup-teams {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  }
+  .matchup-team { flex: 1; }
+  .matchup-team.away { text-align: left; }
+  .matchup-team.home { text-align: right; }
+  .matchup-team-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 700; line-height: 1;
+  }
+  .matchup-team-record { font-size: 11px; color: var(--muted); }
+  .matchup-vs {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px; color: var(--muted); letter-spacing: 0.1em;
+    padding: 0 8px; flex-shrink: 0;
+  }
+  .matchup-score-wrap {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+  }
+  .matchup-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px; color: var(--gold);
+  }
+  .matchup-score.loser { color: var(--muted); }
+  .matchup-score-sep { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--border); }
+  .matchup-time {
+    text-align: center; margin-top: 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; color: var(--muted);
+  }
+  .matchup-badge {
+    display: inline-block;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
+    padding: 2px 8px; border-radius: 10px;
+    text-transform: uppercase; margin-left: 8px;
+  }
+  .matchup-badge.live { background: rgba(74,222,128,0.15); color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
+  .matchup-badge.final { background: var(--dark4); color: var(--muted); border: 1px solid var(--border); }
+  .matchup-badge.upcoming { background: rgba(245,197,24,0.1); color: var(--gold); border: 1px solid rgba(245,197,24,0.3); }
+
+  /* ─── ROSTER PAGE ─── */
+  .roster-team-select {
+    padding: 16px;
+    background: var(--dark2);
+    border-bottom: 1px solid var(--border);
+  }
+  .roster-team-select label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 8px;
+  }
+  .team-select-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .team-select-scroll::-webkit-scrollbar { display: none; }
+  .team-chip {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+    padding: 7px 14px; border-radius: 20px; white-space: nowrap;
+    border: 1px solid var(--border); background: var(--dark3);
+    color: var(--muted); cursor: pointer; transition: all 0.2s;
+  }
+  .team-chip.active { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+
+  .roster-grid { padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .player-card {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .player-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; color: var(--gold);
+    width: 36px; text-align: center; flex-shrink: 0; line-height: 1;
+  }
+  .player-card-info { flex: 1; }
+  .player-card-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px; font-weight: 700; line-height: 1.1;
+  }
+  .player-card-pos {
+    font-size: 11px; color: var(--muted); margin-top: 1px;
+  }
+  .player-card-stats {
+    display: flex; gap: 12px; margin-top: 6px;
+  }
+  .player-card-stat { font-size: 11px; }
+  .player-card-stat strong {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700; color: var(--gold);
+  }
+  .player-pos-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+    padding: 4px 10px; border-radius: 4px;
+    background: var(--dark4); color: var(--muted);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .player-pos-badge.QB { color: #f97316; border-color: rgba(249,115,22,0.3); }
+  .player-pos-badge.RB { color: #4ade80; border-color: rgba(74,222,128,0.3); }
+  .player-pos-badge.WR { color: #60a5fa; border-color: rgba(96,165,250,0.3); }
+  .player-pos-badge.TE { color: #c084fc; border-color: rgba(192,132,252,0.3); }
+  .player-pos-badge.K  { color: var(--muted); }
+
+  /* ─── PLAYOFF PAGE ─── */
+  .bracket-wrap { padding: 16px; overflow-x: auto; }
+  .bracket {
+    display: flex; gap: 0; min-width: 580px;
+    align-items: center;
+  }
+  .bracket-round { display: flex; flex-direction: column; flex: 1; }
+  .bracket-round-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    text-align: center; margin-bottom: 12px;
+  }
+  .bracket-games { display: flex; flex-direction: column; gap: 24px; justify-content: space-around; flex: 1; }
+  .bracket-game {
+    background: var(--dark3); border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+  }
+  .bracket-team {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 7px 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .bracket-team:last-child { border-bottom: none; }
+  .bracket-team.winner { color: var(--gold); background: rgba(245,197,24,0.05); }
+  .bracket-team.loser { color: var(--muted); }
+  .bracket-team .seed { color: var(--muted); font-size: 10px; margin-right: 6px; }
+  .bracket-score { font-family: 'Bebas Neue', sans-serif; font-size: 16px; }
+  .bracket-connector {
+    width: 20px; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; gap: 0;
+    flex-shrink: 0; align-self: stretch;
+  }
+  .bc-line { flex: 1; width: 1px; background: var(--border); }
+  .bc-h { width: 100%; height: 1px; background: var(--border); }
+
+  .champion-card {
+    background: linear-gradient(135deg, rgba(245,197,24,0.1) 0%, rgba(245,197,24,0.05) 100%);
+    border: 1px solid rgba(245,197,24,0.4);
+    border-radius: 10px; padding: 20px; margin: 16px;
+    text-align: center;
+  }
+  .champion-card .trophy { font-size: 40px; margin-bottom: 8px; }
+  .champion-card h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px; letter-spacing: 0.15em; color: var(--muted);
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .champion-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px; letter-spacing: 0.05em; color: var(--gold);
+  }
+  .champion-card p { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* ─── BOTTOM NAV ─── */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 850;
+    background: rgba(10,10,12,0.97);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    display: flex; height: 58px;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  .bottom-nav-item {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 2px;
+    cursor: pointer; transition: color 0.2s;
+    color: var(--muted); font-size: 9px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    border: none; background: none;
+  }
+  .bottom-nav-item .nav-icon { font-size: 20px; line-height: 1; }
+  .bottom-nav-item.active { color: var(--gold); }
+
+  /* ─── MAIN CONTENT PADDING ─── */
+  .main-content { padding-bottom: 70px; }
+
+  /* ─── LIVE DOT ─── */
+  .live-dot {
+    display: inline-block; width: 6px; height: 6px;
+    background: #4ade80; border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+    margin-right: 4px;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  /* ─── UTIL ─── */
+  .divider { height: 1px; background: var(--border); margin: 0 16px; }
+  .pb16 { padding-bottom: 16px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">⚡ WEEK 11 NOW LIVE — 3 GAMES IN PROGRESS</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">GRIDIRON<span>LEAGUE</span></div>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <div class="drawer-panel">
+    <div class="drawer-header">
+      <h2>GRIDIRON LEAGUE</h2>
+      <p>Season 4 · Week 11 of 14</p>
+    </div>
+    <nav class="drawer-nav">
+      <a href="#" class="active" data-page="home"><span class="icon">🏈</span> Home</a>
+      <a href="#" data-page="scores"><span class="icon">📊</span> Scores & Schedule</a>
+      <a href="#" data-page="standings"><span class="icon">🏆</span> Standings</a>
+      <a href="#" data-page="stats"><span class="icon">📈</span> Player Stats</a>
+      <a href="#" data-page="roster"><span class="icon">👥</span> Rosters</a>
+      <a href="#" data-page="playoffs"><span class="icon">🎯</span> Playoff Picture</a>
+      <a href="#" data-page="news"><span class="icon">📰</span> News & Articles</a>
+    </nav>
+    <div class="drawer-footer">GRIDIRON ONLINE LEAGUE &nbsp;·&nbsp; S4 2025</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main-content">
+
+  <!-- ░░ HOME PAGE ░░ -->
+  <div class="page active" id="page-home">
+
+    <div class="hero">
+      <div class="hero-field"></div>
+      <div class="hero-yardlines"></div>
+      <div class="hero-glow"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">Season 4 · Week 11</div>
+        <h1>THE <em>GRIDIRON</em><br>IS LIVE</h1>
+        <div class="hero-sub">3 games in progress · Tuesday night slate</div>
+      </div>
+    </div>
+
+    <!-- TICKER -->
+    <div class="ticker-wrap">
+      <div class="ticker-label">LIVE</div>
+      <div class="ticker-track">
+        <div class="ticker-item">BLITZ FC 28 <span class="sep">·</span> THE RAID 21 — Q3 8:42</div>
+        <div class="ticker-item">IRON HAWKS 14 <span class="sep">·</span> VENOM SC 14 — HALFTIME</div>
+        <div class="ticker-item">DYNASTY KINGS 35 <span class="sep">·</span> RED ZONE 7 — Q4 2:01</div>
+        <div class="ticker-item">STORM CHASERS 24 <span class="sep">·</span> GRAVEL PITS 17 — FINAL</div>
+        <div class="ticker-item">BLITZ FC 28 <span class="sep">·</span> THE RAID 21 — Q3 8:42</div>
+        <div class="ticker-item">IRON HAWKS 14 <span class="sep">·</span> VENOM SC 14 — HALFTIME</div>
+        <div class="ticker-item">DYNASTY KINGS 35 <span class="sep">·</span> RED ZONE 7 — Q4 2:01</div>
+        <div class="ticker-item">STORM CHASERS 24 <span class="sep">·</span> GRAVEL PITS 17 — FINAL</div>
+      </div>
+    </div>
+
+    <!-- SCORES -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">WEEK 11 <span>SCORES</span></div>
+        <a class="see-all" data-page="scores">Full Schedule →</a>
+      </div>
+      <div class="scores-grid">
+        <div class="score-card">
+          <div class="score-status live"><span class="live-dot"></span>Q3 8:42</div>
+          <div class="score-team">
+            <div class="score-team-name">BLITZ FC</div>
+            <div class="score-team-pts">28</div>
+          </div>
+          <div class="score-divider"></div>
+          <div class="score-team loser">
+            <div class="score-team-name">THE RAID</div>
+            <div class="score-team-pts">21</div>
+          </div>
+          <div class="score-meta">North Division</div>
+        </div>
+        <div class="score-card">
+          <div class="score-status live"><span class="live-dot"></span>HALFTIME</div>
+          <div class="score-team">
+            <div class="score-team-name">IRON HAWKS</div>
+            <div class="score-team-pts">14</div>
+          </div>
+          <div class="score-divider"></div>
+          <div class="score-team">
+            <div class="score-team-name">VENOM SC</div>
+            <div class="score-team-pts">14</div>
+          </div>
+          <div class="score-meta">South Division</div>
+        </div>
+        <div class="score-card final">
+          <div class="score-status final">Final</div>
+          <div class="score-team">
+            <div class="score-team-name">STORM</div>
+            <div class="score-team-pts">24</div>
+          </div>
+          <div class="score-divider"></div>
+          <div class="score-team loser">
+            <div class="score-team-name">GRAVEL PITS</div>
+            <div class="score-team-pts">17</div>
+          </div>
+          <div class="score-meta">North Division</div>
+        </div>
+        <div class="score-card">
+          <div class="score-status upcoming">Thu 8PM</div>
+          <div class="score-team">
+            <div class="score-team-name">DYNASTY</div>
+            <div class="score-team-pts">—</div>
+          </div>
+          <div class="score-divider"></div>
+          <div class="score-team">
+            <div class="score-team-name">BOLT CITY</div>
+            <div class="score-team-pts">—</div>
+          </div>
+          <div class="score-meta">Rivalry Week</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- FEATURED ARTICLE -->
+    <div class="section pb16">
+      <div class="section-header">
+        <div class="section-title">LATEST <span>NEWS</span></div>
+        <a class="see-all" data-page="news">All Articles →</a>
+      </div>
+      <div class="featured-article">
+        <div class="featured-article-img">
+          <div class="field-art">🏈</div>
+          <div class="featured-article-img-overlay"></div>
+          <div class="featured-article-img-tag">COVER STORY</div>
+        </div>
+        <div class="featured-article-content">
+          <h2>BLITZ FC's Marcus Webb Is the League's Most Dangerous Weapon</h2>
+          <p>With 1,847 passing yards and 22 TDs through 10 weeks, Webb is shattering every single-season record in Gridiron League history.</p>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-card-tag trade">Trade</div>
+        <div class="news-card-body">
+          <h3>DYNASTY KINGS acquire RB Trevon Miles from IRON HAWKS</h3>
+          <p>A blockbuster deal shakes up the playoff race with just 4 weeks left.</p>
+          <div class="ts">2 hours ago</div>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-card-tag injury">Injury</div>
+        <div class="news-card-body">
+          <h3>VENOM SC WR out 2 weeks with hamstring strain</h3>
+          <p>DeShawn Carter is listed as doubtful for Week 11 and likely Week 12.</p>
+          <div class="ts">5 hours ago</div>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-card-tag recap">Recap</div>
+        <div class="news-card-body">
+          <h3>Week 10 Recap: Storm Chasers lock up division title</h3>
+          <p>The dominant 31-10 victory clinches the North for the second straight season.</p>
+          <div class="ts">Yesterday</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ SCORES PAGE ░░ -->
+  <div class="page" id="page-scores">
+    <div class="page-header">
+      <h1>SCHEDULE</h1>
+      <p>Season 4 · 14-Week Regular Season</p>
+    </div>
+    <div class="week-nav">
+      <button class="week-nav-btn">‹</button>
+      <div class="week-label">WEEK 11</div>
+      <button class="week-nav-btn">›</button>
+    </div>
+
+    <div style="padding:16px 0">
+      <!-- Matchup 1 -->
+      <div class="matchup-card">
+        <div class="matchup-header">
+          <span>North Division</span>
+          <span><span class="live-dot"></span>LIVE — Q3 8:42</span>
+        </div>
+        <div class="matchup-body">
+          <div class="matchup-score-wrap">
+            <div>
+              <div class="matchup-team-name" style="text-align:center">BLITZ FC</div>
+              <div class="matchup-score">28</div>
+            </div>
+            <div class="matchup-score-sep">—</div>
+            <div>
+              <div class="matchup-team-name" style="text-align:center">THE RAID</div>
+              <div class="matchup-score loser">21</div>
+            </div>
+          </div>
+          <div class="matchup-time">
+            <span class="matchup-badge live">LIVE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Matchup 2 -->
+      <div class="matchup-card">
+        <div class="matchup-header">
+          <span>South Division</span>
+          <span>LIVE — HALFTIME</span>
+        </div>
+        <div class="matchup-body">
+          <div class="matchup-score-wrap">
+            <div style="text-align:center">
+              <div class="matchup-team-name">IRON HAWKS</div>
+              <div class="matchup-score" style="color:var(--text)">14</div>
+            </div>
+            <div class="matchup-score-sep">—</div>
+            <div style="text-align:center">
+              <div class="matchup-team-name">VENOM SC</div>
+              <div class="matchup-score" style="color:var(--text)">14</div>
+            </div>
+          </div>
+          <div class="matchup-time"><span class="matchup-badge live">HALFTIME</span></div>
+        </div>
+      </div>
+
+      <!-- Matchup 3 - Final -->
+      <div class="matchup-card">
+        <div class="matchup-header">
+          <span>North Division</span>
+          <span>FINAL</span>
+        </div>
+        <div class="matchup-body">
+          <div class="matchup-score-wrap">
+            <div style="text-align:center">
+              <div class="matchup-team-name">STORM CHASERS</div>
+              <div class="matchup-score">24</div>
+            </div>
+            <div class="matchup-score-sep">—</div>
+            <div style="text-align:center">
+              <div class="matchup-team-name">GRAVEL PITS</div>
+              <div class="matchup-score loser">17</div>
+            </div>
+          </div>
+          <div class="matchup-time"><span class="matchup-badge final">FINAL</span></div>
+        </div>
+      </div>
+
+      <!-- Matchup 4 - Upcoming -->
+      <div class="matchup-card">
+        <div class="matchup-header">
+          <span>Rivalry Week</span>
+          <span>Thursday Night</span>
+        </div>
+        <div class="matchup-body">
+          <div class="matchup-teams">
+            <div class="matchup-team away">
+              <div class="matchup-team-name">DYNASTY KINGS</div>
+              <div class="matchup-team-record">8-2 · 1st North</div>
+            </div>
+            <div class="matchup-vs">VS</div>
+            <div class="matchup-team home" style="text-align:right">
+              <div class="matchup-team-name">BOLT CITY</div>
+              <div class="matchup-team-record">7-3 · 2nd South</div>
+            </div>
+          </div>
+          <div class="matchup-time">Thursday · 8:00 PM ET <span class="matchup-badge upcoming">UPCOMING</span></div>
+        </div>
+      </div>
+
+      <!-- Matchup 5 - Upcoming -->
+      <div class="matchup-card">
+        <div class="matchup-header">
+          <span>South Division</span>
+          <span>Friday Night</span>
+        </div>
+        <div class="matchup-body">
+          <div class="matchup-teams">
+            <div class="matchup-team away">
+              <div class="matchup-team-name">RED ZONE</div>
+              <div class="matchup-team-record">4-6</div>
+            </div>
+            <div class="matchup-vs">VS</div>
+            <div class="matchup-team home" style="text-align:right">
+              <div class="matchup-team-name">NIGHT OWLS</div>
+              <div class="matchup-team-record">5-5</div>
+            </div>
+          </div>
+          <div class="matchup-time">Friday · 7:30 PM ET <span class="matchup-badge upcoming">UPCOMING</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ STANDINGS PAGE ░░ -->
+  <div class="page" id="page-standings">
+    <div class="page-header">
+      <h1>STANDINGS</h1>
+      <p>Week 11 · Regular Season</p>
+    </div>
+
+    <div class="division-block">
+      <div class="division-label">North Division</div>
+      <div class="standings-table">
+        <div class="standings-row header">
+          <div></div>
+          <div>Team</div>
+          <div style="text-align:center">W</div>
+          <div style="text-align:center">L</div>
+          <div style="text-align:center">T</div>
+          <div style="text-align:center">PCT</div>
+        </div>
+        <div class="standings-row">
+          <div class="rank top">1</div>
+          <div class="team-info">
+            <div class="team-name-stand">STORM CHASERS</div>
+            <div class="clinched">✓ CLINCHED</div>
+          </div>
+          <div class="stat-cell">9</div>
+          <div class="stat-cell">1</div>
+          <div class="stat-cell">0</div>
+          <div class="stat-cell">
+            <div class="pct-bar-wrap"><div class="pct-bar"><div class="pct-bar-fill" style="width:90%"></div></div><span class="stat-pct">.900</span></div>
+          </div>
+        </div>
+        <div class="standings-row">
+          <div class="rank top">2</div>
+          <div class="team-info">
+            <div class="team-name-stand">DYNASTY KINGS</div>
+            <div class="team-conf">Wild Card Race</div>
+          </div>
+          <div class="stat-cell">8</div>
+          <div class="stat-cell">2</div>
+          <div class="stat-cell">0</div>
+          <div class="stat-cell">
+            <div class="pct-bar-wrap"><div class="pct-bar"><div class="pct-bar-fill" style="width:80%"></div></div><span class="stat-pct">.800</span></div>
+          </div>
+        </div>
+        <div class="standings-row">
+          <div class="rank">3</div>
+          <div class="team-info">
+            <div class="team-name-stand">BLITZ FC</div>
+            <div class="team-conf">Wild Card Race</div>
+          </div>
+          <div class="stat-cell">6</div>
+          <div class="stat-cell">4</div>
+          <div class="stat-cell">0</div>
+          <div class="stat-cell">
+            <div class="pct-bar-wrap"><div class="pct-bar"><div class="pct-bar-fill" style="width:60%"></div></div><span class="stat-pct">.600</span></div>
+          </div>
+        </div>
+        <div class="standings-row playoff-bubble">
+          <div class="rank">4</div>
+          <div class="team-info">
+            <div class="team-name-stand">THE RAID</div>
+            <div class="elim">ELIMINATED</div>
+          </div>
+          <div class="stat-cell">3</div>
+          <div class="stat-cell">7</div>
+          <div class="stat-cell">0</div>
+          <div class="stat-cell">
+            <div class="pct-bar-wrap"><div class="pct-bar"><div class="pct-bar-fill" style="width:30%"></div></div><span class="stat-pct">.300</span></div>
+          </div>
+        </div>
+        <div class="standings-row">
+          <div class="rank">5</div>
+          <div class="team-info">
+            <div class="team-name-stand">GRAVEL PITS</div>
+            <div class="elim">ELIMINATED</div>
+          </div>
+          <div class="stat-cell">2</div>
+          <div class="stat-cell">8</div>
+          <div class="stat-cell">0</div>
+          <div class="stat-cell">
+            <div class="pct-bar-wrap"><div class="pct-bar"><div class="pct-bar-fill" style="width:20%"></div></div><span class="stat-pct">.200</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="division-block">
+      <div class="division-label">South Division</div>
+      <div class="standings-table">
+        <div class="standings-row header">
+          <div></div>
+          <div>Team</div>
+          <div style="text-align:center">W</div>
+          <div style="text-align:center">L</div>
+          <div style="text-align:center">T</div>
+          <div style="text-align:center">PCT</div>
+        </div>
+        <div class="standings-row">
+          <div class="rank top">1</div>
+          <div class="team-info">
+            <div class="team-name-stand">IRON HAWKS</div>
+            <div class="team-conf">In Playoff Race</div>
+          </div>
+          <div class="stat-cell">7</div>
+          <div class="stat-cell">3</div>
+          <div class="stat-cell">0</div>
+          <div class="stat-cell">
+            <div class="pct-bar-wrap"><div class="pct-bar"><div class="pct-bar-fill" style="width:70%"></div></div><span class="stat-pct">.700</span></div>
+          </div>
+        </div>
+        <div class="standings-row">
+          <div class="rank top">2</div>
+          <div class="team-info">
+            <div class="team-name-stand">BOLT CITY</div>
+            <div class="team-conf">In Playoff Race</div>
+          </div>
+          <div class="stat-cell">7</div>
+          <div class="stat-cell">3</div>
+          <div class="stat-cell">0</div>
+          <div class="stat-cell">
+            <div class="pct-bar-wrap"><div class="pct-bar"><div class="pct-bar-fill" style="width:70%"></div></div><span class="stat-pct">.700</span></div>
+          </div>
+        </div>
+        <div class="standings-row">
+          <div class="rank">3</div>
+          <div class="team-info">
+            <div class="team-name-stand">VENOM SC</div>
+            <div class="team-conf">Wild Card Race</div>
+          </div>
+          <div class="stat-cell">5</div>
+          <div class="stat-cell">5</div>
+          <div class="stat-cell">0</div>
+          <div class="stat-cell">
+            <div class="pct-bar-wrap"><div class="pct-bar"><div class="pct-bar-fill" style="width:50%"></div></div><span class="stat-pct">.500</span></div>
+          </div>
+        </div>
+        <div class="standings-row playoff-bubble">
+          <div class="rank">4</div>
+          <div class="team-info">
+            <div class="team-name-stand">NIGHT OWLS</div>
+            <div class="team-conf">Wild Card Race</div>
+          </div>
+          <div class="stat-cell">5</div>
+          <div class="stat-cell">5</div>
+          <div class="stat-cell">0</div>
+          <div class="stat-cell">
+            <div class="pct-bar-wrap"><div class="pct-bar"><div class="pct-bar-fill" style="width:50%"></div></div><span class="stat-pct">.500</span></div>
+          </div>
+        </div>
+        <div class="standings-row">
+          <div class="rank">5</div>
+          <div class="team-info">
+            <div class="team-name-stand">RED ZONE</div>
+            <div class="elim">ELIMINATED</div>
+          </div>
+          <div class="stat-cell">4</div>
+          <div class="stat-cell">6</div>
+          <div class="stat-cell">0</div>
+          <div class="stat-cell">
+            <div class="pct-bar-wrap"><div class="pct-bar"><div class="pct-bar-fill" style="width:40%"></div></div><span class="stat-pct">.400</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ STATS PAGE ░░ -->
+  <div class="page" id="page-stats">
+    <div class="page-header">
+      <h1>PLAYER STATS</h1>
+      <p>Season 4 · Through Week 10</p>
+    </div>
+    <div class="stats-tabs">
+      <button class="stats-tab active" data-stat="passing">Passing</button>
+      <button class="stats-tab" data-stat="rushing">Rushing</button>
+      <button class="stats-tab" data-stat="receiving">Receiving</button>
+    </div>
+
+    <!-- PASSING -->
+    <div class="stat-table-wrap" id="stat-passing">
+      <div class="stat-table">
+        <div class="stat-row passing header">
+          <div>#</div>
+          <div>Player</div>
+          <div style="text-align:right">YDS</div>
+          <div style="text-align:right">TD</div>
+          <div style="text-align:right">INT</div>
+          <div style="text-align:right">RTG</div>
+        </div>
+        <div class="stat-row passing">
+          <div class="player-rank gold">1</div>
+          <div class="player-info"><div class="player-name">M. WEBB</div><div class="player-team">BLITZ FC · QB</div></div>
+          <div class="stat-val lead">1,847</div>
+          <div class="stat-val">22</div>
+          <div class="stat-val">4</div>
+          <div class="stat-val">118.4</div>
+        </div>
+        <div class="stat-row passing">
+          <div class="player-rank">2</div>
+          <div class="player-info"><div class="player-name">J. CARTER</div><div class="player-team">STORM CHASERS · QB</div></div>
+          <div class="stat-val lead">1,622</div>
+          <div class="stat-val">18</div>
+          <div class="stat-val">6</div>
+          <div class="stat-val">104.2</div>
+        </div>
+        <div class="stat-row passing">
+          <div class="player-rank">3</div>
+          <div class="player-info"><div class="player-name">T. ROSS</div><div class="player-team">DYNASTY KINGS · QB</div></div>
+          <div class="stat-val lead">1,580</div>
+          <div class="stat-val">16</div>
+          <div class="stat-val">5</div>
+          <div class="stat-val">101.8</div>
+        </div>
+        <div class="stat-row passing">
+          <div class="player-rank">4</div>
+          <div class="player-info"><div class="player-name">A. PRICE</div><div class="player-team">IRON HAWKS · QB</div></div>
+          <div class="stat-val lead">1,414</div>
+          <div class="stat-val">14</div>
+          <div class="stat-val">7</div>
+          <div class="stat-val">97.3</div>
+        </div>
+        <div class="stat-row passing">
+          <div class="player-rank">5</div>
+          <div class="player-info"><div class="player-name">R. DELANO</div><div class="player-team">BOLT CITY · QB</div></div>
+          <div class="stat-val lead">1,298</div>
+          <div class="stat-val">12</div>
+          <div class="stat-val">8</div>
+          <div class="stat-val">92.1</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RUSHING -->
+    <div class="stat-table-wrap" id="stat-rushing" style="display:none">
+      <div class="stat-table">
+        <div class="stat-row rushing header">
+          <div>#</div>
+          <div>Player</div>
+          <div style="text-align:right">CAR</div>
+          <div style="text-align:right">YDS</div>
+          <div style="text-align:right">TD</div>
+        </div>
+        <div class="stat-row rushing">
+          <div class="player-rank gold">1</div>
+          <div class="player-info"><div class="player-name">T. MILES</div><div class="player-team">DYNASTY KINGS · RB</div></div>
+          <div class="stat-val">187</div>
+          <div class="stat-val lead">1,102</div>
+          <div class="stat-val">11</div>
+        </div>
+        <div class="stat-row rushing">
+          <div class="player-rank">2</div>
+          <div class="player-info"><div class="player-name">K. FORD</div><div class="player-team">STORM CHASERS · RB</div></div>
+          <div class="stat-val">162</div>
+          <div class="stat-val lead">974</div>
+          <div class="stat-val">9</div>
+        </div>
+        <div class="stat-row rushing">
+          <div class="player-rank">3</div>
+          <div class="player-info"><div class="player-name">D. RUSH</div><div class="player-team">VENOM SC · RB</div></div>
+          <div class="stat-val">148</div>
+          <div class="stat-val lead">856</div>
+          <div class="stat-val">7</div>
+        </div>
+        <div class="stat-row rushing">
+          <div class="player-rank">4</div>
+          <div class="player-info"><div class="player-name">L. BANKS</div><div class="player-team">IRON HAWKS · RB</div></div>
+          <div class="stat-val">139</div>
+          <div class="stat-val lead">788</div>
+          <div class="stat-val">6</div>
+        </div>
+        <div class="stat-row rushing">
+          <div class="player-rank">5</div>
+          <div class="player-info"><div class="player-name">M. CLAY</div><div class="player-team">BLITZ FC · RB</div></div>
+          <div class="stat-val">121</div>
+          <div class="stat-val lead">712</div>
+          <div class="stat-val">8</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECEIVING -->
+    <div class="stat-table-wrap" id="stat-receiving" style="display:none">
+      <div class="stat-table">
+        <div class="stat-row receiving header">
+          <div>#</div>
+          <div>Player</div>
+          <div style="text-align:right">REC</div>
+          <div style="text-align:right">YDS</div>
+          <div style="text-align:right">TD</div>
+        </div>
+        <div class="stat-row receiving">
+          <div class="player-rank gold">1</div>
+          <div class="player-info"><div class="player-name">B. THOMAS</div><div class="player-team">STORM CHASERS · WR</div></div>
+          <div class="stat-val">72</div>
+          <div class="stat-val lead">1,048</div>
+          <div class="stat-val">11</div>
+        </div>
+        <div class="stat-row receiving">
+          <div class="player-rank">2</div>
+          <div class="player-info"><div class="player-name">V. HAYES</div><div class="player-team">BLITZ FC · WR</div></div>
+          <div class="stat-val">68</div>
+          <div class="stat-val lead">984</div>
+          <div class="stat-val">9</div>
+        </div>
+        <div class="stat-row receiving">
+          <div class="player-rank">3</div>
+          <div class="player-info"><div class="player-name">A. KNIGHT</div><div class="player-team">DYNASTY KINGS · TE</div></div>
+          <div class="stat-val">55</div>
+          <div class="stat-val lead">742</div>
+          <div class="stat-val">8</div>
+        </div>
+        <div class="stat-row receiving">
+          <div class="player-rank">4</div>
+          <div class="player-info"><div class="player-name">D. CARTER</div><div class="player-team">VENOM SC · WR</div></div>
+          <div class="stat-val">59</div>
+          <div class="stat-val lead">718</div>
+          <div class="stat-val">6</div>
+        </div>
+        <div class="stat-row receiving">
+          <div class="player-rank">5</div>
+          <div class="player-info"><div class="player-name">R. STONE</div><div class="player-team">BOLT CITY · WR</div></div>
+          <div class="stat-val">51</div>
+          <div class="stat-val lead">672</div>
+          <div class="stat-val">5</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ ROSTER PAGE ░░ -->
+  <div class="page" id="page-roster">
+    <div class="page-header">
+      <h1>ROSTERS</h1>
+      <p>Season 4 · Active Squads</p>
+    </div>
+    <div class="roster-team-select">
+      <label>Select Team</label>
+      <div class="team-select-scroll">
+        <div class="team-chip active">BLITZ FC</div>
+        <div class="team-chip">STORM CHASERS</div>
+        <div class="team-chip">DYNASTY KINGS</div>
+        <div class="team-chip">IRON HAWKS</div>
+        <div class="team-chip">VENOM SC</div>
+        <div class="team-chip">BOLT CITY</div>
+        <div class="team-chip">THE RAID</div>
+        <div class="team-chip">NIGHT OWLS</div>
+        <div class="team-chip">RED ZONE</div>
+        <div class="team-chip">GRAVEL PITS</div>
+      </div>
+    </div>
+    <div class="roster-grid">
+      <div class="player-card">
+        <div class="player-number">12</div>
+        <div class="player-card-info">
+          <div class="player-card-name">Marcus Webb</div>
+          <div class="player-card-pos">Quarterback · Blitz FC</div>
+          <div class="player-card-stats">
+            <div class="player-card-stat"><strong>1,847</strong> Pass Yds</div>
+            <div class="player-card-stat"><strong>22</strong> TDs</div>
+            <div class="player-card-stat"><strong>118.4</strong> RTG</div>
+          </div>
+        </div>
+        <div class="player-pos-badge QB">QB</div>
+      </div>
+      <div class="player-card">
+        <div class="player-number">23</div>
+        <div class="player-card-info">
+          <div class="player-card-name">Marcus Clay</div>
+          <div class="player-card-pos">Running Back · Blitz FC</div>
+          <div class="player-card-stats">
+            <div class="player-card-stat"><strong>712</strong> Rush Yds</div>
+            <div class="player-card-stat"><strong>8</strong> TDs</div>
+          </div>
+        </div>
+        <div class="player-pos-badge RB">RB</div>
+      </div>
+      <div class="player-card">
+        <div class="player-number">84</div>
+        <div class="player-card-info">
+          <div class="player-card-name">Victor Hayes</div>
+          <div class="player-card-pos">Wide Receiver · Blitz FC</div>
+          <div class="player-card-stats">
+            <div class="player-card-stat"><strong>68</strong> Rec</div>
+            <div class="player-card-stat"><strong>984</strong> Yds</div>
+            <div class="player-card-stat"><strong>9</strong> TDs</div>
+          </div>
+        </div>
+        <div class="player-pos-badge WR">WR</div>
+      </div>
+      <div class="player-card">
+        <div class="player-number">11</div>
+        <div class="player-card-info">
+          <div class="player-card-name">D'Andre Pierce</div>
+          <div class="player-card-pos">Wide Receiver · Blitz FC</div>
+          <div class="player-card-stats">
+            <div class="player-card-stat"><strong>44</strong> Rec</div>
+            <div class="player-card-stat"><strong>621</strong> Yds</div>
+            <div class="player-card-stat"><strong>5</strong> TDs</div>
+          </div>
+        </div>
+        <div class="player-pos-badge WR">WR</div>
+      </div>
+      <div class="player-card">
+        <div class="player-number">87</div>
+        <div class="player-card-info">
+          <div class="player-card-name">Cole Maddox</div>
+          <div class="player-card-pos">Tight End · Blitz FC</div>
+          <div class="player-card-stats">
+            <div class="player-card-stat"><strong>31</strong> Rec</div>
+            <div class="player-card-stat"><strong>388</strong> Yds</div>
+            <div class="player-card-stat"><strong>4</strong> TDs</div>
+          </div>
+        </div>
+        <div class="player-pos-badge TE">TE</div>
+      </div>
+      <div class="player-card">
+        <div class="player-number">2</div>
+        <div class="player-card-info">
+          <div class="player-card-name">Jax Brennan</div>
+          <div class="player-card-pos">Kicker · Blitz FC</div>
+          <div class="player-card-stats">
+            <div class="player-card-stat"><strong>24/27</strong> FG</div>
+            <div class="player-card-stat"><strong>88.9%</strong> Acc</div>
+          </div>
+        </div>
+        <div class="player-pos-badge K">K</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ PLAYOFFS PAGE ░░ -->
+  <div class="page" id="page-playoffs">
+    <div class="page-header">
+      <h1>PLAYOFF PICTURE</h1>
+      <p>Bracket · 4 Teams · Best-of-1</p>
+    </div>
+
+    <div class="champion-card">
+      <div class="trophy">🏆</div>
+      <h2>Gridiron Championship</h2>
+      <h3>TBD</h3>
+      <p>Week 14 · Championship Game</p>
+    </div>
+
+    <div class="bracket-wrap">
+      <div class="bracket">
+        <!-- SEMIFINALS -->
+        <div class="bracket-round">
+          <div class="bracket-round-label">SEMIFINAL</div>
+          <div class="bracket-games">
+            <div class="bracket-game">
+              <div class="bracket-team winner">
+                <span><span class="seed">(1)</span> STORM CHASERS</span>
+                <span class="bracket-score">31</span>
+              </div>
+              <div class="bracket-team loser">
+                <span><span class="seed">(4)</span> VENOM SC</span>
+                <span class="bracket-score">17</span>
+              </div>
+            </div>
+            <div class="bracket-game">
+              <div class="bracket-team winner">
+                <span><span class="seed">(2)</span> DYNASTY KINGS</span>
+                <span class="bracket-score">24</span>
+              </div>
+              <div class="bracket-team loser">
+                <span><span class="seed">(3)</span> BOLT CITY</span>
+                <span class="bracket-score">21</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONNECTOR -->
+        <div class="bracket-connector">
+          <div style="flex:1;border-right:1px solid var(--border)"></div>
+          <div style="width:20px;height:1px;background:var(--border)"></div>
+          <div style="flex:1;border-right:1px solid var(--border)"></div>
+        </div>
+
+        <!-- CHAMPIONSHIP -->
+        <div class="bracket-round">
+          <div class="bracket-round-label">CHAMPIONSHIP</div>
+          <div class="bracket-games">
+            <div class="bracket-game" style="border-color:rgba(245,197,24,0.4);background:rgba(245,197,24,0.05)">
+              <div class="bracket-team" style="color:var(--gold)">
+                <span><span class="seed">(1)</span> STORM CHASERS</span>
+                <span class="bracket-score">—</span>
+              </div>
+              <div class="bracket-team" style="color:var(--gold)">
+                <span><span class="seed">(2)</span> DYNASTY KINGS</span>
+                <span class="bracket-score">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:0 16px 16px">
+      <div class="division-label">Playoff Seeding</div>
+      <div class="standings-table">
+        <div class="standings-row header" style="grid-template-columns:28px 1fr 80px">
+          <div>#</div><div>Team</div><div style="text-align:right">Status</div>
+        </div>
+        <div class="standings-row" style="grid-template-columns:28px 1fr 80px">
+          <div class="rank top">1</div>
+          <div class="team-info"><div class="team-name-stand">STORM CHASERS</div></div>
+          <div style="text-align:right"><span class="clinched">CLINCHED</span></div>
+        </div>
+        <div class="standings-row" style="grid-template-columns:28px 1fr 80px">
+          <div class="rank top">2</div>
+          <div class="team-info"><div class="team-name-stand">DYNASTY KINGS</div></div>
+          <div style="text-align:right"><span class="clinched">CLINCHED</span></div>
+        </div>
+        <div class="standings-row" style="grid-template-columns:28px 1fr 80px">
+          <div class="rank">3</div>
+          <div class="team-info"><div class="team-name-stand">BOLT CITY</div></div>
+          <div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">IN RACE</span></div>
+        </div>
+        <div class="standings-row" style="grid-template-columns:28px 1fr 80px">
+          <div class="rank">4</div>
+          <div class="team-info"><div class="team-name-stand">IRON HAWKS</div></div>
+          <div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">IN RACE</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ NEWS PAGE ░░ -->
+  <div class="page" id="page-news">
+    <div class="page-header">
+      <h1>NEWS & ARTICLES</h1>
+      <p>Gridiron League Coverage</p>
+    </div>
+    <div class="section">
+      <div class="featured-article">
+        <div class="featured-article-img">
+          <div class="field-art">🏈</div>
+          <div class="featured-article-img-overlay"></div>
+          <div class="featured-article-img-tag">COVER STORY</div>
+        </div>
+        <div class="featured-article-content">
+          <h2>BLITZ FC's Marcus Webb Is the League's Most Dangerous Weapon</h2>
+          <p>With 1,847 passing yards and 22 TDs through 10 weeks, Webb is shattering every single-season record in Gridiron League history. We sit down with the owner to break down the playbook.</p>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-card-tag">Analysis</div>
+        <div class="news-card-body">
+          <h3>Storm Chasers clinch the North: How they dominated from Week 1</h3>
+          <p>A deep dive into the 9-1 machine that locked up the division with three weeks to spare.</p>
+          <div class="ts">Today · 9:14 AM</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card-tag trade">Trade</div>
+        <div class="news-card-body">
+          <h3>DYNASTY KINGS acquire RB Trevon Miles from IRON HAWKS</h3>
+          <p>A blockbuster deal shakes up the playoff race with just 4 weeks left. Miles immediately becomes the starter.</p>
+          <div class="ts">Today · 6:45 AM</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card-tag injury">Injury</div>
+        <div class="news-card-body">
+          <h3>VENOM SC WR DeShawn Carter out 2 weeks</h3>
+          <p>Hamstring strain suffered in practice Tuesday sidelines the league's 4th-leading receiver.</p>
+          <div class="ts">Yesterday · 3:30 PM</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card-tag recap">Recap</div>
+        <div class="news-card-body">
+          <h3>Week 10 Recap: Storm Chasers lock up division title in dominant fashion</h3>
+          <p>The 31-10 victory was never close, cementing their status as playoff favorites.</p>
+          <div class="ts">Yesterday · 11:00 PM</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card-tag">Power Rankings</div>
+        <div class="news-card-body">
+          <h3>Week 11 Power Rankings: Storm holds the top spot, but Dynasty is surging</h3>
+          <p>Our weekly power rankings heading into the final stretch of the regular season.</p>
+          <div class="ts">2 days ago</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card-tag">Op-Ed</div>
+        <div class="news-card-body">
+          <h3>The case for Gravel Pits firing their OC after a disastrous season</h3>
+          <p>Two wins through ten weeks. Something has to change in the offseason.</p>
+          <div class="ts">3 days ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="bottom-nav-item active" data-page="home">
+    <span class="nav-icon">🏈</span>Home
+  </button>
+  <button class="bottom-nav-item" data-page="scores">
+    <span class="nav-icon">📊</span>Scores
+  </button>
+  <button class="bottom-nav-item" data-page="standings">
+    <span class="nav-icon">🏆</span>Standings
+  </button>
+  <button class="bottom-nav-item" data-page="stats">
+    <span class="nav-icon">📈</span>Stats
+  </button>
+  <button class="bottom-nav-item" data-page="news">
+    <span class="nav-icon">📰</span>News
+  </button>
+</nav>
+
+<script>
+  // ─── HAMBURGER / DRAWER ───
+  const hamburger = document.getElementById('hamburgerBtn');
+  const drawer = document.getElementById('drawer');
+  const overlay = document.getElementById('drawerOverlay');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+  overlay.addEventListener('click', closeDrawer);
+
+  function closeDrawer() {
+    hamburger.classList.remove('open');
+    drawer.classList.remove('open');
+  }
+
+  // ─── PAGE NAVIGATION ───
+  function navigateTo(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + pageId);
+    if (target) target.classList.add('active');
+
+    document.querySelectorAll('.bottom-nav-item').forEach(b => {
+      b.classList.toggle('active', b.dataset.page === pageId);
+    });
+    document.querySelectorAll('.drawer-nav a').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === pageId);
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    closeDrawer();
+  }
+
+  // Bottom nav
+  document.querySelectorAll('.bottom-nav-item').forEach(btn => {
+    btn.addEventListener('click', () => navigateTo(btn.dataset.page));
+  });
+
+  // Drawer nav
+  document.querySelectorAll('.drawer-nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      navigateTo(a.dataset.page);
+    });
+  });
+
+  // "See all" links on home
+  document.querySelectorAll('.see-all[data-page]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      navigateTo(a.dataset.page);
+    });
+  });
+
+  // ─── STATS TABS ───
+  document.querySelectorAll('.stats-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.stats-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      ['passing','rushing','receiving'].forEach(s => {
+        const el = document.getElementById('stat-' + s);
+        if (el) el.style.display = s === tab.dataset.stat ? 'block' : 'none';
+      });
+    });
+  });
+
+  // ─── ROSTER TEAM CHIPS ───
+  document.querySelectorAll('.team-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.team-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
