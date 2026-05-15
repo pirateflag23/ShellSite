@@ -670,23 +670,31 @@
     background: rgba(10,10,12,0.97);
     backdrop-filter: blur(12px);
     border-top: 1px solid var(--border);
-    display: flex; height: 58px;
+    display: flex;
+    height: auto;
+    min-height: 58px;
     padding-bottom: env(safe-area-inset-bottom, 0);
   }
   .bottom-nav-item {
     flex: 1; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 2px;
+    align-items: center; justify-content: center;
+    gap: 4px;
+    padding: 10px 4px 8px;
     cursor: pointer; transition: color 0.2s;
     color: var(--muted); font-size: 9px;
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
     border: none; background: none;
   }
-  .bottom-nav-item .nav-icon { font-size: 20px; line-height: 1; display:flex; align-items:center; justify-content:center; }
+  .bottom-nav-item .nav-icon {
+    display: flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px; flex-shrink: 0;
+  }
+  .bottom-nav-item .nav-icon svg { width: 22px; height: 22px; }
   .bottom-nav-item.active { color: var(--gold); }
 
   /* ─── MAIN CONTENT PADDING ─── */
-  .main-content { padding-bottom: 70px; }
+  .main-content { padding-bottom: 80px; }
 
   /* ─── LIVE DOT ─── */
   .live-dot {
