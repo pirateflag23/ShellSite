@@ -1717,6 +1717,661 @@
     </div>
   </div>
 
+  <!-- ░░ MY TEAM PAGE ░░ -->
+  <div class="page" id="page-myteam">
+    <div class="page-header">
+      <h1>MY TEAM</h1>
+      <p>Season 4 · Not Gay League</p>
+    </div>
+
+    <style>
+      /* ── MY TEAM PAGE ── */
+      .myteam-hero {
+        background: linear-gradient(135deg, var(--dark2) 0%, #1a1008 100%);
+        border-bottom: 1px solid var(--border);
+        padding: 20px 16px;
+        position: relative; overflow: hidden;
+      }
+      .myteam-hero::before {
+        content: ''; position: absolute; top: -30px; right: -30px;
+        width: 180px; height: 180px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(245,197,24,0.08) 0%, transparent 70%);
+      }
+      .myteam-badge {
+        display: inline-block;
+        background: rgba(245,197,24,0.1);
+        border: 1px solid rgba(245,197,24,0.3);
+        color: var(--gold);
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+        padding: 3px 10px; border-radius: 3px; text-transform: uppercase;
+        margin-bottom: 10px; display: inline-block;
+      }
+      .myteam-name {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 34px; letter-spacing: 0.04em;
+        line-height: 1; margin-bottom: 4px;
+      }
+      .myteam-meta {
+        display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px;
+      }
+      .myteam-meta-item {
+        display: flex; flex-direction: column;
+      }
+      .myteam-meta-label {
+        font-size: 9px; font-weight: 700; letter-spacing: 0.15em;
+        text-transform: uppercase; color: var(--muted);
+        font-family: 'Barlow Condensed', sans-serif;
+      }
+      .myteam-meta-val {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 16px; font-weight: 700; color: var(--text);
+        margin-top: 1px;
+      }
+      .myteam-record {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 28px; color: var(--gold); letter-spacing: 0.04em;
+        margin-top: 6px;
+      }
+
+      /* Tabs */
+      .myteam-tabs {
+        display: flex; overflow-x: auto; gap: 0;
+        background: var(--dark2);
+        border-bottom: 1px solid var(--border);
+        scrollbar-width: none;
+      }
+      .myteam-tabs::-webkit-scrollbar { display: none; }
+      .myteam-tab {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+        text-transform: uppercase; color: var(--muted);
+        padding: 11px 16px; cursor: pointer; white-space: nowrap;
+        border-bottom: 2px solid transparent; transition: all 0.2s;
+        background: none; border-top: none; border-left: none; border-right: none;
+        flex-shrink: 0;
+      }
+      .myteam-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+      .myteam-section { display: none; }
+      .myteam-section.active { display: block; }
+
+      /* Schedule */
+      .schedule-game {
+        display: flex; align-items: center;
+        padding: 12px 16px;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        cursor: pointer; transition: background 0.2s;
+        text-decoration: none; color: var(--text);
+      }
+      .schedule-game:hover, .schedule-game:active { background: rgba(255,255,255,0.03); }
+      .schedule-game-week {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 18px; color: var(--muted); letter-spacing: 0.05em;
+        width: 36px; flex-shrink: 0; text-align: center;
+      }
+      .schedule-game-info { flex: 1; padding: 0 10px; }
+      .schedule-game-opp {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 15px; font-weight: 700; line-height: 1.1;
+      }
+      .schedule-game-loc {
+        font-size: 10px; color: var(--muted); margin-top: 2px;
+        font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.04em;
+      }
+      .schedule-game-result {
+        text-align: right; flex-shrink: 0; min-width: 64px;
+      }
+      .schedule-game-score {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 18px; letter-spacing: 0.04em;
+      }
+      .schedule-game-score.win { color: #4ade80; }
+      .schedule-game-score.loss { color: var(--red); }
+      .schedule-game-score.upcoming { color: var(--muted); font-size: 13px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; }
+      .schedule-game-wl {
+        font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
+        font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase;
+      }
+      .schedule-game-wl.win { color: #4ade80; }
+      .schedule-game-wl.loss { color: var(--red); }
+      .schedule-chevron {
+        color: var(--muted); margin-left: 8px; flex-shrink: 0;
+      }
+
+      /* Box Score Modal */
+      .boxscore-modal {
+        display: none; position: fixed; inset: 0; z-index: 9998;
+        background: rgba(0,0,0,0.85);
+        padding: 16px;
+        overflow-y: auto;
+      }
+      .boxscore-modal.open { display: flex; align-items: flex-start; justify-content: center; }
+      .boxscore-inner {
+        background: var(--dark2);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        width: 100%; max-width: 480px;
+        overflow: hidden;
+        margin-top: 20px; margin-bottom: 80px;
+      }
+      .boxscore-header {
+        background: var(--dark4);
+        padding: 14px 16px;
+        display: flex; align-items: center; justify-content: space-between;
+        border-bottom: 1px solid var(--border);
+      }
+      .boxscore-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 16px; letter-spacing: 0.08em; color: var(--gold);
+      }
+      .boxscore-close {
+        background: none; border: none; color: var(--muted);
+        cursor: pointer; padding: 4px; display: flex;
+      }
+      .boxscore-scoreline {
+        padding: 20px 16px;
+        display: flex; align-items: center; justify-content: center;
+        gap: 16px;
+        border-bottom: 1px solid var(--border);
+        background: linear-gradient(135deg, var(--dark2), #1a1008);
+      }
+      .boxscore-team { text-align: center; flex: 1; }
+      .boxscore-team-name {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 14px; font-weight: 700; color: var(--muted);
+        letter-spacing: 0.04em;
+      }
+      .boxscore-team-score {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 48px; line-height: 1;
+        color: var(--gold);
+      }
+      .boxscore-team-score.dim { color: var(--muted); }
+      .boxscore-sep {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 20px; color: var(--border);
+      }
+      .boxscore-section-title {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+        text-transform: uppercase; color: var(--muted);
+        padding: 12px 16px 6px;
+        border-bottom: 1px solid var(--border);
+        background: var(--dark4);
+      }
+      .boxscore-stat-row {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 9px 16px;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        font-size: 13px;
+      }
+      .boxscore-stat-row:last-child { border-bottom: none; }
+      .boxscore-stat-label {
+        color: var(--muted);
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .boxscore-stat-vals {
+        display: flex; gap: 24px;
+      }
+      .boxscore-stat-val {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 15px; font-weight: 700; text-align: right; min-width: 48px;
+      }
+      .boxscore-stat-val.highlight { color: var(--gold); }
+
+      /* Rankings */
+      .rank-category {
+        padding: 16px 16px 0;
+      }
+      .rank-category-title {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+        text-transform: uppercase; color: var(--gold);
+        margin-bottom: 10px;
+        display: flex; align-items: center; gap: 8px;
+      }
+      .rank-category-title::after {
+        content: ''; flex: 1; height: 1px; background: var(--border);
+      }
+      .rank-item {
+        display: flex; align-items: center;
+        padding: 10px 12px;
+        background: var(--dark3);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        margin-bottom: 6px;
+        gap: 12px;
+      }
+      .rank-number {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 22px; color: var(--gold);
+        width: 36px; text-align: center; flex-shrink: 0;
+      }
+      .rank-number.good { color: #4ade80; }
+      .rank-number.mid { color: var(--gold); }
+      .rank-number.bad { color: var(--red); }
+      .rank-info { flex: 1; }
+      .rank-stat-name {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 14px; font-weight: 700;
+      }
+      .rank-stat-val { font-size: 11px; color: var(--muted); margin-top: 1px; }
+      .rank-bar-wrap {
+        width: 80px; flex-shrink: 0;
+      }
+      .rank-bar-track {
+        height: 4px; background: var(--dark4); border-radius: 2px; overflow: hidden;
+      }
+      .rank-bar-fill {
+        height: 100%; border-radius: 2px; background: var(--gold);
+      }
+      .rank-bar-fill.good { background: #4ade80; }
+      .rank-bar-fill.bad { background: var(--red); }
+      .rank-bar-label {
+        font-size: 9px; color: var(--muted); text-align: right; margin-top: 3px;
+        font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.04em;
+      }
+    </style>
+
+    <!-- TEAM HERO -->
+    <div class="myteam-hero">
+      <div class="myteam-badge">SEC · Season 4</div>
+      <div class="myteam-name">GEORGIA BULLDOGS</div>
+      <div class="myteam-record">8-0</div>
+      <div class="myteam-meta">
+        <div class="myteam-meta-item">
+          <span class="myteam-meta-label">Coach</span>
+          <span class="myteam-meta-val">@GridironKing</span>
+        </div>
+        <div class="myteam-meta-item">
+          <span class="myteam-meta-label">Conference</span>
+          <span class="myteam-meta-val">SEC East</span>
+        </div>
+        <div class="myteam-meta-item">
+          <span class="myteam-meta-label">Conf. Record</span>
+          <span class="myteam-meta-val">5-0</span>
+        </div>
+        <div class="myteam-meta-item">
+          <span class="myteam-meta-label">CFP Seed</span>
+          <span class="myteam-meta-val" style="color:var(--gold)">#1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="myteam-tabs">
+      <button class="myteam-tab active" data-mttab="schedule">Schedule</button>
+      <button class="myteam-tab" data-mttab="rankings">Team Rankings</button>
+    </div>
+
+    <!-- SCHEDULE TAB -->
+    <div class="myteam-section active" id="mttab-schedule">
+      <!-- W1 -->
+      <a class="schedule-game" onclick="openBoxScore(1)">
+        <div class="schedule-game-week">W1</div>
+        <div class="schedule-game-info">
+          <div class="schedule-game-opp">vs Marshall</div>
+          <div class="schedule-game-loc">Home · Aug 30</div>
+        </div>
+        <div class="schedule-game-result">
+          <div class="schedule-game-score win">45-7</div>
+          <div class="schedule-game-wl win">W</div>
+        </div>
+        <svg class="schedule-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <!-- W2 -->
+      <a class="schedule-game" onclick="openBoxScore(2)">
+        <div class="schedule-game-week">W2</div>
+        <div class="schedule-game-info">
+          <div class="schedule-game-opp">vs Austin Peay</div>
+          <div class="schedule-game-loc">Home · Sep 6</div>
+        </div>
+        <div class="schedule-game-result">
+          <div class="schedule-game-score win">28-6</div>
+          <div class="schedule-game-wl win">W</div>
+        </div>
+        <svg class="schedule-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <!-- W3 -->
+      <a class="schedule-game" onclick="openBoxScore(3)">
+        <div class="schedule-game-week">W3</div>
+        <div class="schedule-game-info">
+          <div class="schedule-game-opp">@ Tennessee</div>
+          <div class="schedule-game-loc">Away · Sep 13</div>
+        </div>
+        <div class="schedule-game-result">
+          <div class="schedule-game-score win">44-41</div>
+          <div class="schedule-game-wl win">W</div>
+        </div>
+        <svg class="schedule-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <!-- W4 -->
+      <a class="schedule-game" onclick="openBoxScore(4)">
+        <div class="schedule-game-week">W4</div>
+        <div class="schedule-game-info">
+          <div class="schedule-game-opp">vs Alabama</div>
+          <div class="schedule-game-loc">Home · Sep 20</div>
+        </div>
+        <div class="schedule-game-result">
+          <div class="schedule-game-score win">34-20</div>
+          <div class="schedule-game-wl win">W</div>
+        </div>
+        <svg class="schedule-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <!-- W5 -->
+      <a class="schedule-game" onclick="openBoxScore(5)">
+        <div class="schedule-game-week">W5</div>
+        <div class="schedule-game-info">
+          <div class="schedule-game-opp">vs Mississippi State</div>
+          <div class="schedule-game-loc">Home · Sep 27</div>
+        </div>
+        <div class="schedule-game-result">
+          <div class="schedule-game-score win">38-10</div>
+          <div class="schedule-game-wl win">W</div>
+        </div>
+        <svg class="schedule-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <!-- W6 -->
+      <a class="schedule-game" onclick="openBoxScore(6)">
+        <div class="schedule-game-week">W6</div>
+        <div class="schedule-game-info">
+          <div class="schedule-game-opp">@ Florida</div>
+          <div class="schedule-game-loc">Away · Oct 4</div>
+        </div>
+        <div class="schedule-game-result">
+          <div class="schedule-game-score win">41-17</div>
+          <div class="schedule-game-wl win">W</div>
+        </div>
+        <svg class="schedule-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <!-- W7 -->
+      <a class="schedule-game" onclick="openBoxScore(7)">
+        <div class="schedule-game-week">W7</div>
+        <div class="schedule-game-info">
+          <div class="schedule-game-opp">vs Ole Miss</div>
+          <div class="schedule-game-loc">Home · Oct 11</div>
+        </div>
+        <div class="schedule-game-result">
+          <div class="schedule-game-score win">28-21</div>
+          <div class="schedule-game-wl win">W</div>
+        </div>
+        <svg class="schedule-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <!-- W8 -->
+      <a class="schedule-game" onclick="openBoxScore(8)">
+        <div class="schedule-game-week">W8</div>
+        <div class="schedule-game-info">
+          <div class="schedule-game-opp">@ Texas A&amp;M</div>
+          <div class="schedule-game-loc">Away · Oct 18</div>
+        </div>
+        <div class="schedule-game-result">
+          <div class="schedule-game-score win">31-28</div>
+          <div class="schedule-game-wl win">W</div>
+        </div>
+        <svg class="schedule-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <!-- W9 upcoming -->
+      <a class="schedule-game" onclick="return false;" style="opacity:0.6;cursor:default;">
+        <div class="schedule-game-week">W9</div>
+        <div class="schedule-game-info">
+          <div class="schedule-game-opp">vs Kentucky</div>
+          <div class="schedule-game-loc">Home · Oct 25</div>
+        </div>
+        <div class="schedule-game-result">
+          <div class="schedule-game-score upcoming">TBD</div>
+        </div>
+      </a>
+      <!-- W10 -->
+      <a class="schedule-game" onclick="return false;" style="opacity:0.6;cursor:default;">
+        <div class="schedule-game-week">W10</div>
+        <div class="schedule-game-info">
+          <div class="schedule-game-opp">@ Missouri</div>
+          <div class="schedule-game-loc">Away · Nov 1</div>
+        </div>
+        <div class="schedule-game-result">
+          <div class="schedule-game-score upcoming">TBD</div>
+        </div>
+      </a>
+      <!-- W11 -->
+      <a class="schedule-game" onclick="return false;" style="opacity:0.6;cursor:default;">
+        <div class="schedule-game-week">W11</div>
+        <div class="schedule-game-info">
+          <div class="schedule-game-opp">vs Auburn</div>
+          <div class="schedule-game-loc">Home · Nov 15</div>
+        </div>
+        <div class="schedule-game-result">
+          <div class="schedule-game-score upcoming">TBD</div>
+        </div>
+      </a>
+      <!-- W12 -->
+      <a class="schedule-game" onclick="return false;" style="opacity:0.6;cursor:default;">
+        <div class="schedule-game-week">W12</div>
+        <div class="schedule-game-info">
+          <div class="schedule-game-opp">@ Georgia Tech</div>
+          <div class="schedule-game-loc">Away · Nov 29</div>
+        </div>
+        <div class="schedule-game-result">
+          <div class="schedule-game-score upcoming">TBD</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- RANKINGS TAB -->
+    <div class="myteam-section" id="mttab-rankings">
+
+      <div class="rank-category">
+        <div class="rank-category-title">Offense — SEC Rankings</div>
+        <div class="rank-item">
+          <div class="rank-number good">1</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Points Per Game</div>
+            <div class="rank-stat-val">36.1 PPG</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill good" style="width:98%"></div></div>
+            <div class="rank-bar-label">1st of 14</div>
+          </div>
+        </div>
+        <div class="rank-item">
+          <div class="rank-number good">2</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Total Yards</div>
+            <div class="rank-stat-val">438.2 YPG</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill good" style="width:92%"></div></div>
+            <div class="rank-bar-label">2nd of 14</div>
+          </div>
+        </div>
+        <div class="rank-item">
+          <div class="rank-number mid">3</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Passing Yards</div>
+            <div class="rank-stat-val">271.4 YPG</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill" style="width:80%"></div></div>
+            <div class="rank-bar-label">3rd of 14</div>
+          </div>
+        </div>
+        <div class="rank-item">
+          <div class="rank-number good">1</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Rushing Yards</div>
+            <div class="rank-stat-val">186.8 YPG</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill good" style="width:96%"></div></div>
+            <div class="rank-bar-label">1st of 14</div>
+          </div>
+        </div>
+        <div class="rank-item">
+          <div class="rank-number mid">4</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">3rd Down %</div>
+            <div class="rank-stat-val">48.2%</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill" style="width:72%"></div></div>
+            <div class="rank-bar-label">4th of 14</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rank-category">
+        <div class="rank-category-title">Defense — SEC Rankings</div>
+        <div class="rank-item">
+          <div class="rank-number good">1</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Points Allowed</div>
+            <div class="rank-stat-val">13.8 PPG</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill good" style="width:98%"></div></div>
+            <div class="rank-bar-label">1st of 14</div>
+          </div>
+        </div>
+        <div class="rank-item">
+          <div class="rank-number good">2</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Yards Allowed</div>
+            <div class="rank-stat-val">274.6 YPG</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill good" style="width:91%"></div></div>
+            <div class="rank-bar-label">2nd of 14</div>
+          </div>
+        </div>
+        <div class="rank-item">
+          <div class="rank-number good">2</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Sacks</div>
+            <div class="rank-stat-val">3.4 per game</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill good" style="width:88%"></div></div>
+            <div class="rank-bar-label">2nd of 14</div>
+          </div>
+        </div>
+        <div class="rank-item">
+          <div class="rank-number mid">5</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Turnovers Forced</div>
+            <div class="rank-stat-val">1.6 per game</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill" style="width:64%"></div></div>
+            <div class="rank-bar-label">5th of 14</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rank-category">
+        <div class="rank-category-title">Offense — League Rankings</div>
+        <div class="rank-item">
+          <div class="rank-number good">3</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Points Per Game</div>
+            <div class="rank-stat-val">36.1 PPG</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill good" style="width:88%"></div></div>
+            <div class="rank-bar-label">3rd of 130</div>
+          </div>
+        </div>
+        <div class="rank-item">
+          <div class="rank-number mid">7</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Total Yards</div>
+            <div class="rank-stat-val">438.2 YPG</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill" style="width:75%"></div></div>
+            <div class="rank-bar-label">7th of 130</div>
+          </div>
+        </div>
+        <div class="rank-item">
+          <div class="rank-number good">4</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Rushing Yards</div>
+            <div class="rank-stat-val">186.8 YPG</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill good" style="width:82%"></div></div>
+            <div class="rank-bar-label">4th of 130</div>
+          </div>
+        </div>
+        <div class="rank-item">
+          <div class="rank-number mid">14</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Passing Yards</div>
+            <div class="rank-stat-val">271.4 YPG</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill" style="width:58%"></div></div>
+            <div class="rank-bar-label">14th of 130</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rank-category" style="padding-bottom:16px">
+        <div class="rank-category-title">Defense — League Rankings</div>
+        <div class="rank-item">
+          <div class="rank-number good">2</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Points Allowed</div>
+            <div class="rank-stat-val">13.8 PPG</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill good" style="width:96%"></div></div>
+            <div class="rank-bar-label">2nd of 130</div>
+          </div>
+        </div>
+        <div class="rank-item">
+          <div class="rank-number good">5</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Yards Allowed</div>
+            <div class="rank-stat-val">274.6 YPG</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill good" style="width:80%"></div></div>
+            <div class="rank-bar-label">5th of 130</div>
+          </div>
+        </div>
+        <div class="rank-item">
+          <div class="rank-number good">8</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Sacks</div>
+            <div class="rank-stat-val">3.4 per game</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill good" style="width:74%"></div></div>
+            <div class="rank-bar-label">8th of 130</div>
+          </div>
+        </div>
+        <div class="rank-item">
+          <div class="rank-number mid">22</div>
+          <div class="rank-info">
+            <div class="rank-stat-name">Turnovers Forced</div>
+            <div class="rank-stat-val">1.6 per game</div>
+          </div>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track"><div class="rank-bar-fill" style="width:48%"></div></div>
+            <div class="rank-bar-label">22nd of 130</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOX SCORE MODAL -->
+  <div class="boxscore-modal" id="boxscoreModal">
+    <div class="boxscore-inner" id="boxscoreInner"></div>
+  </div>
+
   <!-- ░░ NEWS PAGE ░░ -->
   <div class="page" id="page-news">
     <div class="page-header">
@@ -2029,6 +2684,9 @@
   <button class="bottom-nav-item active" data-page="home">
     <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>Home
   </button>
+  <button class="bottom-nav-item" data-page="myteam">
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>My Team
+  </button>
   <button class="bottom-nav-item" data-page="scores">
     <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>Scores
   </button>
@@ -2037,9 +2695,6 @@
   </button>
   <button class="bottom-nav-item" data-page="stats">
     <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>Stats
-  </button>
-  <button class="bottom-nav-item" data-page="history" data-hsub="team">
-    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span>History
   </button>
 </nav>
 
@@ -2150,7 +2805,160 @@
     });
   });
 
-  // ─── STANDINGS DATA ───
+  // ─── MY TEAM TABS ───
+  document.querySelectorAll('.myteam-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.myteam-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('.myteam-section').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById('mttab-' + tab.dataset.mttab);
+      if (target) target.classList.add('active');
+    });
+  });
+
+  // ─── BOX SCORE DATA ───
+  const BOX_SCORES = {
+    1: { week:1, home:'Marshall', away:'Georgia', homeScore:7, awayScore:45, date:'Aug 30', stats:[
+      {label:'Passing Yards', home:'148', away:'312'},
+      {label:'Rushing Yards', home:'62', away:'187'},
+      {label:'Total Yards', home:'210', away:'499'},
+      {label:'First Downs', home:'11', away:'26'},
+      {label:'Turnovers', home:'3', away:'0'},
+      {label:'3rd Down', home:'3/12', away:'8/13'},
+      {label:'Time of Poss.', home:'22:14', away:'37:46'},
+      {label:'Penalties', home:'6-48', away:'4-32'},
+    ]},
+    2: { week:2, home:'Georgia', away:'Austin Peay', homeScore:28, awayScore:6, date:'Sep 6', stats:[
+      {label:'Passing Yards', home:'241', away:'88'},
+      {label:'Rushing Yards', home:'148', away:'44'},
+      {label:'Total Yards', home:'389', away:'132'},
+      {label:'First Downs', home:'22', away:'8'},
+      {label:'Turnovers', home:'0', away:'2'},
+      {label:'3rd Down', home:'7/12', away:'2/11'},
+      {label:'Time of Poss.', home:'35:22', away:'24:38'},
+      {label:'Penalties', home:'3-24', away:'7-55'},
+    ]},
+    3: { week:3, home:'Tennessee', away:'Georgia', homeScore:41, awayScore:44, date:'Sep 13', stats:[
+      {label:'Passing Yards', home:'318', away:'287'},
+      {label:'Rushing Yards', home:'144', away:'211'},
+      {label:'Total Yards', home:'462', away:'498'},
+      {label:'First Downs', home:'24', away:'27'},
+      {label:'Turnovers', home:'2', away:'1'},
+      {label:'3rd Down', home:'6/14', away:'9/16'},
+      {label:'Time of Poss.', home:'28:41', away:'31:19'},
+      {label:'Penalties', home:'5-40', away:'4-28'},
+    ]},
+    4: { week:4, home:'Georgia', away:'Alabama', homeScore:34, awayScore:20, date:'Sep 20', stats:[
+      {label:'Passing Yards', home:'256', away:'198'},
+      {label:'Rushing Yards', home:'178', away:'112'},
+      {label:'Total Yards', home:'434', away:'310'},
+      {label:'First Downs', home:'23', away:'16'},
+      {label:'Turnovers', home:'0', away:'2'},
+      {label:'3rd Down', home:'8/14', away:'4/13'},
+      {label:'Time of Poss.', home:'34:18', away:'25:42'},
+      {label:'Penalties', home:'4-30', away:'8-64'},
+    ]},
+    5: { week:5, home:'Georgia', away:'Mississippi State', homeScore:38, awayScore:10, date:'Sep 27', stats:[
+      {label:'Passing Yards', home:'274', away:'144'},
+      {label:'Rushing Yards', home:'192', away:'58'},
+      {label:'Total Yards', home:'466', away:'202'},
+      {label:'First Downs', home:'25', away:'11'},
+      {label:'Turnovers', home:'0', away:'3'},
+      {label:'3rd Down', home:'9/13', away:'2/12'},
+      {label:'Time of Poss.', home:'36:44', away:'23:16'},
+      {label:'Penalties', home:'3-20', away:'6-48'},
+    ]},
+    6: { week:6, home:'Florida', away:'Georgia', homeScore:17, awayScore:41, date:'Oct 4', stats:[
+      {label:'Passing Yards', home:'188', away:'298'},
+      {label:'Rushing Yards', home:'88', away:'162'},
+      {label:'Total Yards', home:'276', away:'460'},
+      {label:'First Downs', home:'14', away:'24'},
+      {label:'Turnovers', home:'3', away:'0'},
+      {label:'3rd Down', home:'3/13', away:'7/12'},
+      {label:'Time of Poss.', home:'24:18', away:'35:42'},
+      {label:'Penalties', home:'7-56', away:'3-22'},
+    ]},
+    7: { week:7, home:'Georgia', away:'Ole Miss', homeScore:28, awayScore:21, date:'Oct 11', stats:[
+      {label:'Passing Yards', home:'248', away:'276'},
+      {label:'Rushing Yards', home:'144', away:'88'},
+      {label:'Total Yards', home:'392', away:'364'},
+      {label:'First Downs', home:'21', away:'19'},
+      {label:'Turnovers', home:'1', away:'2'},
+      {label:'3rd Down', home:'6/13', away:'5/14'},
+      {label:'Time of Poss.', home:'31:22', away:'28:38'},
+      {label:'Penalties', home:'5-38', away:'4-32'},
+    ]},
+    8: { week:8, home:'Texas A&M', away:'Georgia', homeScore:28, awayScore:31, date:'Oct 18', stats:[
+      {label:'Passing Yards', home:'244', away:'228'},
+      {label:'Rushing Yards', home:'148', away:'178'},
+      {label:'Total Yards', home:'392', away:'406'},
+      {label:'First Downs', home:'21', away:'22'},
+      {label:'Turnovers', home:'2', away:'1'},
+      {label:'3rd Down', home:'5/13', away:'6/13'},
+      {label:'Time of Poss.', home:'29:44', away:'30:16'},
+      {label:'Penalties', home:'6-44', away:'5-38'},
+    ]},
+  };
+
+  function openBoxScore(week) {
+    const g = BOX_SCORES[week];
+    if (!g) return;
+    const myTeam = 'Georgia';
+    const myScore = g.home === myTeam ? g.homeScore : g.awayScore;
+    const oppScore = g.home === myTeam ? g.awayScore : g.homeScore;
+    const opp = g.home === myTeam ? g.away : g.home;
+    const myWin = myScore > oppScore;
+
+    let statsHtml = g.stats.map(s => {
+      const homeHighlight = parseInt(s.home) > parseInt(s.away) ? 'highlight' : '';
+      const awayHighlight = parseInt(s.away) > parseInt(s.home) ? 'highlight' : '';
+      return `<div class="boxscore-stat-row">
+        <div class="boxscore-stat-label">${s.label}</div>
+        <div class="boxscore-stat-vals">
+          <div class="boxscore-stat-val ${g.home === myTeam ? awayHighlight : homeHighlight}">${s.home}</div>
+          <div class="boxscore-stat-val ${g.home === myTeam ? homeHighlight : awayHighlight}">${s.away}</div>
+        </div>
+      </div>`;
+    }).join('');
+
+    document.getElementById('boxscoreInner').innerHTML = `
+      <div class="boxscore-header">
+        <div class="boxscore-title">WEEK ${g.week} · ${g.date}</div>
+        <button class="boxscore-close" onclick="closeBoxScore()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="boxscore-scoreline">
+        <div class="boxscore-team">
+          <div class="boxscore-team-name">${opp.toUpperCase()}</div>
+          <div class="boxscore-team-score ${myWin ? 'dim' : ''}">${oppScore}</div>
+        </div>
+        <div class="boxscore-sep">—</div>
+        <div class="boxscore-team">
+          <div class="boxscore-team-name">GEORGIA</div>
+          <div class="boxscore-team-score ${myWin ? '' : 'dim'}">${myScore}</div>
+        </div>
+      </div>
+      <div class="boxscore-section-title">
+        <span style="flex:1">TEAM STATS</span>
+        <span style="min-width:48px;text-align:right">${g.home === myTeam ? g.away : g.home}</span>
+        <span style="min-width:48px;text-align:right;margin-left:24px">Georgia</span>
+      </div>
+      ${statsHtml}
+    `;
+    document.getElementById('boxscoreModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeBoxScore() {
+    document.getElementById('boxscoreModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Close modal on backdrop tap
+  document.getElementById('boxscoreModal').addEventListener('click', function(e) {
+    if (e.target === this) closeBoxScore();
+  });
   // All FBS teams by conference, with divisions where applicable
   // W/L randomized so all teams total exactly 12 games
   // ─── MASCOT EMOJI MAP ───
