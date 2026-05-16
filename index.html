@@ -107,7 +107,7 @@
     transform: translateX(100%);
     transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
     display: flex; flex-direction: column;
-    padding-top: var(--nav-h);
+    overflow: hidden;
   }
   .drawer.open { pointer-events: all; }
   .drawer.open .drawer-overlay { opacity: 1; }
@@ -124,7 +124,7 @@
   }
   .drawer-header p { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-  .drawer-nav { padding: 12px 0; flex: 1; overflow-y: auto; }
+  .drawer-nav { padding: 12px 0; flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
   .drawer-nav a {
     display: flex; align-items: center; gap: 14px;
     padding: 14px 24px;
@@ -133,6 +133,7 @@
     font-size: 18px; font-weight: 600; letter-spacing: 0.04em;
     border-bottom: 1px solid rgba(255,255,255,0.04);
     transition: all 0.2s;
+    width: 100%;
   }
   .drawer-nav a:hover, .drawer-nav a.active {
     color: var(--gold);
@@ -737,7 +738,7 @@
   }
 
   /* ─── HISTORY SUBMENU ─── */
-  .drawer-nav-group { border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .drawer-nav-group { border-bottom: none; width: 100%; }
   .drawer-nav-group > .drawer-nav-parent {
     display: flex; align-items: center; gap: 14px;
     padding: 14px 24px;
@@ -746,7 +747,8 @@
     font-size: 18px; font-weight: 600; letter-spacing: 0.04em;
     cursor: pointer; transition: all 0.2s;
     justify-content: space-between;
-    border: none; background: none; width: 100%;
+    border: none; border-bottom: 1px solid rgba(255,255,255,0.04);
+    background: none; width: 100%;
   }
   .drawer-nav-parent-left { display: flex; align-items: center; gap: 14px; }
   .drawer-nav-parent .chevron {
@@ -916,7 +918,12 @@
   <div class="drawer-overlay" id="drawerOverlay"></div>
   <div class="drawer-panel">
     <div class="drawer-header">
-      <h2>NOT GAY LEAGUE</h2>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <h2>NOT GAY LEAGUE</h2>
+        <button onclick="document.getElementById('hamburgerBtn').classList.remove('open');document.getElementById('drawer').classList.remove('open');" style="background:none;border:none;color:var(--muted);cursor:pointer;padding:4px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
       <p>Season 4 · Week 11 of 14</p>
     </div>
     <nav class="drawer-nav">
@@ -935,8 +942,8 @@
       <a href="#" data-page="roster">
         <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> Rosters
       </a>
-      <a href="#" data-page="playoffs">
-        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="6" height="4" rx="1"/><rect x="16" y="7" width="6" height="4" rx="1"/><rect x="9" y="3" width="6" height="4" rx="1"/><rect x="9" y="17" width="6" height="4" rx="1"/><line x1="8" y1="9" x2="9" y2="9"/><line x1="15" y1="9" x2="16" y2="9"/><line x1="12" y1="7" x2="12" y2="5"/><line x1="12" y1="17" x2="12" y2="11"/></svg></span> Playoff Picture
+      <a href="#" data-page="cfp">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="6" height="4" rx="1"/><rect x="16" y="7" width="6" height="4" rx="1"/><rect x="9" y="3" width="6" height="4" rx="1"/><rect x="9" y="17" width="6" height="4" rx="1"/><line x1="8" y1="9" x2="9" y2="9"/><line x1="15" y1="9" x2="16" y2="9"/><line x1="12" y1="7" x2="12" y2="5"/><line x1="12" y1="17" x2="12" y2="11"/></svg></span> CFP Projection
       </a>
       <div class="drawer-nav-group">
         <button class="drawer-nav-parent" id="historyParentBtn">
@@ -1465,101 +1472,248 @@
   </div>
 
   <!-- ░░ PLAYOFFS PAGE ░░ -->
-  <div class="page" id="page-playoffs">
+  <!-- ░░ CFP PROJECTION PAGE ░░ -->
+  <div class="page" id="page-cfp">
     <div class="page-header">
-      <h1>PLAYOFF PICTURE</h1>
-      <p>Bracket · 4 Teams · Best-of-1</p>
+      <h1>CFP PROJECTION</h1>
+      <p>2025-26 · 12-Team College Football Playoff</p>
     </div>
 
-    <div class="champion-card">
-      <div class="trophy"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><path d="M6 9H4a2 2 0 0 0-2 2v1a5 5 0 0 0 5 5h.4M18 9h2a2 2 0 0 1 2 2v1a5 5 0 0 1-5 5h-.4"/><path d="M6 2h12v10a6 6 0 0 1-12 0V2z"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></div>
-      <h2>Not Gay Championship</h2>
-      <h3>TBD</h3>
-      <p>Week 14 · Championship Game</p>
-    </div>
+    <style>
+      /* ── CFP BRACKET STYLES ── */
+      .cfp-wrap { padding: 12px 12px 24px; overflow-x: auto; }
+      .cfp-bracket {
+        display: grid;
+        grid-template-columns: 1fr 1fr 44px 1fr 44px 1fr 44px 80px 44px 1fr 44px 1fr 44px 1fr 1fr;
+        grid-template-rows: repeat(24, 22px);
+        gap: 0;
+        min-width: 700px;
+        align-items: center;
+      }
 
-    <div class="bracket-wrap">
-      <div class="bracket">
-        <!-- SEMIFINALS -->
-        <div class="bracket-round">
-          <div class="bracket-round-label">SEMIFINAL</div>
-          <div class="bracket-games">
-            <div class="bracket-game">
-              <div class="bracket-team winner">
-                <span><span class="seed">(1)</span> STORM CHASERS</span>
-                <span class="bracket-score">31</span>
-              </div>
-              <div class="bracket-team loser">
-                <span><span class="seed">(4)</span> VENOM SC</span>
-                <span class="bracket-score">17</span>
-              </div>
-            </div>
-            <div class="bracket-game">
-              <div class="bracket-team winner">
-                <span><span class="seed">(2)</span> DYNASTY KINGS</span>
-                <span class="bracket-score">24</span>
-              </div>
-              <div class="bracket-team loser">
-                <span><span class="seed">(3)</span> BOLT CITY</span>
-                <span class="bracket-score">21</span>
-              </div>
-            </div>
-          </div>
+      /* Round labels row */
+      .cfp-label {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
+        text-transform: uppercase; color: var(--muted);
+        text-align: center; white-space: nowrap;
+      }
+
+      /* Team slot */
+      .cfp-team {
+        background: var(--dark3);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0 6px;
+        height: 34px;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 11px; font-weight: 700;
+        white-space: nowrap; overflow: hidden;
+        cursor: default;
+      }
+      .cfp-team.bye {
+        background: var(--dark2);
+        border-color: rgba(255,255,255,0.04);
+        color: var(--muted);
+        font-style: italic;
+      }
+      .cfp-team.winner {
+        border-color: var(--gold);
+        color: var(--gold);
+        background: rgba(245,197,24,0.06);
+      }
+      .cfp-team.tbd {
+        color: var(--muted);
+        font-style: italic;
+      }
+      .cfp-team.champ {
+        border-color: var(--gold);
+        background: rgba(245,197,24,0.12);
+        color: var(--gold);
+      }
+      .cfp-seed {
+        font-size: 9px; color: var(--muted); margin-right: 5px;
+        font-weight: 400; flex-shrink: 0;
+      }
+      .cfp-team.winner .cfp-seed { color: rgba(245,197,24,0.6); }
+      .cfp-score {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 15px; color: var(--gold); flex-shrink: 0; margin-left: 4px;
+      }
+      .cfp-score.dim { color: var(--muted); }
+
+      /* Connector lines */
+      .cfp-conn-v {
+        width: 1px; background: var(--border);
+        justify-self: center; height: 100%;
+      }
+      .cfp-conn-h {
+        height: 1px; background: var(--border);
+        align-self: center; width: 100%;
+      }
+      .cfp-conn-corner-tr { border-top: 1px solid var(--border); border-right: 1px solid var(--border); height: 50%; align-self: flex-end; width: 100%; }
+      .cfp-conn-corner-br { border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); height: 50%; align-self: flex-start; width: 100%; }
+      .cfp-conn-corner-tl { border-top: 1px solid var(--border); border-left: 1px solid var(--border); height: 50%; align-self: flex-end; width: 100%; }
+      .cfp-conn-corner-bl { border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); height: 50%; align-self: flex-start; width: 100%; }
+
+      /* National Championship center card */
+      .cfp-natty {
+        background: linear-gradient(135deg, rgba(245,197,24,0.12), rgba(245,197,24,0.04));
+        border: 1px solid rgba(245,197,24,0.5);
+        border-radius: 6px;
+        padding: 8px 6px;
+        text-align: center;
+      }
+      .cfp-natty-label {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 11px; letter-spacing: 0.1em; color: var(--gold);
+        line-height: 1.1;
+      }
+      .cfp-natty-date {
+        font-size: 9px; color: var(--muted); margin-top: 3px;
+        font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.06em;
+      }
+
+      /* Mobile: stacked view */
+      .cfp-mobile { display: none; }
+      @media (max-width: 760px) {
+        .cfp-wrap { padding: 12px 0; }
+        .cfp-bracket { display: none; }
+        .cfp-mobile { display: block; padding: 0 12px; }
+      }
+
+      /* Mobile round cards */
+      .cfp-round-block { margin-bottom: 20px; }
+      .cfp-round-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 16px; letter-spacing: 0.1em; color: var(--gold);
+        margin-bottom: 10px; padding-left: 4px;
+        border-left: 3px solid var(--gold); padding-left: 10px;
+      }
+      .cfp-matchup {
+        background: var(--dark3);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-bottom: 8px;
+        overflow: hidden;
+      }
+      .cfp-matchup-team {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 9px 12px;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 14px; font-weight: 700;
+      }
+      .cfp-matchup-team:last-child { border-bottom: none; }
+      .cfp-matchup-team.winner { color: var(--gold); background: rgba(245,197,24,0.05); }
+      .cfp-matchup-team.loser { color: var(--muted); }
+      .cfp-matchup-team .seed { font-size: 10px; color: var(--muted); margin-right: 6px; }
+      .cfp-matchup-team.winner .seed { color: rgba(245,197,24,0.5); }
+      .cfp-matchup-score { font-family: 'Bebas Neue', sans-serif; font-size: 18px; }
+      .cfp-matchup.bye-game { opacity: 0.5; }
+      .cfp-natty-mobile {
+        background: linear-gradient(135deg, rgba(245,197,24,0.12), rgba(245,197,24,0.04));
+        border: 1px solid rgba(245,197,24,0.5);
+        border-radius: 8px; padding: 16px; text-align: center; margin-bottom: 8px;
+      }
+      .cfp-natty-mobile h3 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 20px; color: var(--gold); letter-spacing: 0.1em;
+      }
+      .cfp-natty-mobile p { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    </style>
+
+    <!-- ── MOBILE BRACKET (stacked cards) ── -->
+    <div class="cfp-mobile">
+
+      <div class="cfp-round-block">
+        <div class="cfp-round-title">FIRST ROUND</div>
+        <!-- 9 vs 8 → plays 1 -->
+        <div class="cfp-matchup">
+          <div class="cfp-matchup-team winner"><span><span class="seed">#9</span> Indiana</span><span class="cfp-matchup-score">31</span></div>
+          <div class="cfp-matchup-team loser"><span><span class="seed">#8</span> Ohio State</span><span class="cfp-matchup-score">24</span></div>
         </div>
-
-        <!-- CONNECTOR -->
-        <div class="bracket-connector">
-          <div style="flex:1;border-right:1px solid var(--border)"></div>
-          <div style="width:20px;height:1px;background:var(--border)"></div>
-          <div style="flex:1;border-right:1px solid var(--border)"></div>
+        <!-- 12 vs 5 → plays 4 -->
+        <div class="cfp-matchup">
+          <div class="cfp-matchup-team loser"><span><span class="seed">#12</span> Clemson</span><span class="cfp-matchup-score">14</span></div>
+          <div class="cfp-matchup-team winner"><span><span class="seed">#5</span> Oregon</span><span class="cfp-matchup-score">38</span></div>
         </div>
-
-        <!-- CHAMPIONSHIP -->
-        <div class="bracket-round">
-          <div class="bracket-round-label">CHAMPIONSHIP</div>
-          <div class="bracket-games">
-            <div class="bracket-game" style="border-color:rgba(245,197,24,0.4);background:rgba(245,197,24,0.05)">
-              <div class="bracket-team" style="color:var(--gold)">
-                <span><span class="seed">(1)</span> STORM CHASERS</span>
-                <span class="bracket-score">—</span>
-              </div>
-              <div class="bracket-team" style="color:var(--gold)">
-                <span><span class="seed">(2)</span> DYNASTY KINGS</span>
-                <span class="bracket-score">—</span>
-              </div>
-            </div>
-          </div>
+        <!-- 11 vs 6 → plays 3 -->
+        <div class="cfp-matchup">
+          <div class="cfp-matchup-team loser"><span><span class="seed">#11</span> Ole Miss</span><span class="cfp-matchup-score">17</span></div>
+          <div class="cfp-matchup-team winner"><span><span class="seed">#6</span> Georgia</span><span class="cfp-matchup-score">28</span></div>
+        </div>
+        <!-- 10 vs 7 → plays 2 -->
+        <div class="cfp-matchup">
+          <div class="cfp-matchup-team winner"><span><span class="seed">#10</span> Miami</span><span class="cfp-matchup-score">21</span></div>
+          <div class="cfp-matchup-team loser"><span><span class="seed">#7</span> Texas Tech</span><span class="cfp-matchup-score">17</span></div>
         </div>
       </div>
-    </div>
 
-    <div style="padding:0 16px 16px">
-      <div class="division-label">Playoff Seeding</div>
+      <div class="cfp-round-block">
+        <div class="cfp-round-title">QUARTERFINALS</div>
+        <!-- 1 bye vs 9/8 winner -->
+        <div class="cfp-matchup">
+          <div class="cfp-matchup-team winner"><span><span class="seed">#1</span> Georgia Tech</span><span class="cfp-matchup-score">42</span></div>
+          <div class="cfp-matchup-team loser"><span><span class="seed">#9</span> Indiana</span><span class="cfp-matchup-score">27</span></div>
+        </div>
+        <!-- 4 bye vs 12/5 winner -->
+        <div class="cfp-matchup">
+          <div class="cfp-matchup-team winner"><span><span class="seed">#4</span> Texas Tech</span><span class="cfp-matchup-score">35</span></div>
+          <div class="cfp-matchup-team loser"><span><span class="seed">#5</span> Oregon</span><span class="cfp-matchup-score">28</span></div>
+        </div>
+        <!-- 3 bye vs 11/6 winner -->
+        <div class="cfp-matchup">
+          <div class="cfp-matchup-team winner"><span><span class="seed">#3</span> Ohio State</span><span class="cfp-matchup-score">34</span></div>
+          <div class="cfp-matchup-team loser"><span><span class="seed">#6</span> Georgia</span><span class="cfp-matchup-score">21</span></div>
+        </div>
+        <!-- 2 bye vs 10/7 winner -->
+        <div class="cfp-matchup">
+          <div class="cfp-matchup-team winner"><span><span class="seed">#2</span> Indiana</span><span class="cfp-matchup-score">38</span></div>
+          <div class="cfp-matchup-team loser"><span><span class="seed">#10</span> Miami</span><span class="cfp-matchup-score">14</span></div>
+        </div>
+      </div>
+
+      <div class="cfp-round-block">
+        <div class="cfp-round-title">SEMIFINALS</div>
+        <div class="cfp-matchup">
+          <div class="cfp-matchup-team winner"><span><span class="seed">#1</span> Georgia Tech</span><span class="cfp-matchup-score">31</span></div>
+          <div class="cfp-matchup-team loser"><span><span class="seed">#4</span> Texas Tech</span><span class="cfp-matchup-score">24</span></div>
+        </div>
+        <div class="cfp-matchup">
+          <div class="cfp-matchup-team tbd"><span><span class="seed">#3</span> Ohio State</span><span class="cfp-matchup-score">—</span></div>
+          <div class="cfp-matchup-team tbd"><span><span class="seed">#2</span> Indiana</span><span class="cfp-matchup-score">—</span></div>
+        </div>
+      </div>
+
+      <div class="cfp-round-block">
+        <div class="cfp-round-title">NATIONAL CHAMPIONSHIP</div>
+        <div class="cfp-natty-mobile">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold);margin-bottom:6px"><path d="M6 9H4a2 2 0 0 0-2 2v1a5 5 0 0 0 5 5h.4M18 9h2a2 2 0 0 1 2 2v1a5 5 0 0 1-5 5h-.4"/><path d="M6 2h12v10a6 6 0 0 1-12 0V2z"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+          <h3>TBD vs TBD</h3>
+          <p>Jan 19, 2026 · Atlanta, GA</p>
+        </div>
+      </div>
+
+      <!-- SEEDING TABLE -->
+      <div class="division-label" style="margin-top:8px;font-size:11px">CFP Seeds</div>
       <div class="standings-table">
-        <div class="standings-row header" style="grid-template-columns:28px 1fr 80px">
-          <div>#</div><div>Team</div><div style="text-align:right">Status</div>
-        </div>
-        <div class="standings-row" style="grid-template-columns:28px 1fr 80px">
-          <div class="rank top">1</div>
-          <div class="team-info"><div class="team-name-stand">STORM CHASERS</div></div>
-          <div style="text-align:right"><span class="clinched">CLINCHED</span></div>
-        </div>
-        <div class="standings-row" style="grid-template-columns:28px 1fr 80px">
-          <div class="rank top">2</div>
-          <div class="team-info"><div class="team-name-stand">DYNASTY KINGS</div></div>
-          <div style="text-align:right"><span class="clinched">CLINCHED</span></div>
-        </div>
-        <div class="standings-row" style="grid-template-columns:28px 1fr 80px">
-          <div class="rank">3</div>
-          <div class="team-info"><div class="team-name-stand">BOLT CITY</div></div>
-          <div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">IN RACE</span></div>
-        </div>
-        <div class="standings-row" style="grid-template-columns:28px 1fr 80px">
-          <div class="rank">4</div>
-          <div class="team-info"><div class="team-name-stand">IRON HAWKS</div></div>
-          <div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">IN RACE</span></div>
-        </div>
+        <div class="standings-row header" style="grid-template-columns:32px 1fr 80px"><div>#</div><div>Team</div><div style="text-align:right">Status</div></div>
+        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank top">1</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Georgia Tech</div></div><div style="text-align:right"><span class="clinched">BYE</span></div></div>
+        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank top">2</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Indiana</div></div><div style="text-align:right"><span class="clinched">BYE</span></div></div>
+        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank top">3</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Ohio State</div></div><div style="text-align:right"><span class="clinched">BYE</span></div></div>
+        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank top">4</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Texas Tech</div></div><div style="text-align:right"><span class="clinched">BYE</span></div></div>
+        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">5</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Oregon</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
+        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">6</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Georgia</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
+        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">7</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Texas Tech</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
+        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">8</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Ohio State</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
+        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">9</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Indiana</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
+        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">10</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Miami</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
+        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">11</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Ole Miss</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
+        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">12</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Clemson</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
       </div>
+
     </div>
   </div>
 
