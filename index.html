@@ -2674,6 +2674,7 @@
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
     closeDrawer();
+    if (pageId === 'cfp') buildCFPBracket();
   }
 
   function navigateHistory(subId) {
@@ -2915,16 +2916,7 @@
     }
   }
 
-  // Build when CFP page is navigated to
-  const _origNavigateTo = navigateTo;
-  function navigateTo(pageId) {
-    _origNavigateTo(pageId);
-    if (pageId === 'cfp') buildCFPBracket();
-  }
-  // Also build on first load if cfp is active
-  if (document.getElementById('page-cfp') && document.getElementById('page-cfp').classList.contains('active')) {
-    buildCFPBracket();
-  }
+  // Build when CFP page is navigated to - handled inside navigateTo directly
 
   // ─── MY TEAM TABS ───
   document.querySelectorAll('.myteam-tab').forEach(tab => {
