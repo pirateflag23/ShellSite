@@ -1480,240 +1480,194 @@
     </div>
 
     <style>
-      /* ── CFP BRACKET STYLES ── */
-      .cfp-wrap { padding: 12px 12px 24px; overflow-x: auto; }
-      .cfp-bracket {
+      /* ── CFP BRACKET ── */
+      .cfp-page { padding: 12px 0 24px; }
+
+      .cfp-natty-banner {
+        margin: 0 12px 16px;
+        background: linear-gradient(135deg, rgba(245,197,24,0.1), rgba(245,197,24,0.03));
+        border: 1px solid rgba(245,197,24,0.35);
+        border-radius: 10px; padding: 12px 16px;
+        display: flex; align-items: center; gap: 12px;
+      }
+      .cfp-natty-banner svg { flex-shrink: 0; color: var(--gold); }
+      .cfp-natty-text h3 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 16px; letter-spacing: 0.1em; color: var(--gold);
+      }
+      .cfp-natty-text p { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+      /* Main bracket grid — left | center | right */
+      .cfp-bracket-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr 44px 1fr 44px 1fr 44px 80px 44px 1fr 44px 1fr 44px 1fr 1fr;
-        grid-template-rows: repeat(24, 22px);
+        grid-template-columns: 1fr 8px 1fr;
         gap: 0;
-        min-width: 700px;
+        padding: 0 8px;
         align-items: center;
       }
 
-      /* Round labels row */
-      .cfp-label {
-        font-family: 'Barlow Condensed', sans-serif;
-        font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
-        text-transform: uppercase; color: var(--muted);
-        text-align: center; white-space: nowrap;
+      .cfp-side { display: flex; flex-direction: column; gap: 0; }
+      .cfp-center-col {
+        display: flex; flex-direction: column; align-items: center;
+        justify-content: center; gap: 8px; padding: 0 4px;
       }
 
-      /* Team slot */
-      .cfp-team {
+      /* Round labels */
+      .cfp-round-labels {
+        display: grid;
+        grid-template-columns: 1fr 8px 1fr;
+        padding: 0 8px; margin-bottom: 6px;
+      }
+      .cfp-side-labels {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+      }
+      .cfp-rl {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+        text-transform: uppercase; color: var(--muted);
+        text-align: center; padding: 0 4px;
+      }
+
+      /* Individual matchup block */
+      .cfp-matchup-block {
+        display: flex; align-items: stretch;
+        margin-bottom: 6px; position: relative;
+      }
+      /* Left side: first-round on left, QF on right */
+      .cfp-side-left .cfp-matchup-block { flex-direction: row; }
+      /* Right side: QF on left, first-round on right */
+      .cfp-side-right .cfp-matchup-block { flex-direction: row-reverse; }
+
+      .cfp-game {
+        display: flex; flex-direction: column; flex-shrink: 0;
+        justify-content: center;
+      }
+
+      .cfp-slot {
         background: var(--dark3);
         border: 1px solid var(--border);
         border-radius: 4px;
-        display: flex; align-items: center; justify-content: space-between;
-        padding: 0 6px;
-        height: 34px;
+        padding: 5px 7px;
+        display: flex; align-items: center; gap: 4px;
+        height: 30px;
         font-family: 'Barlow Condensed', sans-serif;
         font-size: 11px; font-weight: 700;
         white-space: nowrap; overflow: hidden;
-        cursor: default;
+        text-overflow: ellipsis;
+        width: 100%;
       }
-      .cfp-team.bye {
-        background: var(--dark2);
-        border-color: rgba(255,255,255,0.04);
-        color: var(--muted);
-        font-style: italic;
+      .cfp-slot.bye {
+        border-color: rgba(245,197,24,0.3);
+        background: rgba(245,197,24,0.05);
       }
-      .cfp-team.winner {
-        border-color: var(--gold);
-        color: var(--gold);
-        background: rgba(245,197,24,0.06);
+      .cfp-slot.tbd {
+        color: var(--muted); font-style: italic; font-size: 10px;
       }
-      .cfp-team.tbd {
-        color: var(--muted);
-        font-style: italic;
-      }
-      .cfp-team.champ {
-        border-color: var(--gold);
-        background: rgba(245,197,24,0.12);
-        color: var(--gold);
-      }
-      .cfp-seed {
-        font-size: 9px; color: var(--muted); margin-right: 5px;
-        font-weight: 400; flex-shrink: 0;
-      }
-      .cfp-team.winner .cfp-seed { color: rgba(245,197,24,0.6); }
-      .cfp-score {
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 15px; color: var(--gold); flex-shrink: 0; margin-left: 4px;
-      }
-      .cfp-score.dim { color: var(--muted); }
+      .cfp-slot + .cfp-slot { margin-top: 2px; }
 
-      /* Connector lines */
-      .cfp-conn-v {
-        width: 1px; background: var(--border);
-        justify-self: center; height: 100%;
+      .cfp-seed-num {
+        font-size: 9px; color: var(--muted);
+        font-weight: 400; flex-shrink: 0; min-width: 14px;
       }
-      .cfp-conn-h {
-        height: 1px; background: var(--border);
-        align-self: center; width: 100%;
-      }
-      .cfp-conn-corner-tr { border-top: 1px solid var(--border); border-right: 1px solid var(--border); height: 50%; align-self: flex-end; width: 100%; }
-      .cfp-conn-corner-br { border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); height: 50%; align-self: flex-start; width: 100%; }
-      .cfp-conn-corner-tl { border-top: 1px solid var(--border); border-left: 1px solid var(--border); height: 50%; align-self: flex-end; width: 100%; }
-      .cfp-conn-corner-bl { border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); height: 50%; align-self: flex-start; width: 100%; }
-
-      /* National Championship center card */
-      .cfp-natty {
-        background: linear-gradient(135deg, rgba(245,197,24,0.12), rgba(245,197,24,0.04));
-        border: 1px solid rgba(245,197,24,0.5);
-        border-radius: 6px;
-        padding: 8px 6px;
-        text-align: center;
-      }
-      .cfp-natty-label {
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 11px; letter-spacing: 0.1em; color: var(--gold);
-        line-height: 1.1;
-      }
-      .cfp-natty-date {
-        font-size: 9px; color: var(--muted); margin-top: 3px;
-        font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.06em;
+      .cfp-slot.bye .cfp-seed-num { color: rgba(245,197,24,0.5); }
+      .cfp-team-name { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+      .cfp-bye-tag {
+        font-size: 8px; font-weight: 700; letter-spacing: 0.08em;
+        color: var(--gold); background: rgba(245,197,24,0.12);
+        border-radius: 2px; padding: 1px 4px; flex-shrink: 0;
       }
 
-      /* Mobile: stacked view */
-      .cfp-mobile { display: none; }
-      @media (max-width: 760px) {
-        .cfp-wrap { padding: 12px 0; }
-        .cfp-bracket { display: none; }
-        .cfp-mobile { display: block; padding: 0 12px; }
+      /* Connector lines between rounds */
+      .cfp-conn {
+        display: flex; flex-direction: column;
+        justify-content: center; align-items: center;
+        flex-shrink: 0; width: 12px; align-self: stretch;
       }
+      /* Left side connectors: line goes right from first-round to QF */
+      .cfp-side-left .cfp-conn { margin: 0 2px; }
+      .cfp-side-right .cfp-conn { margin: 0 2px; }
+      .cfp-conn-top { flex: 1; border-right: 1px solid var(--border); }
+      .cfp-conn-mid { width: 12px; height: 1px; background: var(--border); }
+      .cfp-conn-bot { flex: 1; border-right: 1px solid var(--border); }
+      .cfp-side-right .cfp-conn-top { border-right: none; border-left: 1px solid var(--border); }
+      .cfp-side-right .cfp-conn-bot { border-right: none; border-left: 1px solid var(--border); }
 
-      /* Mobile round cards */
-      .cfp-round-block { margin-bottom: 20px; }
-      .cfp-round-title {
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 16px; letter-spacing: 0.1em; color: var(--gold);
-        margin-bottom: 10px; padding-left: 4px;
-        border-left: 3px solid var(--gold); padding-left: 10px;
+      /* QF to SF connector */
+      .cfp-qf-conn {
+        width: 8px; flex-shrink: 0; align-self: stretch;
+        display: flex; flex-direction: column; justify-content: center;
       }
-      .cfp-matchup {
+      .cfp-qf-conn-line { flex: 1; border-right: 1px solid var(--border); }
+      .cfp-qf-conn-h { height: 1px; background: var(--border); width: 100%; }
+      .cfp-side-right .cfp-qf-conn-line { border-right: none; border-left: 1px solid var(--border); }
+
+      /* Semis center column */
+      .cfp-semis {
+        display: flex; flex-direction: column; gap: 0;
+        width: 100%;
+      }
+      .cfp-semi-slot {
         background: var(--dark3);
         border: 1px solid var(--border);
-        border-radius: 8px;
-        margin-bottom: 8px;
-        overflow: hidden;
-      }
-      .cfp-matchup-team {
-        display: flex; align-items: center; justify-content: space-between;
-        padding: 9px 12px;
-        border-bottom: 1px solid rgba(255,255,255,0.04);
+        border-radius: 4px; padding: 5px 7px;
+        height: 30px;
+        display: flex; align-items: center; gap: 4px;
         font-family: 'Barlow Condensed', sans-serif;
-        font-size: 14px; font-weight: 700;
+        font-size: 10px; font-weight: 700;
+        white-space: nowrap; overflow: hidden; width: 100%;
       }
-      .cfp-matchup-team:last-child { border-bottom: none; }
-      .cfp-matchup-team.winner { color: var(--gold); background: rgba(245,197,24,0.05); }
-      .cfp-matchup-team.loser { color: var(--muted); }
-      .cfp-matchup-team .seed { font-size: 10px; color: var(--muted); margin-right: 6px; }
-      .cfp-matchup-team.winner .seed { color: rgba(245,197,24,0.5); }
-      .cfp-matchup-score { font-family: 'Bebas Neue', sans-serif; font-size: 18px; }
-      .cfp-matchup.bye-game { opacity: 0.5; }
-      .cfp-natty-mobile {
-        background: linear-gradient(135deg, rgba(245,197,24,0.12), rgba(245,197,24,0.04));
-        border: 1px solid rgba(245,197,24,0.5);
-        border-radius: 8px; padding: 16px; text-align: center; margin-bottom: 8px;
+      .cfp-semi-slot + .cfp-semi-slot { margin-top: 2px; }
+      .cfp-semi-slot.tbd { color: var(--muted); font-style: italic; }
+
+      .cfp-semi-group { margin-bottom: 8px; }
+      .cfp-semi-label {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 8px; font-weight: 700; letter-spacing: 0.12em;
+        text-transform: uppercase; color: var(--muted);
+        text-align: center; margin-bottom: 4px;
       }
-      .cfp-natty-mobile h3 {
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 20px; color: var(--gold); letter-spacing: 0.1em;
-      }
-      .cfp-natty-mobile p { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+      /* Spacers for alignment */
+      .cfp-spacer { flex: 1; }
+      .cfp-bye-group { margin-bottom: 6px; }
+      .cfp-r1-pair { margin-bottom: 6px; }
+
+      /* Section separators */
+      .cfp-section-gap { height: 16px; }
     </style>
 
-    <!-- ── MOBILE BRACKET (stacked cards) ── -->
-    <div class="cfp-mobile">
-
-      <div class="cfp-round-block">
-        <div class="cfp-round-title">FIRST ROUND</div>
-        <!-- 9 vs 8 → plays 1 -->
-        <div class="cfp-matchup">
-          <div class="cfp-matchup-team tbd"><span><span class="seed">#9</span> Indiana</span><span class="cfp-matchup-score">—</span></div>
-          <div class="cfp-matchup-team tbd"><span><span class="seed">#8</span> Ohio State</span><span class="cfp-matchup-score">—</span></div>
-        </div>
-        <!-- 12 vs 5 → plays 4 -->
-        <div class="cfp-matchup">
-          <div class="cfp-matchup-team tbd"><span><span class="seed">#12</span> Clemson</span><span class="cfp-matchup-score">—</span></div>
-          <div class="cfp-matchup-team tbd"><span><span class="seed">#5</span> Oregon</span><span class="cfp-matchup-score">—</span></div>
-        </div>
-        <!-- 11 vs 6 → plays 3 -->
-        <div class="cfp-matchup">
-          <div class="cfp-matchup-team tbd"><span><span class="seed">#11</span> Ole Miss</span><span class="cfp-matchup-score">—</span></div>
-          <div class="cfp-matchup-team tbd"><span><span class="seed">#6</span> Georgia</span><span class="cfp-matchup-score">—</span></div>
-        </div>
-        <!-- 10 vs 7 → plays 2 -->
-        <div class="cfp-matchup">
-          <div class="cfp-matchup-team tbd"><span><span class="seed">#10</span> Miami</span><span class="cfp-matchup-score">—</span></div>
-          <div class="cfp-matchup-team tbd"><span><span class="seed">#7</span> Texas Tech</span><span class="cfp-matchup-score">—</span></div>
+    <div class="cfp-page">
+      <div class="cfp-natty-banner">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4a2 2 0 0 0-2 2v1a5 5 0 0 0 5 5h.4M18 9h2a2 2 0 0 1 2 2v1a5 5 0 0 1-5 5h-.4"/><path d="M6 2h12v10a6 6 0 0 1-12 0V2z"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+        <div class="cfp-natty-text">
+          <h3>National Championship</h3>
+          <p>Jan 19, 2026 · Mercedes-Benz Stadium · Atlanta, GA</p>
         </div>
       </div>
 
-      <div class="cfp-round-block">
-        <div class="cfp-round-title">QUARTERFINALS</div>
-        <!-- 1 bye vs 9/8 winner -->
-        <div class="cfp-matchup">
-          <div class="cfp-matchup-team winner"><span><span class="seed">#1</span> Georgia Tech</span><span class="cfp-matchup-score">—</span></div>
-          <div class="cfp-matchup-team loser"><span><span class="seed">#9</span> Indiana</span><span class="cfp-matchup-score">—</span></div>
+      <!-- Round labels -->
+      <div class="cfp-round-labels">
+        <div class="cfp-side-labels">
+          <div class="cfp-rl">First Round</div>
+          <div class="cfp-rl">Quarterfinal</div>
         </div>
-        <!-- 4 bye vs 12/5 winner -->
-        <div class="cfp-matchup">
-          <div class="cfp-matchup-team winner"><span><span class="seed">#4</span> Texas Tech</span><span class="cfp-matchup-score">—</span></div>
-          <div class="cfp-matchup-team loser"><span><span class="seed">#5</span> Oregon</span><span class="cfp-matchup-score">—</span></div>
-        </div>
-        <!-- 3 bye vs 11/6 winner -->
-        <div class="cfp-matchup">
-          <div class="cfp-matchup-team winner"><span><span class="seed">#3</span> Ohio State</span><span class="cfp-matchup-score">—</span></div>
-          <div class="cfp-matchup-team loser"><span><span class="seed">#6</span> Georgia</span><span class="cfp-matchup-score">—</span></div>
-        </div>
-        <!-- 2 bye vs 10/7 winner -->
-        <div class="cfp-matchup">
-          <div class="cfp-matchup-team winner"><span><span class="seed">#2</span> Indiana</span><span class="cfp-matchup-score">—</span></div>
-          <div class="cfp-matchup-team loser"><span><span class="seed">#10</span> Miami</span><span class="cfp-matchup-score">—</span></div>
+        <div></div>
+        <div class="cfp-side-labels" style="grid-template-columns:1fr 1fr">
+          <div class="cfp-rl">Quarterfinal</div>
+          <div class="cfp-rl">First Round</div>
         </div>
       </div>
 
-      <div class="cfp-round-block">
-        <div class="cfp-round-title">SEMIFINALS</div>
-        <div class="cfp-matchup">
-          <div class="cfp-matchup-team winner"><span><span class="seed">#1</span> Georgia Tech</span><span class="cfp-matchup-score">—</span></div>
-          <div class="cfp-matchup-team loser"><span><span class="seed">#4</span> Texas Tech</span><span class="cfp-matchup-score">—</span></div>
-        </div>
-        <div class="cfp-matchup">
-          <div class="cfp-matchup-team tbd"><span><span class="seed">#3</span> Ohio State</span><span class="cfp-matchup-score">—</span></div>
-          <div class="cfp-matchup-team tbd"><span><span class="seed">#2</span> Indiana</span><span class="cfp-matchup-score">—</span></div>
-        </div>
-      </div>
+      <!-- Bracket rendered by JS -->
+      <div id="cfp-bracket-root"></div>
+    </div>
 
-      <div class="cfp-round-block">
-        <div class="cfp-round-title">NATIONAL CHAMPIONSHIP</div>
-        <div class="cfp-natty-mobile">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold);margin-bottom:6px"><path d="M6 9H4a2 2 0 0 0-2 2v1a5 5 0 0 0 5 5h.4M18 9h2a2 2 0 0 1 2 2v1a5 5 0 0 1-5 5h-.4"/><path d="M6 2h12v10a6 6 0 0 1-12 0V2z"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
-          <h3>TBD vs TBD</h3>
-          <p>Jan 19, 2026 · Atlanta, GA</p>
-        </div>
-      </div>
-
-      <!-- SEEDING TABLE -->
-      <div class="division-label" style="margin-top:8px;font-size:11px">CFP Seeds</div>
-      <div class="standings-table">
-        <div class="standings-row header" style="grid-template-columns:32px 1fr 80px"><div>#</div><div>Team</div><div style="text-align:right">Status</div></div>
-        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank top">1</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Georgia Tech</div></div><div style="text-align:right"><span class="clinched">BYE</span></div></div>
-        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank top">2</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Indiana</div></div><div style="text-align:right"><span class="clinched">BYE</span></div></div>
-        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank top">3</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Ohio State</div></div><div style="text-align:right"><span class="clinched">BYE</span></div></div>
-        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank top">4</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Texas Tech</div></div><div style="text-align:right"><span class="clinched">BYE</span></div></div>
-        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">5</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Oregon</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
-        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">6</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Georgia</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
-        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">7</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Texas Tech</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
-        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">8</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Ohio State</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
-        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">9</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Indiana</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
-        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">10</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Miami</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
-        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">11</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Ole Miss</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
-        <div class="standings-row" style="grid-template-columns:32px 1fr 80px"><div class="rank">12</div><div class="team-info"><div class="team-name-stand" style="font-size:13px">Clemson</div></div><div style="text-align:right"><span style="font-size:10px;color:var(--muted);font-weight:700">ROUND 1</span></div></div>
-      </div>
-
+    <!-- Seeding table -->
+    <div style="padding:0 12px 24px">
+      <div class="division-label" style="font-size:11px;margin-top:8px">CFP Seeds — Top 12 from League Standings</div>
+      <div class="standings-table" id="cfp-seeds-table"></div>
     </div>
   </div>
 
@@ -2804,6 +2758,173 @@
       chip.classList.add('active');
     });
   });
+
+  // ─── CFP BRACKET RENDERER ───
+  function buildCFPBracket() {
+    const root = document.getElementById('cfp-bracket-root');
+    const seedsTable = document.getElementById('cfp-seeds-table');
+    if (!root) return;
+
+    // Pull top 12 teams from all conferences standings data
+    const allTeams = [];
+    CONFERENCES.forEach(conf => {
+      conf.divisions.forEach(div => {
+        div.teams.forEach(name => {
+          const r = seededRand(name.split('').reduce((a,c) => a + c.charCodeAt(0), 42));
+          const w = Math.floor(r() * 13);
+          allTeams.push({ name, w, l: 12 - w, pct: w / 12 });
+        });
+      });
+    });
+    allTeams.sort((a, b) => b.pct - a.pct || b.w - a.w);
+    const seeds = allTeams.slice(0, 12);
+
+    // CFP matchup structure (matches the image exactly):
+    // LEFT SIDE:  [R1: 8v9] → QF1 vs #1 bye | [R1: 5v12] → QF4 vs #4 bye
+    // RIGHT SIDE: [R1: 7v10] → QF2 vs #2 bye | [R1: 6v11] → QF3 vs #3 bye
+    // Semis: QF1winner vs QF4winner | QF2winner vs QF3winner
+
+    const s = seeds; // s[0]=seed1, s[1]=seed2, etc.
+
+    function slot(seed, name, isBye = false) {
+      const byeTag = isBye ? `<span style="font-size:8px;color:var(--gold);background:rgba(245,197,24,0.12);border-radius:2px;padding:1px 4px;margin-left:4px;flex-shrink:0">BYE</span>` : '';
+      return `<div class="cfp-slot${isBye ? ' bye' : ''}">
+        <span class="cfp-seed-num">${seed}</span>
+        <span class="cfp-team-name">${name}</span>
+        ${byeTag}
+      </div>`;
+    }
+
+    function tbd() {
+      return `<div class="cfp-slot tbd"><span class="cfp-seed-num">—</span><span class="cfp-team-name">TBD</span></div>`;
+    }
+
+    function r1Game(seedA, teamA, seedB, teamB) {
+      return `<div class="cfp-game" style="flex:1">
+        ${slot(seedA, teamA)}
+        <div style="height:2px"></div>
+        ${slot(seedB, teamB)}
+      </div>`;
+    }
+
+    function connLeft() {
+      return `<div style="width:12px;flex-shrink:0;display:flex;flex-direction:column;align-self:stretch;">
+        <div style="flex:1;border-right:1px solid var(--border)"></div>
+        <div style="height:1px;background:var(--border);width:12px"></div>
+        <div style="flex:1;border-right:1px solid var(--border)"></div>
+      </div>`;
+    }
+
+    function connRight() {
+      return `<div style="width:12px;flex-shrink:0;display:flex;flex-direction:column;align-self:stretch;">
+        <div style="flex:1;border-left:1px solid var(--border)"></div>
+        <div style="height:1px;background:var(--border);width:12px"></div>
+        <div style="flex:1;border-left:1px solid var(--border)"></div>
+      </div>`;
+    }
+
+    function qfGame(seed, name, isBye = false) {
+      return `<div class="cfp-game" style="flex:1">
+        ${slot(seed, name, isBye)}
+        <div style="height:2px"></div>
+        ${tbd()}
+      </div>`;
+    }
+
+    function semiGame(labelText) {
+      return `<div style="margin-bottom:8px">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:4px">${labelText}</div>
+        ${tbd()}
+        <div style="height:2px"></div>
+        ${tbd()}
+      </div>`;
+    }
+
+    // LEFT COLUMN: First Round (8v9 top, 5v12 bottom) then QF (1 top, 4 bottom)
+    const leftHTML = `
+      <div style="display:flex;flex-direction:column;gap:12px;padding:0 8px">
+        <div style="display:flex;align-items:center">
+          ${r1Game(8, s[7].name, 9, s[8].name)}
+          ${connLeft()}
+          ${qfGame(1, s[0].name, true)}
+        </div>
+        <div style="display:flex;align-items:center">
+          ${r1Game(5, s[4].name, 12, s[11].name)}
+          ${connLeft()}
+          ${qfGame(4, s[3].name, true)}
+        </div>
+      </div>`;
+
+    // RIGHT COLUMN: QF (2 top, 3 bottom) then First Round (7v10 top, 6v11 bottom)
+    const rightHTML = `
+      <div style="display:flex;flex-direction:column;gap:12px;padding:0 8px">
+        <div style="display:flex;align-items:center">
+          ${qfGame(2, s[1].name, true)}
+          ${connRight()}
+          ${r1Game(7, s[6].name, 10, s[9].name)}
+        </div>
+        <div style="display:flex;align-items:center">
+          ${qfGame(3, s[2].name, true)}
+          ${connRight()}
+          ${r1Game(6, s[5].name, 11, s[10].name)}
+        </div>
+      </div>`;
+
+    // CENTER: Semis + Natty
+    const centerHTML = `
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 6px">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-align:center">Semifinal</div>
+        ${tbd()}
+        <div style="height:2px"></div>
+        ${tbd()}
+        <div style="height:8px"></div>
+        <div style="background:linear-gradient(135deg,rgba(245,197,24,0.14),rgba(245,197,24,0.04));border:1px solid rgba(245,197,24,0.4);border-radius:6px;padding:8px;text-align:center;width:100%">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:0.1em;color:var(--gold);line-height:1.1">Natl. Champ.</div>
+          <div style="font-size:9px;color:var(--muted);margin-top:2px;font-family:'Barlow Condensed',sans-serif">Jan 19 · ATL</div>
+        </div>
+        <div style="height:8px"></div>
+        ${tbd()}
+        <div style="height:2px"></div>
+        ${tbd()}
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-align:center">Semifinal</div>
+      </div>`;
+
+    root.innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 140px 1fr;align-items:center;gap:0;overflow-x:auto;min-width:320px">
+        <div>${leftHTML}</div>
+        <div>${centerHTML}</div>
+        <div>${rightHTML}</div>
+      </div>`;
+
+    // Seeding table
+    if (seedsTable) {
+      seedsTable.innerHTML = `<div class="standings-row header" style="grid-template-columns:32px 1fr 60px 80px">
+        <div>#</div><div>Team</div><div style="text-align:center">W-L</div><div style="text-align:right">Status</div>
+      </div>` + seeds.map((t, i) => {
+        const isBye = i < 4;
+        const status = isBye
+          ? `<span class="clinched">BYE</span>`
+          : `<span style="font-size:10px;color:var(--muted);font-weight:700">RD 1</span>`;
+        return `<div class="standings-row" style="grid-template-columns:32px 1fr 60px 80px">
+          <div class="rank ${isBye ? 'top' : ''}">${i + 1}</div>
+          <div class="team-info"><div class="team-name-stand" style="font-size:13px">${t.name}</div></div>
+          <div class="stat-cell">${t.w}-${t.l}</div>
+          <div style="text-align:right">${status}</div>
+        </div>`;
+      }).join('');
+    }
+  }
+
+  // Build when CFP page is navigated to
+  const _origNavigateTo = navigateTo;
+  function navigateTo(pageId) {
+    _origNavigateTo(pageId);
+    if (pageId === 'cfp') buildCFPBracket();
+  }
+  // Also build on first load if cfp is active
+  if (document.getElementById('page-cfp') && document.getElementById('page-cfp').classList.contains('active')) {
+    buildCFPBracket();
+  }
 
   // ─── MY TEAM TABS ───
   document.querySelectorAll('.myteam-tab').forEach(tab => {
